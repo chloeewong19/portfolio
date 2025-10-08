@@ -66,52 +66,52 @@
             </div>
 
             <!-- BIG Photobooth Machine -->
-            <div class="max-w-4xl mx-auto relative" style="padding-top: 350px;">
-                <!-- Photo Strip Coming Out from TOP - Auto-dispensed on load -->
-                <div id="photoStrip" class="absolute left-1/2 transform -translate-x-1/2 animate-slideDown" style="top: -300px;">
-                    <div class="bg-white rounded-2xl p-4 shadow-2xl border-4 border-gray-300" style="width: 200px;">
-                        <!-- Project 1: Marketly -->
-                        <button onclick="showProject(0)" class="w-full mb-3 bg-pink-100 rounded-xl p-6 text-center border-2 border-gray-200 hover:border-purple-400 hover:scale-105 transition-all cursor-pointer group">
-                            <div class="text-5xl mb-2">🛍️</div>
-                            <p class="text-sm font-bold text-gray-700 uppercase tracking-wide">Marketly</p>
-                        </button>
+            <div class="max-w-4xl mx-auto">
+                <div class="relative mx-auto" style="width: 800px;">
+                    <!-- Photo Strip Coming Out from TOP - Auto-dispensed on load -->
+                    <div id="photoStrip" class="absolute left-1/2 transform -translate-x-1/2 animate-slideDown" style="top: -300px; z-index: 10;">
+                        <div class="bg-white rounded-2xl p-4 shadow-2xl border-4 border-gray-300" style="width: 200px;">
+                            <!-- Project 1: Marketly -->
+                            <button onclick="showProject(0)" class="w-full mb-3 bg-pink-100 rounded-xl p-6 text-center border-2 border-gray-200 hover:border-purple-400 hover:scale-105 transition-all cursor-pointer group">
+                                <div class="text-5xl mb-2">🛍️</div>
+                                <p class="text-sm font-bold text-gray-700 uppercase tracking-wide">Marketly</p>
+                            </button>
 
-                        <!-- Project 2: Jumbuddy -->
-                        <button onclick="showProject(1)" class="w-full mb-3 bg-purple-100 rounded-xl p-6 text-center border-2 border-gray-200 hover:border-purple-400 hover:scale-105 transition-all cursor-pointer group">
-                            <div class="text-5xl mb-2">🤝</div>
-                            <p class="text-sm font-bold text-gray-700 uppercase tracking-wide">Jumbuddy</p>
-                        </button>
+                            <!-- Project 2: Jumbuddy -->
+                            <button onclick="showProject(1)" class="w-full mb-3 bg-purple-100 rounded-xl p-6 text-center border-2 border-gray-200 hover:border-purple-400 hover:scale-105 transition-all cursor-pointer group">
+                                <div class="text-5xl mb-2">🤝</div>
+                                <p class="text-sm font-bold text-gray-700 uppercase tracking-wide">Jumbuddy</p>
+                            </button>
 
-                        <!-- Project 3: Portfolio -->
-                        <button onclick="showProject(2)" class="w-full mb-3 bg-blue-100 rounded-xl p-6 text-center border-2 border-gray-200 hover:border-purple-400 hover:scale-105 transition-all cursor-pointer group">
-                            <div class="text-5xl mb-2">✨</div>
-                            <p class="text-sm font-bold text-gray-700 uppercase tracking-wide">Portfolio</p>
-                        </button>
+                            <!-- Project 3: Portfolio -->
+                            <button onclick="showProject(2)" class="w-full mb-3 bg-blue-100 rounded-xl p-6 text-center border-2 border-gray-200 hover:border-purple-400 hover:scale-105 transition-all cursor-pointer group">
+                                <div class="text-5xl mb-2">✨</div>
+                                <p class="text-sm font-bold text-gray-700 uppercase tracking-wide">Portfolio</p>
+                            </button>
 
-                        <!-- Project 4: Add your own! -->
-                        <button onclick="showProject(3)" class="w-full mb-2 bg-green-100 rounded-xl p-6 text-center border-2 border-gray-200 hover:border-purple-400 hover:scale-105 transition-all cursor-pointer group">
-                            <div class="text-5xl mb-2">🎨</div>
-                            <p class="text-sm font-bold text-gray-700 uppercase tracking-wide">Project 4</p>
-                        </button>
+                            <!-- Project 4: Add your own! -->
+                            <button onclick="showProject(3)" class="w-full mb-2 bg-green-100 rounded-xl p-6 text-center border-2 border-gray-200 hover:border-purple-400 hover:scale-105 transition-all cursor-pointer group">
+                                <div class="text-5xl mb-2">🎨</div>
+                                <p class="text-sm font-bold text-gray-700 uppercase tracking-wide">Project 4</p>
+                            </button>
 
-                        <!-- Photo strip perforations -->
-                        <div class="flex justify-center gap-2 mt-3">
-                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                            <!-- Photo strip perforations -->
+                            <div class="flex justify-center gap-2 mt-3">
+                                <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="relative mx-auto" style="width: 800px;">
-                    <img 
-                        src="Untitled_Artwork 16.png" 
-                        alt="Chloe's Photobooth" 
+                    <img
+                        src="Untitled_Artwork 16.png"
+                        alt="Chloe's Photobooth"
                         class="w-full h-auto"
                     />
 
