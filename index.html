@@ -1,385 +1,299 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chloe Wong - Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @keyframes dispense {
-            0% {
-                transform: translateY(-100%) rotate(-2deg);
-                opacity: 0;
-            }
-            60% {
-                transform: translateY(10px) rotate(1deg);
-            }
-            100% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-            }
-        }
-        
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px) rotate(-1deg);
-            }
-            50% {
-                transform: translateY(-10px) rotate(1deg);
-            }
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chloe Wong - Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 
-        .photo-strip {
-            animation: dispense 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
+  <style>
+    /* ---------- PHOT0BOOTH PAPER + ANIMATIONS ---------- */
+    .photobooth-wrap { perspective: 1200px; }
 
-        .photo-strip:nth-child(1) { animation-delay: 0.5s; }
-        .photo-strip:nth-child(2) { animation-delay: 1s; }
-        .photo-strip:nth-child(3) { animation-delay: 1.5s; }
+    .booth-body{
+      background: linear-gradient(180deg,#e7e7ea 0%,#d7d7db 100%);
+      border-radius: 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.12), inset 0 2px 0 rgba(255,255,255,.7);
+      position: relative; overflow: hidden;
+    }
+    .booth-slot{
+      position:absolute; left:50%; transform:translateX(-50%);
+      width:72%; height:20px; top:22px; border-radius:10px;
+      background: linear-gradient(180deg,#2c2c2f,#151517);
+      box-shadow: inset 0 4px 6px rgba(0,0,0,.5), 0 2px 0 rgba(255,255,255,.25);
+    }
 
-        .photo-strip:hover {
-            animation: float 2s ease-in-out infinite;
-        }
+    .photo-paper{
+      position:absolute; left:50%;
+      transform: translateX(-50%) translateY(-110%) rotateX(6deg);
+      width:min(980px,92%); aspect-ratio:16/7;
+      background: linear-gradient(180deg,#f0f0f3,#d9d9de);
+      border-radius:18px; border:10px solid #ececf0;
+      box-shadow: 0 18px 32px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.9);
+      overflow:hidden; opacity:0;
+    }
+    .photo-paper::after{
+      content:""; position:absolute; inset:0;
+      background-image:
+        repeating-linear-gradient(0deg, rgba(0,0,0,.03) 0px, transparent 2px, transparent 4px, rgba(0,0,0,.03) 6px),
+        repeating-linear-gradient(90deg, rgba(0,0,0,.03) 0px, transparent 2px, transparent 4px, rgba(0,0,0,.03) 6px);
+      pointer-events:none;
+    }
 
-        .film-grain {
-            background-image: 
-                repeating-linear-gradient(0deg, rgba(0,0,0,0.03) 0px, transparent 1px, transparent 2px, rgba(0,0,0,0.03) 3px),
-                repeating-linear-gradient(90deg, rgba(0,0,0,0.03) 0px, transparent 1px, transparent 2px, rgba(0,0,0,0.03) 3px);
-        }
+    @keyframes paper-dispense{
+      0%{transform:translateX(-50%) translateY(-110%) rotateX(12deg); opacity:0;}
+      55%{transform:translateX(-50%) translateY(10%) rotateX(4deg); opacity:1;}
+      100%{transform:translateX(-50%) translateY(32%) rotateX(0deg); opacity:1;}
+    }
+    @keyframes paper-retract{
+      0%{transform:translateX(-50%) translateY(32%) rotateX(0deg); opacity:1;}
+      100%{transform:translateX(-50%) translateY(-110%) rotateX(12deg); opacity:0;}
+    }
+    .photo-paper.dispensing{ animation: paper-dispense 1.6s cubic-bezier(.22,1,.36,1) forwards; }
+    .photo-paper.retracting{ animation: paper-retract 1.0s cubic-bezier(.22,1,.36,1) forwards; }
 
-        .strip-shadow {
-            box-shadow: 
-                0 4px 6px -1px rgba(0, 0, 0, 0.1),
-                0 2px 4px -1px rgba(0, 0, 0, 0.06),
-                0 10px 15px -3px rgba(0, 0, 0, 0.1),
-                inset 0 1px 2px rgba(255, 255, 255, 0.5);
-        }
-    </style>
+    .paper-grid{
+      display:grid; grid-template-columns:repeat(4,1fr);
+      gap:14px; padding:16px;
+    }
+    @media (max-width: 900px){
+      .paper-grid{ grid-template-columns:repeat(2,1fr); aspect-ratio:auto; }
+    }
+    .paper-frame{
+      border-radius:14px; background:#fff; border:8px solid #fff;
+      box-shadow:0 8px 16px rgba(0,0,0,.08);
+      overflow:hidden; cursor:pointer;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .paper-frame:hover{ transform:translateY(-4px); box-shadow:0 14px 28px rgba(0,0,0,.15); }
+    .paper-frame .frame-top{ height:58%; display:grid; place-items:center; font-size:42px; }
+    .paper-frame .frame-bottom{ height:42%; padding:10px 12px; }
+  </style>
 </head>
+
 <body class="bg-gradient-to-br from-amber-50 via-pink-50 to-purple-50 min-h-screen">
-    
-    <!-- Header -->
-    <header class="p-6 md:p-8">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <svg class="text-purple-600" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path>
-                    <circle cx="12" cy="13" r="3"></circle>
-                </svg>
-                <h1 class="text-3xl font-bold text-gray-800">Chloe Wong</h1>
-            </div>
-            <nav class="hidden md:flex gap-8 text-lg text-gray-700">
-                <a href="#work" class="hover:text-purple-600 transition-colors font-medium">Work</a>
-                <a href="#about" class="hover:text-purple-600 transition-colors font-medium">About</a>
-                <a href="#contact" class="hover:text-purple-600 transition-colors font-medium">Contact</a>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="px-6 py-12 text-center">
-        <div class="max-w-4xl mx-auto">
-            <div class="inline-block mb-4 px-5 py-2 bg-white/80 backdrop-blur-sm rounded-full border-2 border-purple-200 shadow-sm">
-                <span class="text-sm font-semibold text-purple-600 tracking-wide">UX/UI DESIGNER</span>
-            </div>
-            <h2 class="text-5xl md:text-7xl font-bold text-gray-900 mb-6">
-                Capturing <span class="italic text-purple-600">moments</span>,<br />
-                crafting <span class="italic text-pink-600">experiences</span>
-            </h2>
-            <p class="text-xl text-gray-700 max-w-2xl mx-auto mb-8">
-                Every project tells a story through design
-            </p>
-        </div>
-    </section>
-
-    <!-- Photobooth Strips Section -->
-    <section id="work" class="px-6 py-16">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16">
-                <h3 class="text-4xl font-bold text-gray-900 mb-4">My Projects</h3>
-                <p class="text-gray-600 text-lg">Click any strip to see the full story</p>
-            </div>
-
-            <!-- Photo Strips Container -->
-            <div class="flex flex-wrap justify-center gap-12 items-start">
-                
-                <!-- Strip 1: Marketly -->
-                <div class="photo-strip opacity-0" style="transform: translateY(-100%) rotate(-2deg);">
-                    <div class="bg-white rounded-2xl p-3 strip-shadow film-grain" style="width: 220px; transform: rotate(-3deg);">
-                        <!-- Frame 1 -->
-                        <div class="bg-gradient-to-br from-pink-200 to-pink-300 rounded-xl mb-3 overflow-hidden border-4 border-white">
-                            <div class="aspect-square flex items-center justify-center text-6xl">
-                                🛍️
-                            </div>
-                        </div>
-                        
-                        <!-- Frame 2 -->
-                        <div class="bg-gradient-to-br from-pink-300 to-pink-200 rounded-xl mb-3 overflow-hidden border-4 border-white">
-                            <div class="aspect-square flex items-center justify-center">
-                                <div class="text-center p-4">
-                                    <p class="text-xs font-bold text-gray-800 mb-1">USER RESEARCH</p>
-                                    <p class="text-2xl">📊</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Frame 3 -->
-                        <div class="bg-gradient-to-br from-pink-200 to-pink-400 rounded-xl mb-3 overflow-hidden border-4 border-white">
-                            <div class="aspect-square flex items-center justify-center">
-                                <div class="text-center p-4">
-                                    <p class="text-xs font-bold text-gray-800 mb-1">36 HOUR BUILD</p>
-                                    <p class="text-2xl">⚡</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Frame 4 with Title -->
-                        <div class="bg-gradient-to-br from-pink-300 to-pink-400 rounded-xl mb-2 overflow-hidden border-4 border-white">
-                            <div class="aspect-square flex items-center justify-center">
-                                <div class="text-center p-4">
-                                    <p class="text-2xl font-bold text-gray-900 mb-2">MARKETLY</p>
-                                    <p class="text-xs text-gray-700">Student Marketplace</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Perforations -->
-                        <div class="flex justify-center gap-2 py-2">
-                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                        </div>
-
-                        <!-- Click to view button -->
-                        <button onclick="showProject(0)" class="w-full mt-2 px-4 py-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-xl font-semibold text-sm hover:from-pink-600 hover:to-purple-600 transition-all transform hover:scale-105 shadow-lg">
-                            View Project →
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Strip 2: Jumbuddy -->
-                <div class="photo-strip opacity-0" style="transform: translateY(-100%) rotate(2deg);">
-                    <div class="bg-white rounded-2xl p-3 strip-shadow film-grain" style="width: 220px; transform: rotate(2deg);">
-                        <!-- Frame 1 -->
-                        <div class="bg-gradient-to-br from-purple-200 to-purple-300 rounded-xl mb-3 overflow-hidden border-4 border-white">
-                            <div class="aspect-square flex items-center justify-center text-6xl">
-                                🤝
-                            </div>
-                        </div>
-                        
-                        <!-- Frame 2 -->
-                        <div class="bg-gradient-to-br from-purple-300 to-purple-200 rounded-xl mb-3 overflow-hidden border-4 border-white">
-                            <div class="aspect-square flex items-center justify-center">
-                                <div class="text-center p-4">
-                                    <p class="text-xs font-bold text-gray-800 mb-1">HACKATHON</p>
-                                    <p class="text-2xl">🏆</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Frame 3 -->
-                        <div class="bg-gradient-to-br from-purple-200 to-purple-400 rounded-xl mb-3 overflow-hidden border-4 border-white">
-                            <div class="aspect-square flex items-center justify-center">
-                                <div class="text-center p-4">
-                                    <p class="text-xs font-bold text-gray-800 mb-1">SOCIAL APP</p>
-                                    <p class="text-2xl">📱</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Frame 4 with Title -->
-                        <div class="bg-gradient-to-br from-purple-300 to-purple-400 rounded-xl mb-2 overflow-hidden border-4 border-white">
-                            <div class="aspect-square flex items-center justify-center">
-                                <div class="text-center p-4">
-                                    <p class="text-2xl font-bold text-gray-900 mb-2">JUMBUDDY</p>
-                                    <p class="text-xs text-gray-700">Connect & Belong</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Perforations -->
-                        <div class="flex justify-center gap-2 py-2">
-                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                        </div>
-
-                        <button onclick="showProject(1)" class="w-full mt-2 px-4 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-xl font-semibold text-sm hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105 shadow-lg">
-                            View Project →
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Strip 3: Portfolio -->
-                <div class="photo-strip opacity-0" style="transform: translateY(-100%) rotate(-1deg);">
-                    <div class="bg-white rounded-2xl p-3 strip-shadow film-grain" style="width: 220px; transform: rotate(1deg);">
-                        <!-- Frame 1 -->
-                        <div class="bg-gradient-to-br from-blue-200 to-blue-300 rounded-xl mb-3 overflow-hidden border-4 border-white">
-                            <div class="aspect-square flex items-center justify-center text-6xl">
-                                ✨
-                            </div>
-                        </div>
-                        
-                        <!-- Frame 2 -->
-                        <div class="bg-gradient-to-br from-blue-300 to-blue-200 rounded-xl mb-3 overflow-hidden border-4 border-white">
-                            <div class="aspect-square flex items-center justify-center">
-                                <div class="text-center p-4">
-                                    <p class="text-xs font-bold text-gray-800 mb-1">INTERACTIVE</p>
-                                    <p class="text-2xl">🎨</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Frame 3 -->
-                        <div class="bg-gradient-to-br from-blue-200 to-blue-400 rounded-xl mb-3 overflow-hidden border-4 border-white">
-                            <div class="aspect-square flex items-center justify-center">
-                                <div class="text-center p-4">
-                                    <p class="text-xs font-bold text-gray-800 mb-1">CODE + DESIGN</p>
-                                    <p class="text-2xl">💻</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Frame 4 with Title -->
-                        <div class="bg-gradient-to-br from-blue-300 to-blue-400 rounded-xl mb-2 overflow-hidden border-4 border-white">
-                            <div class="aspect-square flex items-center justify-center">
-                                <div class="text-center p-4">
-                                    <p class="text-2xl font-bold text-gray-900 mb-2">PORTFOLIO</p>
-                                    <p class="text-xs text-gray-700">This Website!</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Perforations -->
-                        <div class="flex justify-center gap-2 py-2">
-                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                        </div>
-
-                        <button onclick="showProject(2)" class="w-full mt-2 px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl font-semibold text-sm hover:from-blue-600 hover:to-purple-600 transition-all transform hover:scale-105 shadow-lg">
-                            View Project →
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Project Details Modal/Card -->
-    <div id="projectDetails" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-6" onclick="closeProject(event)">
-        <div class="bg-white rounded-3xl shadow-2xl max-w-3xl w-full p-8 md:p-12 transform transition-all" onclick="event.stopPropagation()">
-            <div id="projectContent"></div>
-            <button onclick="closeProject()" class="mt-6 px-6 py-3 bg-gray-200 hover:bg-gray-300 rounded-xl font-semibold transition-all">
-                Close
-            </button>
-        </div>
+  <!-- Header -->
+  <header class="p-6 md:p-8">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <svg class="text-purple-600" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path>
+          <circle cx="12" cy="13" r="3"></circle>
+        </svg>
+        <h1 class="text-3xl font-bold text-gray-800">Chloe Wong</h1>
+      </div>
+      <nav class="hidden md:flex gap-8 text-lg text-gray-700">
+        <a href="#work" class="hover:text-purple-600 transition-colors font-medium">Work</a>
+        <a href="#about" class="hover:text-purple-600 transition-colors font-medium">About</a>
+        <a href="#contact" class="hover:text-purple-600 transition-colors font-medium">Contact</a>
+      </nav>
     </div>
+  </header>
 
-    <!-- About Section -->
-    <section id="about" class="px-6 py-24 bg-white/50 backdrop-blur-sm">
-        <div class="max-w-5xl mx-auto">
-            <h3 class="text-4xl font-bold text-gray-900 mb-12 text-center">My Design Process</h3>
-            <div class="grid md:grid-cols-4 gap-6">
-                <div class="text-center p-6 rounded-2xl bg-white/80 backdrop-blur-sm border-2 border-purple-200 hover:border-purple-400 transition-all hover:scale-105">
-                    <div class="text-5xl mb-3">🔍</div>
-                    <h4 class="font-bold text-gray-900 mb-2 text-lg">Research</h4>
-                    <p class="text-sm text-gray-600">Understand users deeply</p>
-                </div>
-                <div class="text-center p-6 rounded-2xl bg-white/80 backdrop-blur-sm border-2 border-pink-200 hover:border-pink-400 transition-all hover:scale-105">
-                    <div class="text-5xl mb-3">✏️</div>
-                    <h4 class="font-bold text-gray-900 mb-2 text-lg">Design</h4>
-                    <p class="text-sm text-gray-600">Create beautiful solutions</p>
-                </div>
-                <div class="text-center p-6 rounded-2xl bg-white/80 backdrop-blur-sm border-2 border-blue-200 hover:border-blue-400 transition-all hover:scale-105">
-                    <div class="text-5xl mb-3">⚡</div>
-                    <h4 class="font-bold text-gray-900 mb-2 text-lg">Prototype</h4>
-                    <p class="text-sm text-gray-600">Build and iterate quickly</p>
-                </div>
-                <div class="text-center p-6 rounded-2xl bg-white/80 backdrop-blur-sm border-2 border-purple-200 hover:border-purple-400 transition-all hover:scale-105">
-                    <div class="text-5xl mb-3">✅</div>
-                    <h4 class="font-bold text-gray-900 mb-2 text-lg">Test</h4>
-                    <p class="text-sm text-gray-600">Validate with feedback</p>
-                </div>
+  <!-- Hero -->
+  <section class="px-6 py-12 text-center">
+    <div class="max-w-4xl mx-auto">
+      <div class="inline-block mb-4 px-5 py-2 bg-white/80 backdrop-blur-sm rounded-full border-2 border-purple-200 shadow-sm">
+        <span class="text-sm font-semibold text-purple-600 tracking-wide">UX/UI DESIGNER</span>
+      </div>
+      <h2 class="text-5xl md:text-7xl font-bold text-gray-900 mb-6">
+        Capturing <span class="italic text-purple-600">moments</span>,<br />
+        crafting <span class="italic text-pink-600">experiences</span>
+      </h2>
+      <p class="text-xl text-gray-700 max-w-2xl mx-auto mb-8">Every project tells a story through design</p>
+    </div>
+  </section>
+
+  <!-- Photobooth (Wide Paper with 4 Frames) -->
+  <section id="work" class="px-6 py-16">
+    <div class="max-w-6xl mx-auto photobooth-wrap">
+      <div class="text-center mb-10">
+        <h3 class="text-4xl font-bold text-gray-900 mb-3">My Projects</h3>
+        <p class="text-gray-600 text-lg">Hit “Dispense” to print a photo strip of today’s highlights</p>
+      </div>
+
+      <div class="booth-body relative mx-auto" style="height: 520px;">
+        <div class="booth-slot"></div>
+
+        <!-- Grey Photo Paper -->
+        <div id="photoPaper" class="photo-paper">
+          <div class="paper-grid">
+            <!-- Frame 1 -->
+            <div class="paper-frame" onclick="showProject(0)">
+              <div class="frame-top bg-gradient-to-br from-pink-200 to-pink-400">🛍️</div>
+              <div class="frame-bottom">
+                <p class="text-[10px] font-bold text-gray-700 tracking-wide">MARKETLY</p>
+                <p class="text-sm text-gray-800 leading-snug">Student marketplace built in 36 hours.</p>
+              </div>
             </div>
+            <!-- Frame 2 -->
+            <div class="paper-frame" onclick="showProject(1)">
+              <div class="frame-top bg-gradient-to-br from-purple-200 to-purple-400">🤝</div>
+              <div class="frame-bottom">
+                <p class="text-[10px] font-bold text-gray-700 tracking-wide">JUMBUDDY</p>
+                <p class="text-sm text-gray-800 leading-snug">Social app to connect campus communities.</p>
+              </div>
+            </div>
+            <!-- Frame 3 -->
+            <div class="paper-frame" onclick="showProject(2)">
+              <div class="frame-top bg-gradient-to-br from-blue-200 to-blue-400">✨</div>
+              <div class="frame-bottom">
+                <p class="text-[10px] font-bold text-gray-700 tracking-wide">PORTFOLIO</p>
+                <p class="text-sm text-gray-800 leading-snug">Interactive site with custom animations.</p>
+              </div>
+            </div>
+            <!-- Frame 4 -->
+            <div class="paper-frame" onclick="showProject(3)">
+              <div class="frame-top bg-gradient-to-br from-emerald-200 to-emerald-400">🏋️</div>
+              <div class="frame-bottom">
+                <p class="text-[10px] font-bold text-gray-700 tracking-wide">FITWISE</p>
+                <p class="text-sm text-gray-800 leading-snug">AI trainer with pose feedback & voice.</p>
+              </div>
+            </div>
+          </div>
         </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="px-6 py-24">
-        <div class="max-w-4xl mx-auto text-center">
-            <h3 class="text-5xl font-bold text-gray-900 mb-6">Let's Create Together</h3>
-            <p class="text-xl text-gray-700 mb-10">
-                Ready to capture your next big idea? Let's chat!
-            </p>
-            <button class="px-10 py-4 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 text-white rounded-full font-bold text-lg hover:from-purple-700 hover:via-pink-700 hover:to-blue-700 transition-all transform hover:scale-105 shadow-xl">
-                Get In Touch ✨
-            </button>
+        <!-- Controls -->
+        <div class="absolute left-1/2 -translate-x-1/2 bottom-6 flex items-center gap-4">
+          <button id="dispenseBtn"
+            class="px-6 py-3 bg-gradient-to-r from-gray-800 to-gray-600 text-white rounded-full font-semibold shadow-lg hover:from-gray-900 hover:to-gray-700 active:scale-95 transition">
+            Dispense 📸
+          </button>
+          <button id="retractBtn"
+            class="px-5 py-3 bg-white/90 border border-gray-300 text-gray-800 rounded-full font-semibold shadow hover:bg-white active:scale-95 transition">
+            Retract ↩︎
+          </button>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <script>
-        const projects = [
-            {
-                title: "Marketly",
-                description: "A student-based marketplace created in 36 hours with a user-centered approach. This project showcases rapid prototyping, user research, and collaborative design thinking to solve real problems for college students.",
-                tags: ["Figma", "User Research", "UX/UI Design", "Rapid Prototyping"],
-                color: "from-pink-400 to-purple-400",
-                details: "Led user research with 20+ students, created wireframes and high-fidelity mockups, and delivered a functional prototype in under 36 hours during a design sprint."
-            },
-            {
-                title: "Jumbuddy",
-                description: "Designed for the Tufts 2025 Hackathon, Jumbuddy helps college students forge bonds, join activities, and form friendships, addressing the loneliness epidemic on campus.",
-                tags: ["Research", "UX/UI Design", "Figma", "Dev Handoff", "Social Impact"],
-                color: "from-purple-400 to-blue-400",
-                details: "Conducted ethnographic research, developed user personas, and created an intuitive interface that encourages authentic connections through shared interests and activities."
-            },
-            {
-                title: "Portfolio Website",
-                description: "An interactive portfolio with a unique photobooth concept, showcasing creative design thinking and front-end development skills with smooth animations and tactile interactions.",
-                tags: ["UI Design", "HTML/CSS", "JavaScript", "Tailwind", "Animation"],
-                color: "from-blue-400 to-purple-400",
-                details: "Built from scratch using modern web technologies, featuring custom animations, responsive design, and an engaging user experience that tells a story through visual design."
-            }
-        ];
+  <!-- Project Details Modal/Card -->
+  <div id="projectDetails" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-6" onclick="closeProject(event)">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-3xl w-full p-8 md:p-12 transform transition-all" onclick="event.stopPropagation()">
+      <div id="projectContent"></div>
+      <button onclick="closeProject()" class="mt-6 px-6 py-3 bg-gray-200 hover:bg-gray-300 rounded-xl font-semibold transition-all">
+        Close
+      </button>
+    </div>
+  </div>
 
-        function showProject(index) {
-            const project = projects[index];
-            const modal = document.getElementById('projectDetails');
-            const content = document.getElementById('projectContent');
+  <!-- About -->
+  <section id="about" class="px-6 py-24 bg-white/50 backdrop-blur-sm">
+    <div class="max-w-5xl mx-auto">
+      <h3 class="text-4xl font-bold text-gray-900 mb-12 text-center">My Design Process</h3>
+      <div class="grid md:grid-cols-4 gap-6">
+        <div class="text-center p-6 rounded-2xl bg-white/80 backdrop-blur-sm border-2 border-purple-200 hover:border-purple-400 transition-all hover:scale-105">
+          <div class="text-5xl mb-3">🔍</div>
+          <h4 class="font-bold text-gray-900 mb-2 text-lg">Research</h4>
+          <p class="text-sm text-gray-600">Understand users deeply</p>
+        </div>
+        <div class="text-center p-6 rounded-2xl bg-white/80 backdrop-blur-sm border-2 border-pink-200 hover:border-pink-400 transition-all hover:scale-105">
+          <div class="text-5xl mb-3">✏️</div>
+          <h4 class="font-bold text-gray-900 mb-2 text-lg">Design</h4>
+          <p class="text-sm text-gray-600">Create beautiful solutions</p>
+        </div>
+        <div class="text-center p-6 rounded-2xl bg-white/80 backdrop-blur-sm border-2 border-blue-200 hover:border-blue-400 transition-all hover:scale-105">
+          <div class="text-5xl mb-3">⚡</div>
+          <h4 class="font-bold text-gray-900 mb-2 text-lg">Prototype</h4>
+          <p class="text-sm text-gray-600">Build and iterate quickly</p>
+        </div>
+        <div class="text-center p-6 rounded-2xl bg-white/80 backdrop-blur-sm border-2 border-purple-200 hover:border-purple-400 transition-all hover:scale-105">
+          <div class="text-5xl mb-3">✅</div>
+          <h4 class="font-bold text-gray-900 mb-2 text-lg">Test</h4>
+          <p class="text-sm text-gray-600">Validate with feedback</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            content.innerHTML = `
-                <div class="space-y-6">
-                    <div class="bg-gradient-to-r ${project.color} rounded-2xl p-8 text-white">
-                        <h2 class="text-4xl font-bold mb-2">${project.title}</h2>
-                    </div>
-                    <p class="text-lg text-gray-700 leading-relaxed">${project.description}</p>
-                    <div class="bg-gray-50 rounded-xl p-6">
-                        <p class="text-gray-700">${project.details}</p>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        ${project.tags.map(tag => `<span class="px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-semibold">${tag}</span>`).join('')}
-                    </div>
-                </div>
-            `;
+  <!-- Contact -->
+  <section id="contact" class="px-6 py-24">
+    <div class="max-w-4xl mx-auto text-center">
+      <h3 class="text-5xl font-bold text-gray-900 mb-6">Let's Create Together</h3>
+      <p class="text-xl text-gray-700 mb-10">Ready to capture your next big idea? Let's chat!</p>
+      <button class="px-10 py-4 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 text-white rounded-full font-bold text-lg hover:from-purple-700 hover:via-pink-700 hover:to-blue-700 transition-all transform hover:scale-105 shadow-xl">
+        Get In Touch ✨
+      </button>
+    </div>
+  </section>
 
-            modal.classList.remove('hidden');
-        }
+  <!-- Scripts -->
+  <script>
+    // Project data (now 4 items for 4 frames)
+    const projects = [
+      {
+        title: "Marketly",
+        description: "A student-based marketplace created in 36 hours with a user-centered approach. This project showcases rapid prototyping, user research, and collaborative design thinking to solve real problems for college students.",
+        tags: ["Figma", "User Research", "UX/UI Design", "Rapid Prototyping"],
+        color: "from-pink-400 to-purple-400",
+        details: "Led user research with 20+ students, created wireframes and high-fidelity mockups, and delivered a functional prototype in under 36 hours during a design sprint."
+      },
+      {
+        title: "Jumbuddy",
+        description: "Designed for the Tufts 2025 Hackathon, Jumbuddy helps college students forge bonds, join activities, and form friendships, addressing the loneliness epidemic on campus.",
+        tags: ["Research", "UX/UI Design", "Figma", "Dev Handoff", "Social Impact"],
+        color: "from-purple-400 to-blue-400",
+        details: "Conducted ethnographic research, developed user personas, and created an intuitive interface that encourages authentic connections through shared interests and activities."
+      },
+      {
+        title: "Portfolio Website",
+        description: "An interactive portfolio with a unique photobooth concept, showcasing creative design thinking and front-end development skills with smooth animations and tactile interactions.",
+        tags: ["UI Design", "HTML/CSS", "JavaScript", "Tailwind", "Animation"],
+        color: "from-blue-400 to-purple-400",
+        details: "Built from scratch using modern web technologies, featuring custom animations, responsive design, and an engaging user experience that tells a story through visual design."
+      },
+      {
+        title: "FitWise",
+        description: "An AI-powered fitness trainer using pose detection and real-time, voice-guided feedback to correct form, count reps, and keep you motivated.",
+        tags: ["MediaPipe", "Real-time", "Python", "Voice"],
+        color: "from-emerald-400 to-teal-400",
+        details: "Built a dual-process backend for pose inference + live feedback; integrated speech I/O to emulate a human trainer and maintain sub-200ms responsiveness."
+      }
+    ];
 
-        function closeProject(event) {
-            const modal = document.getElementById('projectDetails');
-            modal.classList.add('hidden');
-        }
-    </script>
+    // Modal logic (unchanged)
+    function showProject(index) {
+      const project = projects[index];
+      const modal = document.getElementById('projectDetails');
+      const content = document.getElementById('projectContent');
+      content.innerHTML = `
+        <div class="space-y-6">
+          <div class="bg-gradient-to-r ${project.color} rounded-2xl p-8 text-white">
+            <h2 class="text-4xl font-bold mb-2">${project.title}</h2>
+          </div>
+          <p class="text-lg text-gray-700 leading-relaxed">${project.description}</p>
+          <div class="bg-gray-50 rounded-xl p-6">
+            <p class="text-gray-700">${project.details}</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            ${project.tags.map(tag => `<span class="px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-semibold">${tag}</span>`).join('')}
+          </div>
+        </div>
+      `;
+      modal.classList.remove('hidden');
+    }
+    function closeProject() {
+      document.getElementById('projectDetails').classList.add('hidden');
+    }
+
+    // Dispense / Retract controls
+    const paper = document.getElementById('photoPaper');
+    const dispenseBtn = document.getElementById('dispenseBtn');
+    const retractBtn  = document.getElementById('retractBtn');
+
+    function dispensePaper(){
+      paper.classList.remove('retracting');
+      paper.classList.remove('dispensing'); // restart if tapped again
+      void paper.offsetWidth;               // reflow
+      paper.classList.add('dispensing');
+    }
+    function retractPaper(){
+      paper.classList.remove('dispensing');
+      paper.classList.add('retracting');
+    }
+    dispenseBtn.addEventListener('click', dispensePaper);
+    retractBtn.addEventListener('click', retractPaper);
+  </script>
 </body>
 </html>
