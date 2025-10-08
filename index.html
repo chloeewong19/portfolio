@@ -73,17 +73,17 @@
     <!-- Photobooth Section -->
     <section id="work" class="px-6 py-12 relative">
         <div class="absolute inset-0 bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 opacity-60"></div>
-        <div class="max-w-5xl mx-auto relative z-10">
+        <div class="max-w-6xl mx-auto relative z-10">
             <div class="flex items-center justify-center gap-3 mb-12">
                 <svg class="text-purple-600" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                 </svg>
-                <h3 class="text-3xl font-bold text-gray-800">Explore My Projects</h3>
+                <h3 class="text-3xl font-bold text-gray-800">My Projects</h3>
             </div>
 
-            <!-- Photobooth Machine -->
-            <div class="max-w-md mx-auto mb-16 relative">
-                <div class="relative" style="width: 400px; margin: 0 auto;">
+            <!-- Photobooth Machine - BIGGER -->
+            <div class="max-w-2xl mx-auto mb-32 relative">
+                <div class="relative" style="width: 600px; margin: 0 auto;">
                     <img 
                         src="Untitled_Artwork 16.png" 
                         alt="Chloe's Photobooth" 
@@ -91,36 +91,108 @@
                     />
 
                     <!-- Interactive Overlay -->
-                    <div class="absolute inset-0 flex flex-col justify-center items-center px-12" style="top: 40%;">
-                        <div class="w-full max-w-xs space-y-3">
-                            <p class="text-gray-800 text-center text-sm font-medium mb-4">Select a project:</p>
-                            <button onclick="dispenseProject(0)" class="w-full px-4 py-3 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 hover:from-purple-600 hover:via-pink-600 hover:to-blue-600 text-white rounded-full font-medium transition-all transform hover:scale-105 shadow-lg text-sm">
+                    <div class="absolute inset-0 flex flex-col justify-center items-center px-16" style="top: 42%;">
+                        <div class="w-full max-w-md space-y-4">
+                            <p class="text-gray-800 text-center text-base font-medium mb-6">Click to view project details:</p>
+                            <button onclick="dispenseProject(0)" class="w-full px-6 py-4 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 hover:from-purple-600 hover:via-pink-600 hover:to-blue-600 text-white rounded-full font-medium transition-all transform hover:scale-105 shadow-lg text-base">
                                 Marketly
                             </button>
-                            <button onclick="dispenseProject(1)" class="w-full px-4 py-3 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 hover:from-purple-600 hover:via-pink-600 hover:to-blue-600 text-white rounded-full font-medium transition-all transform hover:scale-105 shadow-lg text-sm">
+                            <button onclick="dispenseProject(1)" class="w-full px-6 py-4 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 hover:from-purple-600 hover:via-pink-600 hover:to-blue-600 text-white rounded-full font-medium transition-all transform hover:scale-105 shadow-lg text-base">
                                 Jumbuddy
                             </button>
-                            <button onclick="dispenseProject(2)" class="w-full px-4 py-3 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 hover:from-purple-600 hover:via-pink-600 hover:to-blue-600 text-white rounded-full font-medium transition-all transform hover:scale-105 shadow-lg text-sm">
-                                Portfolio Project
+                            <button onclick="dispenseProject(2)" class="w-full px-6 py-4 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 hover:from-purple-600 hover:via-pink-600 hover:to-blue-600 text-white rounded-full font-medium transition-all transform hover:scale-105 shadow-lg text-base">
+                                Portfolio Website
                             </button>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Dispensed Photo Strip -->
-                    <div id="photoStrip" class="absolute left-1/2 transform -translate-x-1/2 hidden" style="bottom: -180px;">
-                        <div class="bg-white rounded-lg p-2 shadow-2xl border-2 border-gray-300" style="width: 120px;">
-                            <div class="space-y-1" id="stripContent"></div>
-                            <!-- Photo strip perforations -->
-                            <div class="flex justify-center gap-1 mt-1">
-                                <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
-                                <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
-                                <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
-                                <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
-                                <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
-                                <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
-                                <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
-                                <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+                <!-- All Project Strips Displayed Below Photobooth -->
+                <div class="flex justify-center gap-8 mt-16">
+                    <!-- Strip 1 -->
+                    <div class="bg-white rounded-lg p-3 shadow-2xl border-2 border-gray-300 animate-slideDown" style="width: 140px; animation-delay: 0.2s;">
+                        <div class="space-y-2">
+                            <div class="bg-pink-100 rounded p-4 text-center border border-gray-200">
+                                <div class="text-3xl">🛍️</div>
                             </div>
+                            <div class="bg-pink-100 rounded p-4 text-center border border-gray-200">
+                                <div class="text-3xl">🛍️</div>
+                            </div>
+                            <div class="bg-pink-100 rounded p-4 text-center border border-gray-200">
+                                <div class="text-3xl">🛍️</div>
+                            </div>
+                            <div class="bg-pink-100 rounded p-4 text-center border border-gray-200">
+                                <div class="text-3xl mb-1">🛍️</div>
+                                <p class="text-xs font-bold text-gray-700 uppercase tracking-wide">Marketly</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-center gap-1 mt-2">
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+                        </div>
+                    </div>
+
+                    <!-- Strip 2 -->
+                    <div class="bg-white rounded-lg p-3 shadow-2xl border-2 border-gray-300 animate-slideDown" style="width: 140px; animation-delay: 0.4s;">
+                        <div class="space-y-2">
+                            <div class="bg-purple-100 rounded p-4 text-center border border-gray-200">
+                                <div class="text-3xl">🤝</div>
+                            </div>
+                            <div class="bg-purple-100 rounded p-4 text-center border border-gray-200">
+                                <div class="text-3xl">🤝</div>
+                            </div>
+                            <div class="bg-purple-100 rounded p-4 text-center border border-gray-200">
+                                <div class="text-3xl">🤝</div>
+                            </div>
+                            <div class="bg-purple-100 rounded p-4 text-center border border-gray-200">
+                                <div class="text-3xl mb-1">🤝</div>
+                                <p class="text-xs font-bold text-gray-700 uppercase tracking-wide">Jumbuddy</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-center gap-1 mt-2">
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+                        </div>
+                    </div>
+
+                    <!-- Strip 3 -->
+                    <div class="bg-white rounded-lg p-3 shadow-2xl border-2 border-gray-300 animate-slideDown" style="width: 140px; animation-delay: 0.6s;">
+                        <div class="space-y-2">
+                            <div class="bg-blue-100 rounded p-4 text-center border border-gray-200">
+                                <div class="text-3xl">✨</div>
+                            </div>
+                            <div class="bg-blue-100 rounded p-4 text-center border border-gray-200">
+                                <div class="text-3xl">✨</div>
+                            </div>
+                            <div class="bg-blue-100 rounded p-4 text-center border border-gray-200">
+                                <div class="text-3xl">✨</div>
+                            </div>
+                            <div class="bg-blue-100 rounded p-4 text-center border border-gray-200">
+                                <div class="text-3xl mb-1">✨</div>
+                                <p class="text-xs font-bold text-gray-700 uppercase tracking-wide">Portfolio</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-center gap-1 mt-2">
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+                            <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
                         </div>
                     </div>
                 </div>
@@ -191,8 +263,8 @@
                 image: "🤝"
             },
             {
-                title: "Portfolio Project",
-                description: "Another amazing project showcasing design thinking and execution",
+                title: "Portfolio Website",
+                description: "Interactive portfolio showcasing design thinking and execution",
                 tags: ["UI Design", "Prototyping", "User Testing"],
                 color: "bg-blue-100",
                 image: "✨"
@@ -201,25 +273,7 @@
 
         function dispenseProject(index) {
             const project = projects[index];
-            const photoStrip = document.getElementById('photoStrip');
-            const stripContent = document.getElementById('stripContent');
             const projectDetails = document.getElementById('projectDetails');
-
-            // Create strip frames
-            stripContent.innerHTML = '';
-            for (let i = 0; i < 4; i++) {
-                const frame = document.createElement('div');
-                frame.className = `${project.color} rounded p-3 text-center border border-gray-200`;
-                frame.innerHTML = `
-                    <div class="text-2xl mb-1">${project.image}</div>
-                    ${i === 3 ? `<p class="text-xs font-bold text-gray-700 uppercase tracking-wide">${project.title}</p>` : ''}
-                `;
-                stripContent.appendChild(frame);
-            }
-
-            // Show strip with animation
-            photoStrip.classList.remove('hidden');
-            photoStrip.classList.add('animate-slideDown');
 
             // Show project details
             projectDetails.innerHTML = `
@@ -245,7 +299,10 @@
                 </div>
             `;
             projectDetails.classList.remove('hidden');
+            
+            // Scroll to details
+            projectDetails.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
     </script>
 </body>
-</html>
+</htm
