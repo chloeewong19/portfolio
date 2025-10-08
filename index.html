@@ -6,35 +6,58 @@
     <title>Chloe Wong - Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @keyframes slideDown {
-            from {
-                transform: translateY(-150%);
+        @keyframes dispense {
+            0% {
+                transform: translateY(-100%) rotate(-2deg);
                 opacity: 0;
             }
-            to {
-                transform: translateY(0);
+            60% {
+                transform: translateY(10px) rotate(1deg);
+            }
+            100% {
+                transform: translateY(0) rotate(0deg);
                 opacity: 1;
             }
         }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(-1deg);
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            50% {
+                transform: translateY(-10px) rotate(1deg);
             }
         }
-        .animate-slideDown {
-            animation: slideDown 1.2s ease-out forwards;
+
+        .photo-strip {
+            animation: dispense 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
-        .animate-fadeIn {
-            animation: fadeIn 0.4s ease-out;
+
+        .photo-strip:nth-child(1) { animation-delay: 0.5s; }
+        .photo-strip:nth-child(2) { animation-delay: 1s; }
+        .photo-strip:nth-child(3) { animation-delay: 1.5s; }
+
+        .photo-strip:hover {
+            animation: float 2s ease-in-out infinite;
+        }
+
+        .film-grain {
+            background-image: 
+                repeating-linear-gradient(0deg, rgba(0,0,0,0.03) 0px, transparent 1px, transparent 2px, rgba(0,0,0,0.03) 3px),
+                repeating-linear-gradient(90deg, rgba(0,0,0,0.03) 0px, transparent 1px, transparent 2px, rgba(0,0,0,0.03) 3px);
+        }
+
+        .strip-shadow {
+            box-shadow: 
+                0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                0 2px 4px -1px rgba(0, 0, 0, 0.06),
+                0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                inset 0 1px 2px rgba(255, 255, 255, 0.5);
         }
     </style>
 </head>
-<body class="bg-white">
+<body class="bg-gradient-to-br from-amber-50 via-pink-50 to-purple-50 min-h-screen">
+    
     <!-- Header -->
     <header class="p-6 md:p-8">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
@@ -46,129 +69,261 @@
                 <h1 class="text-3xl font-bold text-gray-800">Chloe Wong</h1>
             </div>
             <nav class="hidden md:flex gap-8 text-lg text-gray-700">
-                <a href="#work" class="hover:text-purple-600 transition-colors">Work</a>
-                <a href="#about" class="hover:text-purple-600 transition-colors">About</a>
-                <a href="#contact" class="hover:text-purple-600 transition-colors">Contact</a>
+                <a href="#work" class="hover:text-purple-600 transition-colors font-medium">Work</a>
+                <a href="#about" class="hover:text-purple-600 transition-colors font-medium">About</a>
+                <a href="#contact" class="hover:text-purple-600 transition-colors font-medium">Contact</a>
             </nav>
         </div>
     </header>
 
-
-
-    <!-- Photobooth Section -->
-    <section id="work" class="px-6 py-16 relative min-h-screen flex items-center bg-white">
-        <div class="max-w-7xl mx-auto relative z-10 w-full">
-            <div class="flex items-center justify-center gap-3 mb-16">
-                <svg class="text-purple-600" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                </svg>
-                <h3 class="text-5xl font-bold text-gray-800">My Projects</h3>
+    <!-- Hero Section -->
+    <section class="px-6 py-12 text-center">
+        <div class="max-w-4xl mx-auto">
+            <div class="inline-block mb-4 px-5 py-2 bg-white/80 backdrop-blur-sm rounded-full border-2 border-purple-200 shadow-sm">
+                <span class="text-sm font-semibold text-purple-600 tracking-wide">UX/UI DESIGNER</span>
             </div>
-
-            <!-- BIG Photobooth Machine -->
-            <div class="max-w-4xl mx-auto">
-                <div class="relative mx-auto" style="width: 800px;">
-                    <!-- Photo Strip Coming Out from TOP - Auto-dispensed on load -->
-                    <div id="photoStrip" class="absolute left-1/2 transform -translate-x-1/2 animate-slideDown" style="top: -300px; z-index: 10;">
-                        <div class="bg-white rounded-2xl p-4 shadow-2xl border-4 border-gray-300" style="width: 200px;">
-                            <!-- Project 1: Marketly -->
-                            <button onclick="showProject(0)" class="w-full mb-3 bg-pink-100 rounded-xl p-6 text-center border-2 border-gray-200 hover:border-purple-400 hover:scale-105 transition-all cursor-pointer group">
-                                <div class="text-5xl mb-2">🛍️</div>
-                                <p class="text-sm font-bold text-gray-700 uppercase tracking-wide">Marketly</p>
-                            </button>
-
-                            <!-- Project 2: Jumbuddy -->
-                            <button onclick="showProject(1)" class="w-full mb-3 bg-purple-100 rounded-xl p-6 text-center border-2 border-gray-200 hover:border-purple-400 hover:scale-105 transition-all cursor-pointer group">
-                                <div class="text-5xl mb-2">🤝</div>
-                                <p class="text-sm font-bold text-gray-700 uppercase tracking-wide">Jumbuddy</p>
-                            </button>
-
-                            <!-- Project 3: Portfolio -->
-                            <button onclick="showProject(2)" class="w-full mb-3 bg-blue-100 rounded-xl p-6 text-center border-2 border-gray-200 hover:border-purple-400 hover:scale-105 transition-all cursor-pointer group">
-                                <div class="text-5xl mb-2">✨</div>
-                                <p class="text-sm font-bold text-gray-700 uppercase tracking-wide">Portfolio</p>
-                            </button>
-
-                            <!-- Project 4: Add your own! -->
-                            <button onclick="showProject(3)" class="w-full mb-2 bg-green-100 rounded-xl p-6 text-center border-2 border-gray-200 hover:border-purple-400 hover:scale-105 transition-all cursor-pointer group">
-                                <div class="text-5xl mb-2">🎨</div>
-                                <p class="text-sm font-bold text-gray-700 uppercase tracking-wide">Project 4</p>
-                            </button>
-
-                            <!-- Photo strip perforations -->
-                            <div class="flex justify-center gap-2 mt-3">
-                                <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                                <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                                <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                                <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                                <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                                <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                                <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                                <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <img
-                        src="Untitled_Artwork 16.png"
-                        alt="Chloe's Photobooth"
-                        class="w-full h-auto"
-                    />
-
-                    <!-- Info Text Overlay -->
-                    <div class="absolute inset-0 flex flex-col justify-center items-center" style="top: 45%;">
-                        <div class="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl max-w-lg">
-                            <p class="text-gray-800 text-center text-lg font-medium">
-                                ✨ Projects are dispensing above! Click on each frame to learn more.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project Details Card -->
-            <div id="projectDetails" class="max-w-3xl mx-auto bg-white rounded-2xl shadow-2xl p-10 border-4 border-purple-200 hidden animate-fadeIn mt-8"></div>
+            <h2 class="text-5xl md:text-7xl font-bold text-gray-900 mb-6">
+                Capturing <span class="italic text-purple-600">moments</span>,<br />
+                crafting <span class="italic text-pink-600">experiences</span>
+            </h2>
+            <p class="text-xl text-gray-700 max-w-2xl mx-auto mb-8">
+                Every project tells a story through design
+            </p>
         </div>
     </section>
 
+    <!-- Photobooth Strips Section -->
+    <section id="work" class="px-6 py-16">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h3 class="text-4xl font-bold text-gray-900 mb-4">My Projects</h3>
+                <p class="text-gray-600 text-lg">Click any strip to see the full story</p>
+            </div>
+
+            <!-- Photo Strips Container -->
+            <div class="flex flex-wrap justify-center gap-12 items-start">
+                
+                <!-- Strip 1: Marketly -->
+                <div class="photo-strip opacity-0" style="transform: translateY(-100%) rotate(-2deg);">
+                    <div class="bg-white rounded-2xl p-3 strip-shadow film-grain" style="width: 220px; transform: rotate(-3deg);">
+                        <!-- Frame 1 -->
+                        <div class="bg-gradient-to-br from-pink-200 to-pink-300 rounded-xl mb-3 overflow-hidden border-4 border-white">
+                            <div class="aspect-square flex items-center justify-center text-6xl">
+                                🛍️
+                            </div>
+                        </div>
+                        
+                        <!-- Frame 2 -->
+                        <div class="bg-gradient-to-br from-pink-300 to-pink-200 rounded-xl mb-3 overflow-hidden border-4 border-white">
+                            <div class="aspect-square flex items-center justify-center">
+                                <div class="text-center p-4">
+                                    <p class="text-xs font-bold text-gray-800 mb-1">USER RESEARCH</p>
+                                    <p class="text-2xl">📊</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Frame 3 -->
+                        <div class="bg-gradient-to-br from-pink-200 to-pink-400 rounded-xl mb-3 overflow-hidden border-4 border-white">
+                            <div class="aspect-square flex items-center justify-center">
+                                <div class="text-center p-4">
+                                    <p class="text-xs font-bold text-gray-800 mb-1">36 HOUR BUILD</p>
+                                    <p class="text-2xl">⚡</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Frame 4 with Title -->
+                        <div class="bg-gradient-to-br from-pink-300 to-pink-400 rounded-xl mb-2 overflow-hidden border-4 border-white">
+                            <div class="aspect-square flex items-center justify-center">
+                                <div class="text-center p-4">
+                                    <p class="text-2xl font-bold text-gray-900 mb-2">MARKETLY</p>
+                                    <p class="text-xs text-gray-700">Student Marketplace</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Perforations -->
+                        <div class="flex justify-center gap-2 py-2">
+                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                        </div>
+
+                        <!-- Click to view button -->
+                        <button onclick="showProject(0)" class="w-full mt-2 px-4 py-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-xl font-semibold text-sm hover:from-pink-600 hover:to-purple-600 transition-all transform hover:scale-105 shadow-lg">
+                            View Project →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Strip 2: Jumbuddy -->
+                <div class="photo-strip opacity-0" style="transform: translateY(-100%) rotate(2deg);">
+                    <div class="bg-white rounded-2xl p-3 strip-shadow film-grain" style="width: 220px; transform: rotate(2deg);">
+                        <!-- Frame 1 -->
+                        <div class="bg-gradient-to-br from-purple-200 to-purple-300 rounded-xl mb-3 overflow-hidden border-4 border-white">
+                            <div class="aspect-square flex items-center justify-center text-6xl">
+                                🤝
+                            </div>
+                        </div>
+                        
+                        <!-- Frame 2 -->
+                        <div class="bg-gradient-to-br from-purple-300 to-purple-200 rounded-xl mb-3 overflow-hidden border-4 border-white">
+                            <div class="aspect-square flex items-center justify-center">
+                                <div class="text-center p-4">
+                                    <p class="text-xs font-bold text-gray-800 mb-1">HACKATHON</p>
+                                    <p class="text-2xl">🏆</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Frame 3 -->
+                        <div class="bg-gradient-to-br from-purple-200 to-purple-400 rounded-xl mb-3 overflow-hidden border-4 border-white">
+                            <div class="aspect-square flex items-center justify-center">
+                                <div class="text-center p-4">
+                                    <p class="text-xs font-bold text-gray-800 mb-1">SOCIAL APP</p>
+                                    <p class="text-2xl">📱</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Frame 4 with Title -->
+                        <div class="bg-gradient-to-br from-purple-300 to-purple-400 rounded-xl mb-2 overflow-hidden border-4 border-white">
+                            <div class="aspect-square flex items-center justify-center">
+                                <div class="text-center p-4">
+                                    <p class="text-2xl font-bold text-gray-900 mb-2">JUMBUDDY</p>
+                                    <p class="text-xs text-gray-700">Connect & Belong</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Perforations -->
+                        <div class="flex justify-center gap-2 py-2">
+                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                        </div>
+
+                        <button onclick="showProject(1)" class="w-full mt-2 px-4 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-xl font-semibold text-sm hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105 shadow-lg">
+                            View Project →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Strip 3: Portfolio -->
+                <div class="photo-strip opacity-0" style="transform: translateY(-100%) rotate(-1deg);">
+                    <div class="bg-white rounded-2xl p-3 strip-shadow film-grain" style="width: 220px; transform: rotate(1deg);">
+                        <!-- Frame 1 -->
+                        <div class="bg-gradient-to-br from-blue-200 to-blue-300 rounded-xl mb-3 overflow-hidden border-4 border-white">
+                            <div class="aspect-square flex items-center justify-center text-6xl">
+                                ✨
+                            </div>
+                        </div>
+                        
+                        <!-- Frame 2 -->
+                        <div class="bg-gradient-to-br from-blue-300 to-blue-200 rounded-xl mb-3 overflow-hidden border-4 border-white">
+                            <div class="aspect-square flex items-center justify-center">
+                                <div class="text-center p-4">
+                                    <p class="text-xs font-bold text-gray-800 mb-1">INTERACTIVE</p>
+                                    <p class="text-2xl">🎨</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Frame 3 -->
+                        <div class="bg-gradient-to-br from-blue-200 to-blue-400 rounded-xl mb-3 overflow-hidden border-4 border-white">
+                            <div class="aspect-square flex items-center justify-center">
+                                <div class="text-center p-4">
+                                    <p class="text-xs font-bold text-gray-800 mb-1">CODE + DESIGN</p>
+                                    <p class="text-2xl">💻</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Frame 4 with Title -->
+                        <div class="bg-gradient-to-br from-blue-300 to-blue-400 rounded-xl mb-2 overflow-hidden border-4 border-white">
+                            <div class="aspect-square flex items-center justify-center">
+                                <div class="text-center p-4">
+                                    <p class="text-2xl font-bold text-gray-900 mb-2">PORTFOLIO</p>
+                                    <p class="text-xs text-gray-700">This Website!</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Perforations -->
+                        <div class="flex justify-center gap-2 py-2">
+                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                            <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                        </div>
+
+                        <button onclick="showProject(2)" class="w-full mt-2 px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl font-semibold text-sm hover:from-blue-600 hover:to-purple-600 transition-all transform hover:scale-105 shadow-lg">
+                            View Project →
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Details Modal/Card -->
+    <div id="projectDetails" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-6" onclick="closeProject(event)">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-3xl w-full p-8 md:p-12 transform transition-all" onclick="event.stopPropagation()">
+            <div id="projectContent"></div>
+            <button onclick="closeProject()" class="mt-6 px-6 py-3 bg-gray-200 hover:bg-gray-300 rounded-xl font-semibold transition-all">
+                Close
+            </button>
+        </div>
+    </div>
+
     <!-- About Section -->
-    <section id="about" class="px-6 py-24 bg-white">
+    <section id="about" class="px-6 py-24 bg-white/50 backdrop-blur-sm">
         <div class="max-w-5xl mx-auto">
-            <h3 class="text-5xl font-bold text-gray-900 mb-12 text-center">My Design Process</h3>
-            <div class="grid md:grid-cols-4 gap-8">
-                <div class="text-center p-8 rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 hover:from-purple-100 hover:to-pink-100 transition-colors border-2 border-purple-200">
-                    <div class="text-6xl mb-4">🔍</div>
-                    <h4 class="font-bold text-gray-900 mb-3 text-xl">Research</h4>
-                    <p class="text-base text-gray-600">Gather insights about users and their needs</p>
+            <h3 class="text-4xl font-bold text-gray-900 mb-12 text-center">My Design Process</h3>
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="text-center p-6 rounded-2xl bg-white/80 backdrop-blur-sm border-2 border-purple-200 hover:border-purple-400 transition-all hover:scale-105">
+                    <div class="text-5xl mb-3">🔍</div>
+                    <h4 class="font-bold text-gray-900 mb-2 text-lg">Research</h4>
+                    <p class="text-sm text-gray-600">Understand users deeply</p>
                 </div>
-                <div class="text-center p-8 rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 hover:from-purple-100 hover:to-pink-100 transition-colors border-2 border-purple-200">
-                    <div class="text-6xl mb-4">✏️</div>
-                    <h4 class="font-bold text-gray-900 mb-3 text-xl">Design</h4>
-                    <p class="text-base text-gray-600">Create wireframes and visual designs</p>
+                <div class="text-center p-6 rounded-2xl bg-white/80 backdrop-blur-sm border-2 border-pink-200 hover:border-pink-400 transition-all hover:scale-105">
+                    <div class="text-5xl mb-3">✏️</div>
+                    <h4 class="font-bold text-gray-900 mb-2 text-lg">Design</h4>
+                    <p class="text-sm text-gray-600">Create beautiful solutions</p>
                 </div>
-                <div class="text-center p-8 rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 hover:from-purple-100 hover:to-pink-100 transition-colors border-2 border-purple-200">
-                    <div class="text-6xl mb-4">⚡</div>
-                    <h4 class="font-bold text-gray-900 mb-3 text-xl">Prototype</h4>
-                    <p class="text-base text-gray-600">Build interactive models for testing</p>
+                <div class="text-center p-6 rounded-2xl bg-white/80 backdrop-blur-sm border-2 border-blue-200 hover:border-blue-400 transition-all hover:scale-105">
+                    <div class="text-5xl mb-3">⚡</div>
+                    <h4 class="font-bold text-gray-900 mb-2 text-lg">Prototype</h4>
+                    <p class="text-sm text-gray-600">Build and iterate quickly</p>
                 </div>
-                <div class="text-center p-8 rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 hover:from-purple-100 hover:to-pink-100 transition-colors border-2 border-purple-200">
-                    <div class="text-6xl mb-4">✅</div>
-                    <h4 class="font-bold text-gray-900 mb-3 text-xl">Test</h4>
-                    <p class="text-base text-gray-600">Collect feedback and refine</p>
+                <div class="text-center p-6 rounded-2xl bg-white/80 backdrop-blur-sm border-2 border-purple-200 hover:border-purple-400 transition-all hover:scale-105">
+                    <div class="text-5xl mb-3">✅</div>
+                    <h4 class="font-bold text-gray-900 mb-2 text-lg">Test</h4>
+                    <p class="text-sm text-gray-600">Validate with feedback</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="px-6 py-24 bg-white">
+    <section id="contact" class="px-6 py-24">
         <div class="max-w-4xl mx-auto text-center">
-            <h3 class="text-5xl font-bold text-gray-900 mb-8">Let's Create Together</h3>
-            <p class="text-2xl text-gray-600 mb-10">
+            <h3 class="text-5xl font-bold text-gray-900 mb-6">Let's Create Together</h3>
+            <p class="text-xl text-gray-700 mb-10">
                 Ready to capture your next big idea? Let's chat!
             </p>
-            <button class="px-12 py-5 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 text-white rounded-full font-medium text-xl hover:from-purple-700 hover:via-pink-700 hover:to-blue-700 transition-all transform hover:scale-105 shadow-xl">
-                Get In Touch
+            <button class="px-10 py-4 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 text-white rounded-full font-bold text-lg hover:from-purple-700 hover:via-pink-700 hover:to-blue-700 transition-all transform hover:scale-105 shadow-xl">
+                Get In Touch ✨
             </button>
         </div>
     </section>
@@ -177,70 +332,53 @@
         const projects = [
             {
                 title: "Marketly",
-                description: "With user-centered approach, the goal was to create a student-based marketplace in 36 hours. This project showcases rapid prototyping and user research skills.",
-                tags: ["Figma", "User Research", "UX/UI Design"],
-                color: "bg-pink-100",
-                image: "🛍️",
-                link: "#" // Add your project link here
+                description: "A student-based marketplace created in 36 hours with a user-centered approach. This project showcases rapid prototyping, user research, and collaborative design thinking to solve real problems for college students.",
+                tags: ["Figma", "User Research", "UX/UI Design", "Rapid Prototyping"],
+                color: "from-pink-400 to-purple-400",
+                details: "Led user research with 20+ students, created wireframes and high-fidelity mockups, and delivered a functional prototype in under 36 hours during a design sprint."
             },
             {
                 title: "Jumbuddy",
-                description: "Designed for the Tufts 2025 Hackathon, Jumbuddy is an app that allows college students to forge bonds, join activities, and form friendships in an otherwise lonely college experience.",
-                tags: ["Research", "UX/UI Design", "Figma", "Dev Handoff"],
-                color: "bg-purple-100",
-                image: "🤝",
-                link: "#"
+                description: "Designed for the Tufts 2025 Hackathon, Jumbuddy helps college students forge bonds, join activities, and form friendships, addressing the loneliness epidemic on campus.",
+                tags: ["Research", "UX/UI Design", "Figma", "Dev Handoff", "Social Impact"],
+                color: "from-purple-400 to-blue-400",
+                details: "Conducted ethnographic research, developed user personas, and created an intuitive interface that encourages authentic connections through shared interests and activities."
             },
             {
                 title: "Portfolio Website",
-                description: "Interactive portfolio website with a unique photobooth concept, showcasing creative design thinking and front-end development skills.",
-                tags: ["UI Design", "HTML/CSS", "JavaScript", "Tailwind"],
-                color: "bg-blue-100",
-                image: "✨",
-                link: "#"
-            },
-            {
-                title: "Project 4",
-                description: "Add your fourth project description here! Update the project details in the JavaScript section below.",
-                tags: ["Tag 1", "Tag 2", "Tag 3"],
-                color: "bg-green-100",
-                image: "🎨",
-                link: "#"
+                description: "An interactive portfolio with a unique photobooth concept, showcasing creative design thinking and front-end development skills with smooth animations and tactile interactions.",
+                tags: ["UI Design", "HTML/CSS", "JavaScript", "Tailwind", "Animation"],
+                color: "from-blue-400 to-purple-400",
+                details: "Built from scratch using modern web technologies, featuring custom animations, responsive design, and an engaging user experience that tells a story through visual design."
             }
         ];
 
         function showProject(index) {
             const project = projects[index];
-            const projectDetails = document.getElementById('projectDetails');
+            const modal = document.getElementById('projectDetails');
+            const content = document.getElementById('projectContent');
 
-            projectDetails.innerHTML = `
-                <div class="flex items-start gap-8">
-                    <div class="${project.color} rounded-2xl p-10 text-7xl flex-shrink-0">
-                        ${project.image}
+            content.innerHTML = `
+                <div class="space-y-6">
+                    <div class="bg-gradient-to-r ${project.color} rounded-2xl p-8 text-white">
+                        <h2 class="text-4xl font-bold mb-2">${project.title}</h2>
                     </div>
-                    <div class="flex-1">
-                        <h4 class="text-4xl font-bold text-gray-900 mb-4">${project.title}</h4>
-                        <p class="text-lg text-gray-600 mb-6 leading-relaxed">${project.description}</p>
-                        <div class="flex flex-wrap gap-3 mb-6">
-                            ${project.tags.map(tag => `<span class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-base font-medium">${tag}</span>`).join('')}
-                        </div>
-                        <a href="${project.link}" class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 text-white rounded-xl font-medium text-lg hover:from-purple-700 hover:via-pink-700 hover:to-blue-700 transition-all shadow-lg hover:shadow-xl transform hover:scale-105">
-                            View Full Project
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                <polyline points="15 3 21 3 21 9"></polyline>
-                                <line x1="10" y1="14" x2="21" y2="3"></line>
-                            </svg>
-                        </a>
+                    <p class="text-lg text-gray-700 leading-relaxed">${project.description}</p>
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <p class="text-gray-700">${project.details}</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        ${project.tags.map(tag => `<span class="px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-semibold">${tag}</span>`).join('')}
                     </div>
                 </div>
             `;
-            projectDetails.classList.remove('hidden');
-            
-            // Smooth scroll to details
-            setTimeout(() => {
-                projectDetails.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 100);
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeProject(event) {
+            const modal = document.getElementById('projectDetails');
+            modal.classList.add('hidden');
         }
     </script>
 </body>
