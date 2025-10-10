@@ -1,299 +1,812 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Chloe Wong - Portfolio</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chloe Wong - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sky: #EAF2FF;
+            --lilac: #E7D7FF;
+            --blush: #FFDDE7;
+            --butter: #FFF5B8;
+            --mint: #DDF5EC;
+            --charcoal: #171717;
+        }
 
-  <style>
-    /* ---------- PHOT0BOOTH PAPER + ANIMATIONS ---------- */
-    .photobooth-wrap { perspective: 1200px; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .booth-body{
-      background: linear-gradient(180deg,#e7e7ea 0%,#d7d7db 100%);
-      border-radius: 24px;
-      box-shadow: 0 8px 24px rgba(0,0,0,.12), inset 0 2px 0 rgba(255,255,255,.7);
-      position: relative; overflow: hidden;
-    }
-    .booth-slot{
-      position:absolute; left:50%; transform:translateX(-50%);
-      width:72%; height:20px; top:22px; border-radius:10px;
-      background: linear-gradient(180deg,#2c2c2f,#151517);
-      box-shadow: inset 0 4px 6px rgba(0,0,0,.5), 0 2px 0 rgba(255,255,255,.25);
-    }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, var(--sky) 0%, var(--lilac) 50%, var(--blush) 100%);
+            min-height: 100vh;
+            color: var(--charcoal);
+        }
 
-    .photo-paper{
-      position:absolute; left:50%;
-      transform: translateX(-50%) translateY(-110%) rotateX(6deg);
-      width:min(980px,92%); aspect-ratio:16/7;
-      background: linear-gradient(180deg,#f0f0f3,#d9d9de);
-      border-radius:18px; border:10px solid #ececf0;
-      box-shadow: 0 18px 32px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.9);
-      overflow:hidden; opacity:0;
-    }
-    .photo-paper::after{
-      content:""; position:absolute; inset:0;
-      background-image:
-        repeating-linear-gradient(0deg, rgba(0,0,0,.03) 0px, transparent 2px, transparent 4px, rgba(0,0,0,.03) 6px),
-        repeating-linear-gradient(90deg, rgba(0,0,0,.03) 0px, transparent 2px, transparent 4px, rgba(0,0,0,.03) 6px);
-      pointer-events:none;
-    }
+        h1, h2, h3 {
+            font-family: 'Fraunces', serif;
+        }
 
-    @keyframes paper-dispense{
-      0%{transform:translateX(-50%) translateY(-110%) rotateX(12deg); opacity:0;}
-      55%{transform:translateX(-50%) translateY(10%) rotateX(4deg); opacity:1;}
-      100%{transform:translateX(-50%) translateY(32%) rotateX(0deg); opacity:1;}
-    }
-    @keyframes paper-retract{
-      0%{transform:translateX(-50%) translateY(32%) rotateX(0deg); opacity:1;}
-      100%{transform:translateX(-50%) translateY(-110%) rotateX(12deg); opacity:0;}
-    }
-    .photo-paper.dispensing{ animation: paper-dispense 1.6s cubic-bezier(.22,1,.36,1) forwards; }
-    .photo-paper.retracting{ animation: paper-retract 1.0s cubic-bezier(.22,1,.36,1) forwards; }
+        .serif-italic {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+        }
 
-    .paper-grid{
-      display:grid; grid-template-columns:repeat(4,1fr);
-      gap:14px; padding:16px;
-    }
-    @media (max-width: 900px){
-      .paper-grid{ grid-template-columns:repeat(2,1fr); aspect-ratio:auto; }
-    }
-    .paper-frame{
-      border-radius:14px; background:#fff; border:8px solid #fff;
-      box-shadow:0 8px 16px rgba(0,0,0,.08);
-      overflow:hidden; cursor:pointer;
-      transition: transform .2s ease, box-shadow .2s ease;
-    }
-    .paper-frame:hover{ transform:translateY(-4px); box-shadow:0 14px 28px rgba(0,0,0,.15); }
-    .paper-frame .frame-top{ height:58%; display:grid; place-items:center; font-size:42px; }
-    .paper-frame .frame-bottom{ height:42%; padding:10px 12px; }
-  </style>
+        /* Photobooth structure */
+        .booth-body {
+            background: linear-gradient(135deg, #9ca3af 0%, #6b7280 50%, #4b5563 100%);
+            position: relative;
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow:
+                inset 0 2px 8px rgba(255,255,255,0.3),
+                inset 0 -2px 8px rgba(0,0,0,0.4),
+                0 12px 40px rgba(0,0,0,0.2);
+        }
+
+        .booth-body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 2px,
+                rgba(255,255,255,0.03) 2px,
+                rgba(255,255,255,0.03) 4px
+            );
+            pointer-events: none;
+        }
+
+        /* Screws */
+        .screw {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #9ca3af, #4b5563);
+            position: absolute;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .screw::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 1px;
+            background: #1f2937;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+        }
+
+        .screw-tl { top: 16px; left: 16px; }
+        .screw-tr { top: 16px; right: 16px; }
+        .screw-bl { bottom: 16px; left: 16px; }
+        .screw-br { bottom: 16px; right: 16px; }
+
+        /* Slot */
+        .slot {
+            background: linear-gradient(180deg, #1f2937 0%, #111827 100%);
+            border-radius: 12px;
+            padding: 4px;
+            box-shadow:
+                inset 0 4px 12px rgba(0,0,0,0.8),
+                inset 0 1px 3px rgba(255,255,255,0.1),
+                0 2px 8px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: visible;
+            min-height: 120px;
+        }
+
+        .slot-inner {
+            background: #000;
+            border-radius: 8px;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: visible;
+        }
+
+        /* Indicators */
+        .indicators {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            justify-content: center;
+        }
+
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #22c55e;
+            box-shadow: 0 0 8px #22c55e, inset 0 1px 2px rgba(0,0,0,0.3);
+            opacity: 0.3;
+            transition: opacity 0.3s;
+        }
+
+        .indicator.active {
+            opacity: 1;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Photo strips */
+        .strips-container {
+            position: relative;
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 24px;
+            perspective: 1000px;
+        }
+
+        .strip {
+            width: 240px;
+            background: linear-gradient(135deg, #fefefe 0%, #f9f9f9 100%);
+            border: 3px solid #fff;
+            border-radius: 8px;
+            box-shadow:
+                0 4px 12px rgba(0,0,0,0.15),
+                0 1px 3px rgba(0,0,0,0.1);
+            padding: 12px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            opacity: 0;
+            transform-origin: top center;
+            will-change: transform, filter, opacity;
+        }
+
+        .strip::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 6px;
+            background:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0,0,0,0.01) 2px,
+                    rgba(0,0,0,0.01) 4px
+                );
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .strip::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent 0px,
+                transparent 4px,
+                #f9f9f9 4px,
+                #f9f9f9 8px
+            );
+            clip-path: polygon(
+                0 0, 4px 100%, 8px 0, 12px 100%, 16px 0, 20px 100%, 24px 0, 28px 100%,
+                32px 0, 36px 100%, 40px 0, 44px 100%, 48px 0, 52px 100%, 56px 0, 60px 100%,
+                64px 0, 68px 100%, 72px 0, 76px 100%, 80px 0, 84px 100%, 88px 0, 92px 100%,
+                96px 0, 100px 100%, 104px 0, 108px 100%, 112px 0, 116px 100%, 120px 0, 124px 100%,
+                128px 0, 132px 100%, 136px 0, 140px 100%, 144px 0, 148px 100%, 152px 0, 156px 100%,
+                160px 0, 164px 100%, 168px 0, 172px 100%, 176px 0, 180px 100%, 184px 0, 188px 100%,
+                192px 0, 196px 100%, 200px 0, 204px 100%, 208px 0, 212px 100%, 216px 0, 220px 100%,
+                224px 0, 228px 100%, 232px 0, 236px 100%, 240px 0, 100% 100%, 100% 0, 0 0
+            );
+        }
+
+        .strip.dispensing {
+            animation: dispense 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        .strip.resting {
+            opacity: 1;
+            transform: translateY(0) rotateX(0deg);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .strip.retracting {
+            animation: retract 0.6s cubic-bezier(0.64, 0, 0.78, 0) forwards;
+        }
+
+        .strip:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow:
+                0 8px 24px rgba(0,0,0,0.2),
+                0 2px 6px rgba(0,0,0,0.15);
+        }
+
+        .strip.resting:hover {
+            animation: none;
+        }
+
+        @keyframes dispense {
+            0% {
+                opacity: 0;
+                transform: translateY(-110%) rotateX(15deg);
+                filter: blur(2px);
+            }
+            60% {
+                filter: blur(1px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) rotateX(0deg);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes retract {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotateX(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-110%) rotateX(15deg);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-2px);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .strip.dispensing {
+                animation: dispense-simple 0.3s ease-out forwards;
+            }
+
+            @keyframes dispense-simple {
+                0% {
+                    opacity: 0;
+                    transform: translateY(-20%);
+                }
+                100% {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .strip.resting {
+                animation: none;
+            }
+
+            .strip.retracting {
+                animation: retract-simple 0.3s ease-in forwards;
+            }
+
+            @keyframes retract-simple {
+                0% {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+                100% {
+                    opacity: 0;
+                    transform: translateY(-20%);
+                }
+            }
+        }
+
+        /* Strip content */
+        .strip-photo {
+            aspect-ratio: 4/5;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+        }
+
+        .strip-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--charcoal);
+        }
+
+        .strip-badge {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .strip-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .strip-tag {
+            background: var(--sky);
+            color: var(--charcoal);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* Buttons */
+        .btn {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 600;
+            padding: 12px 32px;
+            border-radius: 24px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:focus-visible {
+            outline: 3px solid var(--lilac);
+            outline-offset: 2px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--blush), var(--lilac));
+            color: var(--charcoal);
+        }
+
+        .btn-secondary {
+            background: #fff;
+            color: var(--charcoal);
+            border: 2px solid var(--charcoal);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #fefefe 0%, #f9f9f9 100%);
+            border: 4px solid #fff;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 100%;
+            padding: 32px;
+            position: relative;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: 40px;
+            width: 60px;
+            height: 30px;
+            background: linear-gradient(135deg, #c0c0c0, #808080);
+            border-radius: 8px 8px 0 0;
+            clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
+            box-shadow:
+                inset 0 1px 2px rgba(255,255,255,0.5),
+                0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .modal-content::after {
+            content: '';
+            position: absolute;
+            top: -16px;
+            right: 55px;
+            width: 30px;
+            height: 20px;
+            background: linear-gradient(135deg, #d0d0d0, #a0a0a0);
+            border-radius: 50% 50% 0 0;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: var(--charcoal);
+            color: #fff;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.25rem;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+
+        .modal-close:hover {
+            transform: scale(1.1);
+        }
+
+        .modal-close:focus-visible {
+            outline: 3px solid var(--lilac);
+            outline-offset: 2px;
+        }
+
+        /* Decorative elements */
+        .sparkle {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+        }
+
+        .sticker-bg {
+            position: absolute;
+            z-index: 0;
+            opacity: 0.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .strip {
+                width: 200px;
+            }
+
+            .strips-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .booth-body {
+                padding: 1.5rem;
+            }
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            white-space: nowrap;
+            border: 0;
+        }
+    </style>
 </head>
+<body>
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Header -->
+        <header class="text-center mb-12 relative">
+            <svg class="sticker-bg" style="top: -10px; left: 20%;" width="60" height="60" viewBox="0 0 60 60">
+                <ellipse cx="30" cy="30" rx="28" ry="15" fill="#FFF5B8" opacity="0.8"/>
+            </svg>
+            <svg class="sticker-bg" style="top: 20px; right: 15%;" width="40" height="40" viewBox="0 0 40 40">
+                <circle cx="20" cy="20" r="18" fill="#DDF5EC" opacity="0.8"/>
+            </svg>
 
-<body class="bg-gradient-to-br from-amber-50 via-pink-50 to-purple-50 min-h-screen">
-  <!-- Header -->
-  <header class="p-6 md:p-8">
-    <div class="max-w-7xl mx-auto flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <svg class="text-purple-600" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path>
-          <circle cx="12" cy="13" r="3"></circle>
-        </svg>
-        <h1 class="text-3xl font-bold text-gray-800">Chloe Wong</h1>
-      </div>
-      <nav class="hidden md:flex gap-8 text-lg text-gray-700">
-        <a href="#work" class="hover:text-purple-600 transition-colors font-medium">Work</a>
-        <a href="#about" class="hover:text-purple-600 transition-colors font-medium">About</a>
-        <a href="#contact" class="hover:text-purple-600 transition-colors font-medium">Contact</a>
-      </nav>
-    </div>
-  </header>
+            <h1 class="text-5xl md:text-6xl font-bold mb-4 relative z-10" style="color: var(--charcoal);">
+                Chloe Wong
+            </h1>
+            <p class="serif-italic text-xl md:text-2xl mb-2" style="color: var(--charcoal);">
+                Capturing moments, crafting experiences
+            </p>
 
-  <!-- Hero -->
-  <section class="px-6 py-12 text-center">
-    <div class="max-w-4xl mx-auto">
-      <div class="inline-block mb-4 px-5 py-2 bg-white/80 backdrop-blur-sm rounded-full border-2 border-purple-200 shadow-sm">
-        <span class="text-sm font-semibold text-purple-600 tracking-wide">UX/UI DESIGNER</span>
-      </div>
-      <h2 class="text-5xl md:text-7xl font-bold text-gray-900 mb-6">
-        Capturing <span class="italic text-purple-600">moments</span>,<br />
-        crafting <span class="italic text-pink-600">experiences</span>
-      </h2>
-      <p class="text-xl text-gray-700 max-w-2xl mx-auto mb-8">Every project tells a story through design</p>
-    </div>
-  </section>
+            <svg class="sparkle mx-auto mt-4" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 0L11.5 6.5L10 10L8.5 6.5L10 0Z" fill="#E7D7FF"/>
+                <path d="M10 10L13.5 8.5L20 10L13.5 11.5L10 10Z" fill="#FFDDE7"/>
+                <path d="M10 10L11.5 13.5L10 20L8.5 13.5L10 10Z" fill="#FFF5B8"/>
+                <path d="M10 10L6.5 11.5L0 10L6.5 8.5L10 10Z" fill="#DDF5EC"/>
+            </svg>
+        </header>
 
-  <!-- Photobooth (Wide Paper with 4 Frames) -->
-  <section id="work" class="px-6 py-16">
-    <div class="max-w-6xl mx-auto photobooth-wrap">
-      <div class="text-center mb-10">
-        <h3 class="text-4xl font-bold text-gray-900 mb-3">My Projects</h3>
-        <p class="text-gray-600 text-lg">Hit “Dispense” to print a photo strip of today’s highlights</p>
-      </div>
+        <!-- Photobooth -->
+        <div class="booth-body max-w-4xl mx-auto mb-8 relative">
+            <div class="screw screw-tl"></div>
+            <div class="screw screw-tr"></div>
+            <div class="screw screw-bl"></div>
+            <div class="screw screw-br"></div>
 
-      <div class="booth-body relative mx-auto" style="height: 520px;">
-        <div class="booth-slot"></div>
-
-        <!-- Grey Photo Paper -->
-        <div id="photoPaper" class="photo-paper">
-          <div class="paper-grid">
-            <!-- Frame 1 -->
-            <div class="paper-frame" onclick="showProject(0)">
-              <div class="frame-top bg-gradient-to-br from-pink-200 to-pink-400">🛍️</div>
-              <div class="frame-bottom">
-                <p class="text-[10px] font-bold text-gray-700 tracking-wide">MARKETLY</p>
-                <p class="text-sm text-gray-800 leading-snug">Student marketplace built in 36 hours.</p>
-              </div>
+            <!-- Slot -->
+            <div class="slot">
+                <div class="slot-inner" id="photoPaper"></div>
             </div>
-            <!-- Frame 2 -->
-            <div class="paper-frame" onclick="showProject(1)">
-              <div class="frame-top bg-gradient-to-br from-purple-200 to-purple-400">🤝</div>
-              <div class="frame-bottom">
-                <p class="text-[10px] font-bold text-gray-700 tracking-wide">JUMBUDDY</p>
-                <p class="text-sm text-gray-800 leading-snug">Social app to connect campus communities.</p>
-              </div>
+
+            <!-- Indicators -->
+            <div class="indicators">
+                <div class="indicator" id="indicator1"></div>
+                <div class="indicator" id="indicator2"></div>
+                <div class="indicator" id="indicator3"></div>
             </div>
-            <!-- Frame 3 -->
-            <div class="paper-frame" onclick="showProject(2)">
-              <div class="frame-top bg-gradient-to-br from-blue-200 to-blue-400">✨</div>
-              <div class="frame-bottom">
-                <p class="text-[10px] font-bold text-gray-700 tracking-wide">PORTFOLIO</p>
-                <p class="text-sm text-gray-800 leading-snug">Interactive site with custom animations.</p>
-              </div>
-            </div>
-            <!-- Frame 4 -->
-            <div class="paper-frame" onclick="showProject(3)">
-              <div class="frame-top bg-gradient-to-br from-emerald-200 to-emerald-400">🏋️</div>
-              <div class="frame-bottom">
-                <p class="text-[10px] font-bold text-gray-700 tracking-wide">FITWISE</p>
-                <p class="text-sm text-gray-800 leading-snug">AI trainer with pose feedback & voice.</p>
-              </div>
-            </div>
-          </div>
+
+            <!-- Strips Container -->
+            <div class="strips-container" id="stripsContainer"></div>
         </div>
 
         <!-- Controls -->
-        <div class="absolute left-1/2 -translate-x-1/2 bottom-6 flex items-center gap-4">
-          <button id="dispenseBtn"
-            class="px-6 py-3 bg-gradient-to-r from-gray-800 to-gray-600 text-white rounded-full font-semibold shadow-lg hover:from-gray-900 hover:to-gray-700 active:scale-95 transition">
-            Dispense 📸
-          </button>
-          <button id="retractBtn"
-            class="px-5 py-3 bg-white/90 border border-gray-300 text-gray-800 rounded-full font-semibold shadow hover:bg-white active:scale-95 transition">
-            Retract ↩︎
-          </button>
+        <div class="flex gap-4 justify-center flex-wrap mb-12">
+            <button id="dispenseBtn" class="btn btn-primary" aria-label="Print photo strips">
+                Print strip 📸
+            </button>
+            <button id="retractBtn" class="btn btn-secondary" aria-label="Rewind and hide strips">
+                Rewind ↩︎
+            </button>
         </div>
-      </div>
+
+        <!-- About Section -->
+        <section class="max-w-3xl mx-auto mb-12 bg-white/80 backdrop-blur rounded-3xl p-8 shadow-lg">
+            <h2 class="text-3xl font-bold mb-4" style="color: var(--charcoal);">About Me</h2>
+            <p class="text-lg leading-relaxed mb-4" style="color: var(--charcoal);">
+                Hi! I'm Chloe, a product designer and developer passionate about creating delightful, user-centered experiences.
+                I love blending creativity with technology to build things that make people smile.
+            </p>
+            <p class="text-lg leading-relaxed" style="color: var(--charcoal);">
+                When I'm not designing or coding, you can find me exploring new coffee shops, taking photos, or tinkering with side projects.
+            </p>
+        </section>
+
+        <!-- Contact -->
+        <section class="max-w-3xl mx-auto text-center bg-gradient-to-br from-purple-100 to-pink-100 rounded-3xl p-8 shadow-lg">
+            <h2 class="text-3xl font-bold mb-4" style="color: var(--charcoal);">Let's Connect</h2>
+            <div class="flex gap-4 justify-center flex-wrap">
+                <a href="mailto:hello@chloewong.com" class="btn btn-primary" aria-label="Send email">
+                    Email Me
+                </a>
+                <a href="https://linkedin.com/in/chloewong" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" aria-label="Visit LinkedIn profile">
+                    LinkedIn
+                </a>
+                <a href="https://github.com/chloewong" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" aria-label="Visit GitHub profile">
+                    GitHub
+                </a>
+            </div>
+        </section>
     </div>
-  </section>
 
-  <!-- Project Details Modal/Card -->
-  <div id="projectDetails" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-6" onclick="closeProject(event)">
-    <div class="bg-white rounded-3xl shadow-2xl max-w-3xl w-full p-8 md:p-12 transform transition-all" onclick="event.stopPropagation()">
-      <div id="projectContent"></div>
-      <button onclick="closeProject()" class="mt-6 px-6 py-3 bg-gray-200 hover:bg-gray-300 rounded-xl font-semibold transition-all">
-        Close
-      </button>
+    <!-- Modal -->
+    <div id="projectDetails" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-content" id="projectContent">
+            <button class="modal-close" id="closeModal" aria-label="Close modal">×</button>
+            <div id="modalBody"></div>
+        </div>
     </div>
-  </div>
 
-  <!-- About -->
-  <section id="about" class="px-6 py-24 bg-white/50 backdrop-blur-sm">
-    <div class="max-w-5xl mx-auto">
-      <h3 class="text-4xl font-bold text-gray-900 mb-12 text-center">My Design Process</h3>
-      <div class="grid md:grid-cols-4 gap-6">
-        <div class="text-center p-6 rounded-2xl bg-white/80 backdrop-blur-sm border-2 border-purple-200 hover:border-purple-400 transition-all hover:scale-105">
-          <div class="text-5xl mb-3">🔍</div>
-          <h4 class="font-bold text-gray-900 mb-2 text-lg">Research</h4>
-          <p class="text-sm text-gray-600">Understand users deeply</p>
-        </div>
-        <div class="text-center p-6 rounded-2xl bg-white/80 backdrop-blur-sm border-2 border-pink-200 hover:border-pink-400 transition-all hover:scale-105">
-          <div class="text-5xl mb-3">✏️</div>
-          <h4 class="font-bold text-gray-900 mb-2 text-lg">Design</h4>
-          <p class="text-sm text-gray-600">Create beautiful solutions</p>
-        </div>
-        <div class="text-center p-6 rounded-2xl bg-white/80 backdrop-blur-sm border-2 border-blue-200 hover:border-blue-400 transition-all hover:scale-105">
-          <div class="text-5xl mb-3">⚡</div>
-          <h4 class="font-bold text-gray-900 mb-2 text-lg">Prototype</h4>
-          <p class="text-sm text-gray-600">Build and iterate quickly</p>
-        </div>
-        <div class="text-center p-6 rounded-2xl bg-white/80 backdrop-blur-sm border-2 border-purple-200 hover:border-purple-400 transition-all hover:scale-105">
-          <div class="text-5xl mb-3">✅</div>
-          <h4 class="font-bold text-gray-900 mb-2 text-lg">Test</h4>
-          <p class="text-sm text-gray-600">Validate with feedback</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    <!-- Screen reader announcements -->
+    <div id="liveRegion" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 
-  <!-- Contact -->
-  <section id="contact" class="px-6 py-24">
-    <div class="max-w-4xl mx-auto text-center">
-      <h3 class="text-5xl font-bold text-gray-900 mb-6">Let's Create Together</h3>
-      <p class="text-xl text-gray-700 mb-10">Ready to capture your next big idea? Let's chat!</p>
-      <button class="px-10 py-4 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 text-white rounded-full font-bold text-lg hover:from-purple-700 hover:via-pink-700 hover:to-blue-700 transition-all transform hover:scale-105 shadow-xl">
-        Get In Touch ✨
-      </button>
-    </div>
-  </section>
+    <script>
+        const projects = [
+            {
+                title: "Marketly",
+                emoji: "🛍️",
+                gradient: "linear-gradient(135deg, #fbcfe8 0%, #f9a8d4 100%)",
+                tags: ["Figma", "User Research", "UX/UI"],
+                description: "A student-based marketplace created in 36 hours with a user-centered approach. This project showcases rapid prototyping, user research, and collaborative design thinking to solve real problems for college students.",
+                details: "Led user research with 20+ students, created wireframes and high-fidelity mockups, and delivered a functional prototype in under 36 hours during a design sprint."
+            },
+            {
+                title: "Jumbuddy",
+                emoji: "🤝",
+                gradient: "linear-gradient(135deg, #ddd6fe 0%, #c4b5fd 100%)",
+                tags: ["Research", "UX/UI", "Figma"],
+                description: "Designed for the Tufts 2025 Hackathon, Jumbuddy helps college students forge bonds, join activities, and form friendships, addressing the loneliness epidemic on campus.",
+                details: "Conducted ethnographic research, developed user personas, and created an intuitive interface that encourages authentic connections through shared interests and activities."
+            },
+            {
+                title: "Portfolio Website",
+                emoji: "✨",
+                gradient: "linear-gradient(135deg, #bfdbfe 0%, #93c5fd 100%)",
+                tags: ["UI Design", "HTML/CSS", "JavaScript"],
+                description: "An interactive portfolio with a unique photobooth concept, showcasing creative design thinking and front-end development skills with smooth animations and tactile interactions.",
+                details: "Built from scratch using modern web technologies, featuring custom animations, responsive design, and an engaging user experience that tells a story through visual design."
+            },
+            {
+                title: "FitWise",
+                emoji: "🏋️",
+                gradient: "linear-gradient(135deg, #a7f3d0 0%, #6ee7b7 100%)",
+                tags: ["MediaPipe", "Real-time", "Python"],
+                description: "An AI-powered fitness trainer using pose detection and real-time, voice-guided feedback to correct form, count reps, and keep you motivated.",
+                details: "Built a dual-process backend for pose inference + live feedback; integrated speech I/O to emulate a human trainer and maintain sub-200ms responsiveness."
+            }
+        ];
 
-  <!-- Scripts -->
-  <script>
-    // Project data (now 4 items for 4 frames)
-    const projects = [
-      {
-        title: "Marketly",
-        description: "A student-based marketplace created in 36 hours with a user-centered approach. This project showcases rapid prototyping, user research, and collaborative design thinking to solve real problems for college students.",
-        tags: ["Figma", "User Research", "UX/UI Design", "Rapid Prototyping"],
-        color: "from-pink-400 to-purple-400",
-        details: "Led user research with 20+ students, created wireframes and high-fidelity mockups, and delivered a functional prototype in under 36 hours during a design sprint."
-      },
-      {
-        title: "Jumbuddy",
-        description: "Designed for the Tufts 2025 Hackathon, Jumbuddy helps college students forge bonds, join activities, and form friendships, addressing the loneliness epidemic on campus.",
-        tags: ["Research", "UX/UI Design", "Figma", "Dev Handoff", "Social Impact"],
-        color: "from-purple-400 to-blue-400",
-        details: "Conducted ethnographic research, developed user personas, and created an intuitive interface that encourages authentic connections through shared interests and activities."
-      },
-      {
-        title: "Portfolio Website",
-        description: "An interactive portfolio with a unique photobooth concept, showcasing creative design thinking and front-end development skills with smooth animations and tactile interactions.",
-        tags: ["UI Design", "HTML/CSS", "JavaScript", "Tailwind", "Animation"],
-        color: "from-blue-400 to-purple-400",
-        details: "Built from scratch using modern web technologies, featuring custom animations, responsive design, and an engaging user experience that tells a story through visual design."
-      },
-      {
-        title: "FitWise",
-        description: "An AI-powered fitness trainer using pose detection and real-time, voice-guided feedback to correct form, count reps, and keep you motivated.",
-        tags: ["MediaPipe", "Real-time", "Python", "Voice"],
-        color: "from-emerald-400 to-teal-400",
-        details: "Built a dual-process backend for pose inference + live feedback; integrated speech I/O to emulate a human trainer and maintain sub-200ms responsiveness."
-      }
-    ];
+        let stripsDispensed = false;
+        const stripsContainer = document.getElementById('stripsContainer');
+        const dispenseBtn = document.getElementById('dispenseBtn');
+        const retractBtn = document.getElementById('retractBtn');
+        const modal = document.getElementById('projectDetails');
+        const closeModalBtn = document.getElementById('closeModal');
+        const modalBody = document.getElementById('modalBody');
+        const liveRegion = document.getElementById('liveRegion');
+        const indicators = [
+            document.getElementById('indicator1'),
+            document.getElementById('indicator2'),
+            document.getElementById('indicator3')
+        ];
 
-    // Modal logic (unchanged)
-    function showProject(index) {
-      const project = projects[index];
-      const modal = document.getElementById('projectDetails');
-      const content = document.getElementById('projectContent');
-      content.innerHTML = `
-        <div class="space-y-6">
-          <div class="bg-gradient-to-r ${project.color} rounded-2xl p-8 text-white">
-            <h2 class="text-4xl font-bold mb-2">${project.title}</h2>
-          </div>
-          <p class="text-lg text-gray-700 leading-relaxed">${project.description}</p>
-          <div class="bg-gray-50 rounded-xl p-6">
-            <p class="text-gray-700">${project.details}</p>
-          </div>
-          <div class="flex flex-wrap gap-2">
-            ${project.tags.map(tag => `<span class="px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-semibold">${tag}</span>`).join('')}
-          </div>
-        </div>
-      `;
-      modal.classList.remove('hidden');
-    }
-    function closeProject() {
-      document.getElementById('projectDetails').classList.add('hidden');
-    }
+        function createStripElement(project, index) {
+            const strip = document.createElement('div');
+            strip.className = 'strip';
+            strip.setAttribute('role', 'button');
+            strip.setAttribute('tabindex', '0');
+            strip.setAttribute('aria-label', `View details for ${project.title}`);
+            strip.dataset.index = index;
 
-    // Dispense / Retract controls
-    const paper = document.getElementById('photoPaper');
-    const dispenseBtn = document.getElementById('dispenseBtn');
-    const retractBtn  = document.getElementById('retractBtn');
+            strip.innerHTML = `
+                <div class="strip-photo" style="background: ${project.gradient};">
+                    ${project.emoji}
+                </div>
+                <div class="strip-title">
+                    <span>${project.title}</span>
+                    <svg class="strip-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#FFF5B8" stroke="#FFD700" stroke-width="1"/>
+                    </svg>
+                </div>
+                <div class="strip-tags">
+                    ${project.tags.map(tag => `<span class="strip-tag">${tag}</span>`).join('')}
+                </div>
+            `;
 
-    function dispensePaper(){
-      paper.classList.remove('retracting');
-      paper.classList.remove('dispensing'); // restart if tapped again
-      void paper.offsetWidth;               // reflow
-      paper.classList.add('dispensing');
-    }
-    function retractPaper(){
-      paper.classList.remove('dispensing');
-      paper.classList.add('retracting');
-    }
-    dispenseBtn.addEventListener('click', dispensePaper);
-    retractBtn.addEventListener('click', retractPaper);
-  </script>
+            strip.addEventListener('click', () => openModal(project));
+            strip.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openModal(project);
+                }
+            });
+
+            return strip;
+        }
+
+        function dispenseStrips() {
+            if (stripsDispensed) return;
+
+            stripsDispensed = true;
+            dispenseBtn.disabled = true;
+
+            // Activate indicators
+            indicators.forEach(ind => ind.classList.add('active'));
+
+            liveRegion.textContent = `Printing ${projects.length} photo strips`;
+
+            projects.forEach((project, index) => {
+                const strip = createStripElement(project, index);
+                stripsContainer.appendChild(strip);
+
+                setTimeout(() => {
+                    strip.classList.add('dispensing');
+                    liveRegion.textContent = `Printing strip ${index + 1} of ${projects.length}`;
+
+                    setTimeout(() => {
+                        strip.classList.remove('dispensing');
+                        strip.classList.add('resting');
+
+                        if (index === projects.length - 1) {
+                            indicators.forEach(ind => ind.classList.remove('active'));
+                            dispenseBtn.disabled = false;
+                            liveRegion.textContent = 'All strips printed';
+                        }
+                    }, 800);
+                }, index * 300);
+            });
+        }
+
+        function retractStrips() {
+            if (!stripsDispensed) return;
+
+            const strips = document.querySelectorAll('.strip');
+            indicators.forEach(ind => ind.classList.add('active'));
+            liveRegion.textContent = 'Rewinding strips';
+
+            strips.forEach((strip, index) => {
+                setTimeout(() => {
+                    strip.classList.remove('resting');
+                    strip.classList.add('retracting');
+
+                    setTimeout(() => {
+                        strip.remove();
+
+                        if (index === strips.length - 1) {
+                            stripsDispensed = false;
+                            indicators.forEach(ind => ind.classList.remove('active'));
+                            liveRegion.textContent = 'All strips rewound';
+                        }
+                    }, 600);
+                }, index * 150);
+            });
+        }
+
+        function openModal(project) {
+            modalBody.innerHTML = `
+                <h2 id="modalTitle" class="text-3xl font-bold mb-4" style="color: var(--charcoal);">
+                    ${project.emoji} ${project.title}
+                </h2>
+                <div class="mb-4">
+                    ${project.tags.map(tag => `<span class="strip-tag" style="background: var(--lilac);">${tag}</span>`).join(' ')}
+                </div>
+                <p class="text-lg mb-4 leading-relaxed" style="color: var(--charcoal);">
+                    ${project.description}
+                </p>
+                <div class="bg-gray-50 rounded-2xl p-4 border-2 border-dashed border-gray-300">
+                    <h3 class="font-bold mb-2" style="color: var(--charcoal);">Details</h3>
+                    <p style="color: var(--charcoal);">${project.details}</p>
+                </div>
+            `;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            closeModalBtn.focus();
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        dispenseBtn.addEventListener('click', dispenseStrips);
+        retractBtn.addEventListener('click', retractStrips);
+        closeModalBtn.addEventListener('click', closeModal);
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // Auto-dispense on load
+        window.addEventListener('load', () => {
+            setTimeout(dispenseStrips, 500);
+        });
+    </script>
 </body>
 </html>
