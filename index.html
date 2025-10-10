@@ -147,11 +147,12 @@
         /* Photo strips */
         .strips-container {
             position: relative;
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
             gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 24px;
+            justify-items: center;
+            max-width: 560px;
+            margin: 24px auto 0;
             perspective: 1000px;
         }
 
@@ -498,8 +499,8 @@
             }
 
             .strips-container {
-                flex-direction: column;
-                align-items: center;
+                grid-template-columns: 1fr;
+                max-width: 240px;
             }
 
             .booth-body {
@@ -624,6 +625,7 @@
             {
                 title: "Marketly",
                 emoji: "🛍️",
+                image: "images/marketly.jpg",
                 gradient: "linear-gradient(135deg, #fbcfe8 0%, #f9a8d4 100%)",
                 tags: ["Figma", "User Research", "UX/UI"],
                 description: "A student-based marketplace created in 36 hours with a user-centered approach. This project showcases rapid prototyping, user research, and collaborative design thinking to solve real problems for college students.",
@@ -632,6 +634,7 @@
             {
                 title: "Jumbuddy",
                 emoji: "🤝",
+                image: "images/jumbuddy.jpg",
                 gradient: "linear-gradient(135deg, #ddd6fe 0%, #c4b5fd 100%)",
                 tags: ["Research", "UX/UI", "Figma"],
                 description: "Designed for the Tufts 2025 Hackathon, Jumbuddy helps college students forge bonds, join activities, and form friendships, addressing the loneliness epidemic on campus.",
@@ -640,6 +643,7 @@
             {
                 title: "Portfolio Website",
                 emoji: "✨",
+                image: "images/portfolio.jpg",
                 gradient: "linear-gradient(135deg, #bfdbfe 0%, #93c5fd 100%)",
                 tags: ["UI Design", "HTML/CSS", "JavaScript"],
                 description: "An interactive portfolio with a unique photobooth concept, showcasing creative design thinking and front-end development skills with smooth animations and tactile interactions.",
@@ -648,6 +652,7 @@
             {
                 title: "FitWise",
                 emoji: "🏋️",
+                image: "images/fitwise.jpg",
                 gradient: "linear-gradient(135deg, #a7f3d0 0%, #6ee7b7 100%)",
                 tags: ["MediaPipe", "Real-time", "Python"],
                 description: "An AI-powered fitness trainer using pose detection and real-time, voice-guided feedback to correct form, count reps, and keep you motivated.",
@@ -679,7 +684,10 @@
 
             strip.innerHTML = `
                 <div class="strip-photo" style="background: ${project.gradient};">
-                    ${project.emoji}
+                    ${project.image
+                        ? `<img src="${project.image}" alt="${project.title}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                           <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;font-size:4rem;">${project.emoji}</div>`
+                        : project.emoji}
                 </div>
                 <div class="strip-title">
                     <span>${project.title}</span>
@@ -803,10 +811,7 @@
             }
         });
 
-        // Auto-dispense on load
-        window.addEventListener('load', () => {
-            setTimeout(dispenseStrips, 500);
-        });
+        // Removed auto-dispense - user clicks "Print strip" button to dispense
     </script>
 </body>
 </html>
