@@ -51,9 +51,16 @@
         }
 
         .nav-brand {
-            font-weight: 600;
-            font-size: 1.1rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: 1.3rem;
             color: var(--charcoal);
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .nav-brand:hover {
+            opacity: 0.6;
         }
 
         .nav-links {
@@ -618,6 +625,28 @@
             }
         }
 
+        .skill-tooltip {
+            position: absolute;
+            background: linear-gradient(135deg, rgba(245, 164, 217, 0.95) 0%, rgba(117, 153, 230, 0.95) 50%, rgba(134, 125, 255, 0.95) 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            white-space: nowrap;
+            box-shadow: 0 8px 24px rgba(134, 125, 255, 0.4);
+            z-index: 10;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .skill-tooltip.visible {
+            opacity: 1;
+        }
+
         .multicolor-orb::before {
             content: '';
             position: absolute;
@@ -671,26 +700,26 @@
 
         .hero-greeting {
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
+            font-size: 3rem;
             font-weight: 400;
-            margin-bottom: 1rem;
+            margin-bottom: 0.25rem;
             color: var(--charcoal);
         }
 
         .hero-name {
             font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
+            font-size: 4rem;
             font-weight: 400;
             font-style: italic;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.25rem;
             color: var(--charcoal);
             line-height: 1.2;
         }
 
         .hero-title-wrapper {
             font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            margin-bottom: 2rem;
+            font-size: 3rem;
+            margin-bottom: 0.25rem;
             color: var(--charcoal);
             min-height: 60px;
         }
@@ -703,14 +732,26 @@
             font-weight: 400;
             display: inline-block;
             position: relative;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            transform-origin: center top;
+        }
+
+        .hero-title-rotating.rotating-out {
+            transform: rotateX(90deg);
+            opacity: 0;
+        }
+
+        .hero-title-rotating.rotating-in {
+            transform: rotateX(0deg);
+            opacity: 1;
         }
 
         .hero-subtitle {
             font-family: 'Playfair Display', serif;
-            font-size: 1.25rem;
+            font-size: 3rem;
             font-weight: 400;
             color: var(--charcoal);
-            margin-bottom: 1rem;
+            margin-bottom: 0.25rem;
         }
 
         .hero-arrow {
@@ -737,16 +778,14 @@
                 display: none;
             }
 
+            .hero-greeting,
+            .hero-title-wrapper,
+            .hero-subtitle {
+                font-size: 2rem;
+            }
+
             .hero-name {
                 font-size: 2.5rem;
-            }
-
-            .hero-title-wrapper {
-                font-size: 1.5rem;
-            }
-
-            .hero-subtitle {
-                font-size: 1rem;
             }
         }
 
@@ -782,7 +821,7 @@
 <body>
     <!-- Navigation -->
     <nav>
-        <div class="nav-brand">Chloe Wong | UX/UI Designer</div>
+        <a href="index.html" class="nav-brand">Chloe Wong</a>
         <ul class="nav-links">
             <li><a href="#work">WORK</a></li>
             <li><a href="#about">ABOUT</a></li>
@@ -794,9 +833,10 @@
         <section class="hero-section">
             <div class="spinning-ball"></div>
             <div class="multicolor-orb"></div>
+            <div class="skill-tooltip" id="skillTooltip">Figma</div>
             <div class="hero-content">
                 <p class="hero-greeting">Hi there!</p>
-                <h1 class="hero-name">I'm Chloe Wong,</h1>
+                <h1 class="hero-name">I'm Chloe Wong,</h1><b></strong>
                 <div class="hero-title-wrapper">
                     <span class="hero-title-static">a </span>
                     <span class="hero-title-rotating" id="rotatingTitle">ux/ui designer</span>
@@ -886,11 +926,12 @@
             {
                 title: "Trovr",
                 emoji: "🛍️",
-                image: "images/marketly.jpg",
+                video: "images/trovr-hero.mp4",
                 gradient: "linear-gradient(135deg, #fbcfe8 0%, #f9a8d4 100%)",
                 tags: ["Figma", "User Research", "UX/UI"],
                 description: "A student-based marketplace created in 36 hours with a user-centered approach. This project showcases rapid prototyping, user research, and collaborative design thinking to solve real problems for college students.",
-                details: "Led user research with 20+ students, created wireframes and high-fidelity mockups, and delivered a functional prototype in under 36 hours during a design sprint."
+                details: "Led user research with 20+ students, created wireframes and high-fidelity mockups, and delivered a functional prototype in under 36 hours during a design sprint.",
+                link: "trovr.html"
             },
             {
                 title: "Recube Dashboard",
@@ -946,7 +987,12 @@
 
             strip.innerHTML = `
                 <div class="strip-photo" style="background: ${project.gradient};">
-                    ${project.image
+                    ${project.video
+                        ? `<video autoplay loop muted playsinline style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
+                               <source src="${project.video}" type="video/mp4">
+                               ${project.emoji}
+                           </video>`
+                        : project.image
                         ? `<img src="${project.image}" alt="${project.title}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
                            <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;font-size:4rem;">${project.emoji}</div>`
                         : project.emoji}
@@ -1086,28 +1132,42 @@
         // Removed auto-dispense - user clicks "Print strip" button to dispense
 
         // Rotating title animation
-        const titles = ["ux/ui designer", "coder", "innovator"];
+        const titles = ["ux/ui designer", "novice programmer", "product enthusiast"];
         let currentIndex = 0;
         const rotatingTitle = document.getElementById('rotatingTitle');
 
         function rotateTitle() {
-            rotatingTitle.style.opacity = '0';
+            rotatingTitle.classList.add('rotating-out');
             setTimeout(() => {
                 currentIndex = (currentIndex + 1) % titles.length;
                 rotatingTitle.textContent = titles[currentIndex];
-                rotatingTitle.style.opacity = '1';
-            }, 300);
+                rotatingTitle.classList.remove('rotating-out');
+                rotatingTitle.classList.add('rotating-in');
+                setTimeout(() => {
+                    rotatingTitle.classList.remove('rotating-in');
+                }, 500);
+            }, 500);
         }
 
-        rotatingTitle.style.transition = 'opacity 0.3s ease';
         setInterval(rotateTitle, 2500);
 
-        // Interactive orb
+        // Interactive orb with skill showcase
         const orb = document.querySelector('.multicolor-orb');
         const heroSection = document.querySelector('.hero-section');
+        const skillTooltip = document.getElementById('skillTooltip');
         let orbTimeout;
 
-        // Mouse tracking
+        // Skills mapped to different areas of the orb (based on angle)
+        const skills = [
+            { name: "Figma", angle: 0 },
+            { name: "UI/UX Design", angle: 60 },
+            { name: "User Research", angle: 120 },
+            { name: "Prototyping", angle: 180 },
+            { name: "HTML/CSS", angle: 240 },
+            { name: "JavaScript", angle: 300 }
+        ];
+
+        // Mouse tracking with skill detection
         heroSection.addEventListener('mousemove', (e) => {
             const rect = heroSection.getBoundingClientRect();
             const x = e.clientX - rect.left;
@@ -1121,11 +1181,56 @@
             const offsetY = (y - centerY) * 0.05;
 
             orb.style.transform = `translate(${offsetX}px, calc(-50% + ${offsetY}px))`;
+
+            // Check if hovering over orb
+            const orbRect = orb.getBoundingClientRect();
+            const orbCenterX = orbRect.left + orbRect.width / 2;
+            const orbCenterY = orbRect.top + orbRect.height / 2;
+
+            const dx = e.clientX - orbCenterX;
+            const dy = e.clientY - orbCenterY;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < orbRect.width / 2) {
+                // Calculate angle from center
+                let angle = Math.atan2(dy, dx) * 180 / Math.PI;
+                if (angle < 0) angle += 360;
+
+                // Find closest skill based on angle
+                let closestSkill = skills[0];
+                let minDiff = Math.abs(angle - skills[0].angle);
+
+                for (let skill of skills) {
+                    let diff = Math.abs(angle - skill.angle);
+                    if (diff > 180) diff = 360 - diff;
+                    if (diff < minDiff) {
+                        minDiff = diff;
+                        closestSkill = skill;
+                    }
+                }
+
+                skillTooltip.textContent = closestSkill.name;
+
+                // Position tooltip within the orb (curved positioning)
+                const tooltipDistance = orbRect.width / 2 - 40; // Distance from orb center (inside)
+                const tooltipAngle = closestSkill.angle * Math.PI / 180;
+                const tooltipX = orbCenterX + Math.cos(tooltipAngle) * tooltipDistance;
+                const tooltipY = orbCenterY + Math.sin(tooltipAngle) * tooltipDistance;
+
+                skillTooltip.style.left = `${tooltipX}px`;
+                skillTooltip.style.top = `${tooltipY}px`;
+                skillTooltip.style.transform = 'translate(-50%, -50%)';
+
+                skillTooltip.classList.add('visible');
+            } else {
+                skillTooltip.classList.remove('visible');
+            }
         });
 
         // Reset position when mouse leaves
         heroSection.addEventListener('mouseleave', () => {
             orb.style.transform = 'translateY(-50%)';
+            skillTooltip.classList.remove('visible');
         });
 
         // Click interaction

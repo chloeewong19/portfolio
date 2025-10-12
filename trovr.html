@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trovr - Chloe Wong</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --charcoal: #171717;
+            --light-gray: #F4F2EF;
+            --white: #FFFFFF;
+            --mint: #DDF5EC;
+            --accent-purple: #a78bfa;
+            --accent-blue: #60a5fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--white);
+            color: var(--charcoal);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            line-height: 1.2;
+        }
+
+        /* Navigation */
+        nav {
+            padding: 30px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .nav-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: 1.3rem;
+            text-decoration: none;
+            color: var(--charcoal);
+        }
+
+        .nav-brand:hover {
+            opacity: 0.6;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 60px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 400;
+            margin-bottom: 60px;
+            max-width: 900px;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, #c4b5fd 0%, #a78bfa 50%, #60a5fa 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            margin-bottom: 60px;
+        }
+
+        /* Project Meta */
+        .project-meta {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            padding: 40px 0;
+            border-top: 1px solid #e5e5e5;
+            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: 80px;
+        }
+
+        .meta-item h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .meta-item p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .badge-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-top: 8px;
+        }
+
+        /* Content Section */
+        .content {
+            max-width: 900px;
+            margin: 0 auto 120px;
+            padding: 0 60px;
+        }
+
+        .section-header {
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            color: #888;
+        }
+
+        .section-header::before {
+            content: '[ ';
+        }
+
+        .section-header::after {
+            content: ' ]';
+        }
+
+        .content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .content strong {
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        .content ul {
+            margin: 20px 0 20px 30px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .content ul li {
+            margin-bottom: 12px;
+        }
+
+        /* Image Placeholder */
+        .project-image {
+            width: 100%;
+            height: 500px;
+            background: var(--light-gray);
+            border-radius: 12px;
+            margin: 60px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .project-image.large {
+            height: 600px;
+        }
+
+        .project-image-icon {
+            font-size: 5rem;
+            opacity: 0.5;
+        }
+
+        .project-image-caption {
+            font-size: 0.9rem;
+            color: #888;
+            font-style: italic;
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 60px 0;
+        }
+
+        .two-column .project-image {
+            height: 350px;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .feature-item {
+            padding: 30px;
+            background: var(--light-gray);
+            border-radius: 12px;
+        }
+
+        .feature-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .feature-item p {
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        /* Quote/Callout */
+        .callout {
+            background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+            padding: 40px;
+            border-radius: 12px;
+            margin: 60px 0;
+            border-left: 4px solid var(--accent-purple);
+        }
+
+        .callout p {
+            font-size: 1.3rem;
+            font-style: italic;
+            margin: 0;
+            color: var(--charcoal);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+            border-radius: 12px;
+            border: 2px solid #e9d5ff;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #7c3aed;
+            margin-bottom: 10px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        /* Persona Cards */
+        .persona-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .persona-card {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: 30px;
+        }
+
+        .persona-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .persona-card p {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        /* What I Learned Section */
+        .learnings {
+            background: var(--light-gray);
+            padding: 80px 60px;
+            margin-top: 120px;
+        }
+
+        .learnings-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Side Navigation */
+        .side-nav {
+            position: fixed;
+            left: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .side-nav-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .side-nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #d1d5db;
+            border: 2px solid #d1d5db;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .side-nav-item:hover .side-nav-dot {
+            background: #a78bfa;
+            border-color: #a78bfa;
+            transform: scale(1.3);
+        }
+
+        .side-nav-item.active .side-nav-dot {
+            background: #7c3aed;
+            border-color: #7c3aed;
+            transform: scale(1.5);
+        }
+
+        .side-nav-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .side-nav-item:hover .side-nav-label {
+            color: #7c3aed;
+        }
+
+        .side-nav-item.active .side-nav-label {
+            color: var(--charcoal);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px;
+            text-align: center;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .footer-nav a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .footer-nav a:hover {
+            opacity: 0.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav, .hero, .content, .learnings {
+                padding-left: 30px;
+                padding-right: 30px;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .project-meta {
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+
+            .two-column, .feature-grid, .persona-grid, .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 20px;
+                font-size: 0.9rem;
+            }
+
+            .content h2 {
+                font-size: 2rem;
+            }
+
+            .side-nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="nav-brand">Chloe Wong</a>
+        <ul class="nav-links">
+            <li><a href="index.html">WORK</a></li>
+            <li><a href="index.html#about">ABOUT</a></li>
+        </ul>
+    </nav>
+
+    <!-- Side Navigation -->
+    <div class="side-nav">
+        <div class="side-nav-item" data-section="overview">
+            <span class="side-nav-label">Overview</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="research">
+            <span class="side-nav-label">Research</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="solution">
+            <span class="side-nav-label">Solution</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="process">
+            <span class="side-nav-label">Design Process</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="prototype">
+            <span class="side-nav-label">Prototype</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="next">
+            <span class="side-nav-label">What's Next</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="learned">
+            <span class="side-nav-label">What I Learned</span>
+            <div class="side-nav-dot"></div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1 class="hero-title">Building Community Through Campus Commerce</h1>
+        <div class="hero-image">
+            <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                <source src="images/trovr-hero.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <!-- Project Meta -->
+        <div class="project-meta">
+            <div class="meta-item">
+                <h3>Role</h3>
+                <p>UI/UX Designer<br>Branding</p>
+            </div>
+            <div class="meta-item">
+                <h3>Timeline</h3>
+                <p>36 hours<br>November 2024</p>
+            </div>
+            <div class="meta-item">
+                <h3>Team</h3>
+                <p>4 members<br>Tufts Producthon</p>
+            </div>
+            <div class="meta-item">
+                <h3>Status</h3>
+                <p>Now a Startup<br>🥈 2nd Place Winner</p>
+                <div class="badge-tag">✨ Trovr</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overview Section -->
+    <section id="overview" class="content">
+        <div class="section-header">Overview</div>
+        <h2>From hackathon prototype to startup reality</h2>
+        <p>
+            Trovr (formerly Marketly) is a campus-based marketplace app that enables university students
+            to share resources, offer services, and build community. Originally designed during a 36-hour
+            hackathon at Tufts Producthon (where it won 2nd place), Trovr has since been rebranded and is now launching as a startup.
+        </p>
+        <p>
+            As the UI/UX designer and brand lead, I designed the original Marketly prototype in Figma during
+            the hackathon, then later used Lovable for rapid prototyping when rebranding to Trovr. I also
+            conducted user research with 25+ college students and crafted a visual identity that
+            balances trust, accessibility, and campus culture. The project demonstrates how rapid
+            prototyping and user-centered design can quickly validate real market needs.
+        </p>
+
+        <div style="margin: 60px auto; max-width: 525px;">
+            <div style="position: relative; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); overflow: hidden;">
+                <video controls style="width: 100%; height: auto; display: block;">
+                    <source src="images/trovr - original demo.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <p style="text-align: center; font-size: 0.95rem; color: #888; font-style: italic; margin-top: 20px;">
+                Original Marketly prototype demo from Tufts Producthon
+            </p>
+        </div>
+    </section>
+
+    <!-- Research Section -->
+    <section id="research" class="content">
+        <div class="section-header">User Research</div>
+        <h2>Data-driven insights from 25 college students</h2>
+        <p>
+            We surveyed 25 college students across multiple universities to understand their resource-sharing
+            behaviors, pain points, and needs. The results validated our hypothesis and revealed specific
+            opportunities for design intervention.
+        </p>
+
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">68%</div>
+                <div class="stat-label">Struggle finding affordable second-hand materials</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">72%</div>
+                <div class="stat-label">Want to offer or receive student services</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">33%</div>
+                <div class="stat-label">Waste supplies annually</div>
+            </div>
+        </div>
+
+        <p>
+            <strong>Key Insights:</strong>
+        </p>
+        <ul>
+            <li>Students prefer buying from peers they can trust and verify through campus affiliation</li>
+            <li>Convenience matters—students want transactions to happen on campus or in dorms</li>
+            <li>Beyond physical goods, students are eager to exchange skills and services (tutoring, design, coding)</li>
+            <li>Safety and trust are paramount—students need reputation systems and verified profiles</li>
+        </ul>
+
+        <div class="callout">
+            <p>
+                "I've bought textbooks on Facebook Marketplace, but meeting random people off-campus
+                feels unsafe. I wish there was a way to only see listings from verified students."
+            </p>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solution" class="content">
+        <div class="section-header">The Solution</div>
+        <h2>A trusted, campus-exclusive marketplace built for students</h2>
+
+        <div class="callout">
+            <p>
+                "Trovr creates a safe space for campus commerce—where every transaction is backed by
+                community trust, verified identities, and peer connections."
+            </p>
+        </div>
+
+        <p>
+            Trovr combines marketplace functionality with community-building features, enabling students
+            to buy, sell, and exchange services within their verified campus network. The platform emphasizes
+            trust through campus verification, reputation systems, and in-person meetup coordination.
+        </p>
+
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h3>🛍️ Resource Sharing</h3>
+                <p>Buy and sell textbooks, furniture, electronics, and more within your campus community</p>
+            </div>
+            <div class="feature-item">
+                <h3>💼 Peer Services</h3>
+                <p>Offer and request student services like tutoring, design work, coding help, and more</p>
+            </div>
+            <div class="feature-item">
+                <h3>🔒 Safety & Trust</h3>
+                <p>Campus verification, user ratings, and secure in-app messaging ensure safe transactions</p>
+            </div>
+            <div class="feature-item">
+                <h3>🎓 Campus Community</h3>
+                <p>Connect with peers, build reputation, and foster sustainable resource sharing</p>
+            </div>
+        </div>
+
+        <div class="project-image large">
+            <img src="images/trovr-features.png" alt="Trovr Key Features" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">
+        </div>
+        <p style="text-align: center; font-size: 0.95rem; color: #888; font-style: italic; margin-top: -40px;">
+            Core features addressing student pain points
+        </p>
+    </section>
+
+    <!-- Design Process Section -->
+    <section id="process" class="content">
+        <div class="section-header">Design Process</div>
+        <h2>Rapid prototyping from wireframes to high-fidelity designs</h2>
+
+        <p>
+            <strong>Low-Fidelity Wireframes:</strong> I started by sketching core user flows for browsing
+            listings, creating posts, and messaging sellers. These wireframes helped the team align on
+            information architecture and key interactions before diving into visual design.
+        </p>
+
+        <div class="project-image">
+            <img src="images/trovr-wireframes.png" alt="Low-Fidelity Wireframes" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">
+        </div>
+        <p style="text-align: center; font-size: 0.95rem; color: #888; font-style: italic; margin-top: -40px;">
+            Early wireframes mapping out user flows and information hierarchy
+        </p>
+
+        <div class="project-image">
+            <img src="images/trovr-signup.png" alt="Trovr Signup Flow" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">
+        </div>
+        <p style="text-align: center; font-size: 0.95rem; color: #888; font-style: italic; margin-top: -40px;">
+            User onboarding and signup experience
+        </p>
+
+        <p>
+            <strong>High-Fidelity Designs in Figma:</strong> During the hackathon, I created high-fidelity
+            mockups in Figma to establish the visual direction and core user flows. This allowed our development
+            team to build the functional prototype within the 36-hour timeline.
+        </p>
+
+        <p>
+            <strong>Prototyping with Lovable:</strong> After the hackathon when rebranding to Trovr, I used Lovable
+            to rapidly prototype new features and iterations. Lovable's AI-powered design tools allowed me to translate
+            ideas into interactive prototypes quickly, enabling faster iteration as we evolved into a startup.
+        </p>
+
+        <p>
+            <strong>Visual Design System:</strong> I created a cohesive design system featuring:
+        </p>
+        <ul>
+            <li><strong>Color Palette:</strong> Purple and blue gradients conveying trust, creativity, and community</li>
+            <li><strong>Typography:</strong> Clean, readable sans-serif fonts optimized for mobile readability</li>
+            <li><strong>Iconography:</strong> Friendly, approachable icons representing campus life and commerce</li>
+            <li><strong>Component Library:</strong> Reusable cards, buttons, and input fields ensuring consistency</li>
+        </ul>
+
+        <div class="project-image">
+            <img src="images/trovr-features.png" alt="Trovr Key Features" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">
+        </div>
+        <p style="text-align: center; font-size: 0.95rem; color: #888; font-style: italic; margin-top: -40px;">
+            Core feature set and functionality
+        </p>
+
+        <p>
+            <strong>Rebranding from Marketly to Trovr:</strong> As the project evolved into a startup,
+            we rebranded to Trovr—a name that evokes discovery, treasure-hunting, and finding hidden gems
+            on campus. The new identity maintains our core values while feeling more dynamic and memorable.
+        </p>
+    </section>
+
+    <!-- Prototype Section -->
+    <section id="prototype" class="content">
+        <div class="section-header">Final Prototype</div>
+        <h2>An intuitive, community-driven marketplace experience</h2>
+
+        <p>
+            The final Trovr prototype showcases seamless user flows for browsing listings, posting items,
+            and coordinating safe meetups. The interface prioritizes clarity, trust signals, and mobile-first
+            interactions—ensuring students can quickly find what they need or list what they have.
+        </p>
+
+        <div class="project-image large">
+            <img src="images/trovr-mockup browse.png" alt="Browse Listings Interface" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">
+        </div>
+        <p style="text-align: center; font-size: 0.95rem; color: #888; font-style: italic; margin-top: -40px;">
+            Browsing and filtering marketplace listings
+        </p>
+
+        <p>
+            <strong>Key Interaction Highlights:</strong>
+        </p>
+        <ul>
+            <li>Intuitive category browsing with visual icons and filters</li>
+            <li>Trust indicators showing verified campus status and user ratings</li>
+            <li>In-app messaging with safety reminders for in-person meetups</li>
+            <li>Quick-post flow enabling users to list items in under 2 minutes</li>
+        </ul>
+    </section>
+
+    <!-- What's Next Section -->
+    <section id="next" class="content">
+        <div class="section-header">What's Next</div>
+        <h2>Scaling from hackathon to startup</h2>
+
+        <p>
+            Trovr is transitioning from prototype to production-ready platform. The team is focused on
+            user acquisition, feature expansion, and building partnerships with university administrations
+            to drive adoption.
+        </p>
+
+        <p>
+            <strong>Upcoming Features:</strong>
+        </p>
+        <ul>
+            <li><strong>Gamification:</strong> Reward points and badges for active community participation</li>
+            <li><strong>AI Matching:</strong> Intelligent recommendations matching student needs with available resources</li>
+            <li><strong>Pilot Testing:</strong> Launch at Tufts University and expand to partner campuses</li>
+            <li><strong>Advanced Trust Features:</strong> Enhanced verification, dispute resolution, and reputation systems</li>
+        </ul>
+
+        <div class="callout">
+            <p>
+                "Great design isn't about perfection—it's about clarity, connection, and delivering just
+                enough to spark real change."
+            </p>
+        </div>
+
+        <p>
+            Long-term, Trovr aims to become the default resource-sharing platform for college students
+            nationwide, fostering sustainability, community, and affordability across campuses.
+        </p>
+    </section>
+
+    <!-- What I Learned Section -->
+    <section id="learned" class="learnings">
+        <div class="learnings-content">
+            <div class="section-header">What I Learned</div>
+            <h2>Key takeaways from building Trovr</h2>
+
+            <p>
+                <strong>Rapid prototyping accelerates validation:</strong> Using Lovable to quickly translate
+                ideas into interactive prototypes allowed us to test assumptions and iterate in real-time.
+                Speed matters when you're validating product-market fit.
+            </p>
+
+            <p>
+                <strong>User research drives design decisions:</strong> Conducting surveys early revealed
+                critical insights we wouldn't have guessed—like the 72% of students wanting peer services,
+                not just physical goods. Always start with research.
+            </p>
+
+            <p>
+                <strong>Trust is designed, not assumed:</strong> For campus marketplaces, trust mechanisms
+                (verification, ratings, safety features) aren't optional—they're the foundation. Every design
+                decision should reinforce trustworthiness.
+            </p>
+
+            <p>
+                <strong>Branding tells your story:</strong> Rebranding from Marketly to Trovr gave the product
+                a stronger identity and narrative. A memorable name and visual system help users emotionally
+                connect with your mission.
+            </p>
+
+            <p>
+                <strong>Hackathons validate ideas, startups require execution:</strong> Winning a hackathon
+                proved the concept had potential, but building a real startup demands user acquisition,
+                technical scalability, and sustained iteration.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p style="font-size: 1.1rem; margin-bottom: 10px;">Want to learn more about this project?</p>
+        <p style="color: #666;">Let's connect</p>
+        <div class="footer-nav">
+            <a href="index.html">← Back to Portfolio</a>
+            <a href="mailto:hello@chloewong.com">Email</a>
+            <a href="https://linkedin.com/in/chloewong" target="_blank">LinkedIn</a>
+        </div>
+    </footer>
+
+    <script>
+        // Side navigation scroll detection
+        const sections = document.querySelectorAll('section[id]');
+        const navItems = document.querySelectorAll('.side-nav-item');
+
+        // Intersection Observer for scroll detection
+        const observerOptions = {
+            root: null,
+            rootMargin: '-20% 0px -70% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionId = entry.target.id;
+
+                    // Remove active class from all nav items
+                    navItems.forEach(item => item.classList.remove('active'));
+
+                    // Add active class to corresponding nav item
+                    const activeNavItem = document.querySelector(`.side-nav-item[data-section="${sectionId}"]`);
+                    if (activeNavItem) {
+                        activeNavItem.classList.add('active');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Click navigation
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const sectionId = item.getAttribute('data-section');
+                const section = document.getElementById(sectionId);
+
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
