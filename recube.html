@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recube Dashboard - Chloe Wong</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --charcoal: #171717;
+            --light-gray: #F4F2EF;
+            --white: #FFFFFF;
+            --mint: #DDF5EC;
+            --accent-green: #10b981;
+            --accent-teal: #14b8a6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--white);
+            color: var(--charcoal);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            line-height: 1.2;
+        }
+
+        /* Navigation */
+        nav {
+            padding: 30px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .nav-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: 1.3rem;
+            text-decoration: none;
+            color: var(--charcoal);
+        }
+
+        .nav-brand:hover {
+            opacity: 0.6;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 60px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 400;
+            margin-bottom: 60px;
+            max-width: 900px;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, #6ee7b7 0%, #10b981 50%, #14b8a6 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            margin-bottom: 60px;
+        }
+
+        /* Project Meta */
+        .project-meta {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            padding: 40px 0;
+            border-top: 1px solid #e5e5e5;
+            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: 80px;
+        }
+
+        .meta-item h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .meta-item p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .badge-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #10b981, #14b8a6);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-top: 8px;
+        }
+
+        /* Content Section */
+        .content {
+            max-width: 900px;
+            margin: 0 auto 120px;
+            padding: 0 60px;
+        }
+
+        .section-header {
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            color: #888;
+        }
+
+        .section-header::before {
+            content: '[ ';
+        }
+
+        .section-header::after {
+            content: ' ]';
+        }
+
+        .content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .content strong {
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        .content ul {
+            margin: 20px 0 20px 30px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .content ul li {
+            margin-bottom: 12px;
+        }
+
+        /* Image Placeholder */
+        .project-image {
+            width: 100%;
+            height: 500px;
+            background: var(--light-gray);
+            border-radius: 12px;
+            margin: 60px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .project-image.large {
+            height: 600px;
+        }
+
+        .project-image-icon {
+            font-size: 5rem;
+            opacity: 0.5;
+        }
+
+        .project-image-caption {
+            font-size: 0.9rem;
+            color: #888;
+            font-style: italic;
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 60px 0;
+        }
+
+        .two-column .project-image {
+            height: 350px;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .feature-item {
+            padding: 30px;
+            background: var(--light-gray);
+            border-radius: 12px;
+        }
+
+        .feature-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .feature-item p {
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        /* Quote/Callout */
+        .callout {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            padding: 40px;
+            border-radius: 12px;
+            margin: 60px 0;
+            border-left: 4px solid var(--accent-green);
+        }
+
+        .callout p {
+            font-size: 1.3rem;
+            font-style: italic;
+            margin: 0;
+            color: var(--charcoal);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border-radius: 12px;
+            border: 2px solid #6ee7b7;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #059669;
+            margin-bottom: 10px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        /* What I Learned Section */
+        .learnings {
+            background: var(--light-gray);
+            padding: 80px 60px;
+            margin-top: 120px;
+        }
+
+        .learnings-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Side Navigation */
+        .side-nav {
+            position: fixed;
+            left: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .side-nav-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .side-nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #d1d5db;
+            border: 2px solid #d1d5db;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .side-nav-item:hover .side-nav-dot {
+            background: #10b981;
+            border-color: #10b981;
+            transform: scale(1.3);
+        }
+
+        .side-nav-item.active .side-nav-dot {
+            background: #059669;
+            border-color: #059669;
+            transform: scale(1.5);
+        }
+
+        .side-nav-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .side-nav-item:hover .side-nav-label {
+            color: #059669;
+        }
+
+        .side-nav-item.active .side-nav-label {
+            color: var(--charcoal);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px;
+            text-align: center;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .footer-nav a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .footer-nav a:hover {
+            opacity: 0.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav, .hero, .content, .learnings {
+                padding-left: 30px;
+                padding-right: 30px;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .project-meta {
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+
+            .two-column, .feature-grid, .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 20px;
+                font-size: 0.9rem;
+            }
+
+            .content h2 {
+                font-size: 2rem;
+            }
+
+            .side-nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="nav-brand">Chloe Wong</a>
+        <ul class="nav-links">
+            <li><a href="index.html">WORK</a></li>
+            <li><a href="index.html#about">ABOUT</a></li>
+        </ul>
+    </nav>
+
+    <!-- Side Navigation -->
+    <div class="side-nav">
+        <div class="side-nav-item" data-section="overview">
+            <span class="side-nav-label">Overview</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="problem">
+            <span class="side-nav-label">Problem</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="research">
+            <span class="side-nav-label">Research</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="solution">
+            <span class="side-nav-label">Solution</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="process">
+            <span class="side-nav-label">Design Process</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="impact">
+            <span class="side-nav-label">Impact</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="learned">
+            <span class="side-nav-label">What I Learned</span>
+            <div class="side-nav-dot"></div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1 class="hero-title">Designing Data-Driven Sustainability for Reusable Packaging</h1>
+        <div class="hero-image">
+            <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                <source src="images/recube-hero.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <!-- Project Meta -->
+        <div class="project-meta">
+            <div class="meta-item">
+                <h3>Role</h3>
+                <p>UX/UI Designer<br>Frontend Designer</p>
+            </div>
+            <div class="meta-item">
+                <h3>Timeline</h3>
+                <p>1 month<br>2024</p>
+            </div>
+            <div class="meta-item">
+                <h3>Tools</h3>
+                <p>Figma, Jira</p>
+            </div>
+            <div class="meta-item">
+                <h3>Focus</h3>
+                <p>Analytics Dashboard<br>Search & Filtering</p>
+                <div class="badge-tag">♻️ Sustainability</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overview Section -->
+    <section id="overview" class="content">
+        <div class="section-header">Overview</div>
+        <h2>Empowering sustainable decisions through real-time data</h2>
+        <p>
+            Recube is a reusable packaging platform that partners with restaurants and malls to reduce single-use waste. As the sole UX and frontend designer, I designed and implemented a real-time analytics dashboard that gave 50+ restaurant partners visibility into their inventory reuse and waste reduction metrics.
+        </p>
+        <p>
+            My work focused on transforming complex logistics data into actionable insights, enabling restaurant managers and mall operators to make data-driven decisions about inventory management, sustainability impact, and operational efficiency.
+        </p>
+
+        <div class="callout">
+            <p>
+                "Great design isn't just about making things beautiful—it's about making complex data accessible and actionable for the people who need it most."
+            </p>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem" class="content">
+        <div class="section-header">The Problem</div>
+        <h2>Partners lacked visibility into their sustainability impact</h2>
+        <p>
+            Before the dashboard redesign, restaurant partners and mall managers struggled to understand their role in Recube's circular packaging system. Key pain points included:
+        </p>
+
+        <ul>
+            <li><strong>No real-time visibility:</strong> Partners couldn't track how many containers were in circulation or when they needed restocking</li>
+            <li><strong>Limited impact metrics:</strong> Restaurant managers had no way to quantify their environmental impact or share sustainability achievements with customers</li>
+            <li><strong>Inefficient search and filtering:</strong> Finding specific data points required manual effort and custom reports</li>
+            <li><strong>Poor user experience:</strong> The existing interface was cluttered, outdated, and didn't match the needs of non-technical users</li>
+        </ul>
+
+        <div class="project-image">
+            <img src="images/recube-before.png" alt="Old Dashboard Interface" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">
+        </div>
+        <p style="text-align: center; font-size: 0.95rem; color: #888; font-style: italic; margin-top: -40px;">
+            Previous dashboard interface lacked clarity and real-time data
+        </p>
+    </section>
+
+    <!-- Research Section -->
+    <section id="research" class="content">
+        <div class="section-header">Research & Discovery</div>
+        <h2>Understanding partner needs through stakeholder interviews</h2>
+        <p>
+            I led 4+ stakeholder interviews with restaurant managers, mall operators, and Recube's internal operations team to identify pain points and unmet needs. This qualitative research revealed key insights:
+        </p>
+
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">4+</div>
+                <div class="stat-label">Stakeholder interviews conducted</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Restaurant partners served</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">~40%</div>
+                <div class="stat-label">Reduction in user friction</div>
+            </div>
+        </div>
+
+        <p>
+            <strong>Key Findings:</strong>
+        </p>
+        <ul>
+            <li>Restaurant managers wanted to see <strong>environmental impact metrics</strong> they could share with customers</li>
+            <li>Mall managers needed <strong>real-time inventory alerts</strong> to prevent stockouts during peak hours</li>
+            <li>Both groups struggled with the <strong>return journey UX</strong>—users didn't know where or how to return containers</li>
+            <li>Partners wanted <strong>customizable views</strong> to focus on metrics relevant to their specific operations</li>
+        </ul>
+
+        <div class="callout">
+            <p>
+                "I need to know at a glance if we're running low on containers—I don't have time to dig through reports during lunch rush."
+            </p>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solution" class="content">
+        <div class="section-header">The Solution</div>
+        <h2>A real-time analytics dashboard built for action</h2>
+
+        <p>
+            I designed a clean, data-focused dashboard that prioritized real-time visibility, environmental impact metrics, and efficient search/filtering. The solution balanced technical requirements with partner needs, ensuring both restaurant managers and mall operators could access the data they needed without friction.
+        </p>
+
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h3>📊 Real-Time Analytics</h3>
+                <p>Live inventory tracking showing containers in circulation, available stock, and return rates</p>
+            </div>
+            <div class="feature-item">
+                <h3>🌱 Impact Metrics</h3>
+                <p>Quantified environmental impact including waste diverted, CO2 saved, and sustainability scores</p>
+            </div>
+            <div class="feature-item">
+                <h3>🔍 Advanced Search</h3>
+                <p>Robust filtering and search functionality to quickly find specific data points and trends</p>
+            </div>
+            <div class="feature-item">
+                <h3>⚡ Smart Alerts</h3>
+                <p>Automated notifications for low inventory, high return rates, and operational anomalies</p>
+            </div>
+        </div>
+
+        <div class="project-image large">
+            <img src="images/recube-dashboard-overview.png" alt="Dashboard Overview" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">
+        </div>
+        <p style="text-align: center; font-size: 0.95rem; color: #888; font-style: italic; margin-top: -40px;">
+            Dashboard overview showing real-time metrics and impact data
+        </p>
+    </section>
+
+    <!-- Design Process Section -->
+    <section id="process" class="content">
+        <div class="section-header">Design Process</div>
+        <h2>From user research to high-fidelity prototypes</h2>
+
+        <p>
+            <strong>1. User Research & Stakeholder Interviews:</strong> I conducted interviews with restaurant managers, mall operators, and Recube's operations team to understand their workflows, pain points, and data needs. This informed my information architecture and feature prioritization.
+        </p>
+
+        <p>
+            <strong>2. Information Architecture & Wireframes:</strong> I mapped out the dashboard's structure, prioritizing metrics based on user feedback. Low-fidelity wireframes helped validate the layout and interaction patterns with stakeholders before committing to visual design.
+        </p>
+
+        <div class="project-image">
+            <img src="images/recube-wireframes.png" alt="Dashboard Wireframes" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">
+        </div>
+        <p style="text-align: center; font-size: 0.95rem; color: #888; font-style: italic; margin-top: -40px;">
+            Early wireframes defining dashboard layout and hierarchy
+        </p>
+
+        <p>
+            <strong>3. High-Fidelity Design in Figma:</strong> I designed the visual interface in Figma, focusing on clarity, accessibility, and on-brand aesthetics. The green color palette reinforced Recube's sustainability mission while maintaining readability.
+        </p>
+
+        <div class="two-column">
+            <div>
+                <div class="project-image">
+                    <img src="images/recube-search.png" alt="Search Interface 1" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">
+                </div>
+                <p style="text-align: center; font-size: 0.95rem; color: #888; font-style: italic; margin-top: -40px;">
+                    Advanced search functionality
+                </p>
+            </div>
+            <div>
+                <div class="project-image">
+                    <img src="images/recube-search-empty.png" alt="Search Empty State" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">
+                </div>
+                <p style="text-align: center; font-size: 0.95rem; color: #888; font-style: italic; margin-top: -40px;">
+                    Empty state and search prompts
+                </p>
+            </div>
+        </div>
+
+        <p>
+            <strong>4. Agile Development & QA Testing:</strong> I collaborated with developers during sprint planning to ensure designs were technically feasible. I also led QA testing sessions to identify usability issues before launch, ensuring equitable experiences across different user roles.
+        </p>
+
+        <p>
+            Throughout the design process, I established a lightweight design system to maintain consistency:
+        </p>
+        <ul>
+            <li><strong>Color Palette:</strong> Green gradients reinforcing sustainability, with high-contrast text for accessibility</li>
+            <li><strong>Typography:</strong> Clear hierarchy using Plus Jakarta Sans for readability across data tables</li>
+            <li><strong>Iconography:</strong> Intuitive icons representing inventory, returns, and environmental impact</li>
+            <li><strong>Data Visualization:</strong> Clean charts and graphs using accessible colors and clear legends</li>
+        </ul>
+    </section>
+
+    <!-- Impact Section -->
+    <section id="impact" class="content">
+        <div class="section-header">Impact & Results</div>
+        <h2>Measurable improvements in user experience and efficiency</h2>
+
+        <p>
+            The redesigned dashboard delivered tangible improvements for both Recube partners and the internal operations team:
+        </p>
+
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">~40%</div>
+                <div class="stat-label">Reduction in user friction</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Restaurant partners empowered</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Real-time data visibility</div>
+            </div>
+        </div>
+
+        <p>
+            <strong>Key Outcomes:</strong>
+        </p>
+        <ul>
+            <li>Restaurant managers could now <strong>quantify and share their environmental impact</strong> with customers</li>
+            <li>Mall operators received <strong>automated alerts</strong> preventing inventory stockouts during peak hours</li>
+            <li>The improved return journey UX reduced <strong>customer confusion by ~40%</strong></li>
+            <li>Recube's operations team could <strong>monitor system health</strong> and identify inefficiencies faster</li>
+        </ul>
+
+        <div class="callout">
+            <p>
+                "The new dashboard transformed how I run my restaurant's sustainability program. Now I can show customers exactly how many meals we've saved from waste."
+            </p>
+        </div>
+    </section>
+
+    <!-- What I Learned Section -->
+    <section id="learned" class="learnings">
+        <div class="learnings-content">
+            <div class="section-header">What I Learned</div>
+            <h2>Key takeaways from designing for sustainability</h2>
+
+            <p>
+                <strong>Stakeholder alignment is critical for complex systems:</strong> I learned that conducting thorough stakeholder interviews early prevented scope creep and ensured the final design addressed real pain points. Translating qualitative insights into a prioritized roadmap required balancing competing needs.
+            </p>
+
+            <p>
+                <strong>Data design requires empathy:</strong> Designing for non-technical users meant simplifying complex logistics data without losing important nuance. I learned to prioritize clarity over comprehensiveness, showing only the metrics that drove action.
+            </p>
+
+            <p>
+                <strong>Real-time systems need thoughtful UX:</strong> Live data introduces unique challenges—like handling loading states, error messages, and data refresh patterns. I learned to design for edge cases like slow connections and incomplete data.
+            </p>
+
+            <p>
+                <strong>Sustainability design tells a story:</strong> Environmental impact metrics aren't just numbers—they're powerful narratives that motivate behavior change. I learned to frame data in ways that resonated emotionally with restaurant managers and customers alike.
+            </p>
+
+            <p>
+                <strong>Agile collaboration accelerates iteration:</strong> Working closely with developers during sprint planning helped me understand technical constraints early, reducing back-and-forth and enabling faster implementation. QA testing sessions revealed usability gaps I wouldn't have caught in design reviews alone.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p style="font-size: 1.1rem; margin-bottom: 10px;">Want to learn more about this project?</p>
+        <p style="color: #666;">Let's connect</p>
+        <div class="footer-nav">
+            <a href="index.html">← Back to Portfolio</a>
+            <a href="mailto:hello@chloewong.com">Email</a>
+            <a href="https://linkedin.com/in/chloewong" target="_blank">LinkedIn</a>
+        </div>
+    </footer>
+
+    <script>
+        // Side navigation scroll detection
+        const sections = document.querySelectorAll('section[id]');
+        const navItems = document.querySelectorAll('.side-nav-item');
+
+        // Intersection Observer for scroll detection
+        const observerOptions = {
+            root: null,
+            rootMargin: '-20% 0px -70% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionId = entry.target.id;
+
+                    // Remove active class from all nav items
+                    navItems.forEach(item => item.classList.remove('active'));
+
+                    // Add active class to corresponding nav item
+                    const activeNavItem = document.querySelector(`.side-nav-item[data-section="${sectionId}"]`);
+                    if (activeNavItem) {
+                        activeNavItem.classList.add('active');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Click navigation
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const sectionId = item.getAttribute('data-section');
+                const section = document.getElementById(sectionId);
+
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
