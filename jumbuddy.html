@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jumbuddy - Chloe Wong</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --charcoal: #171717;
+            --light-gray: #F4F2EF;
+            --white: #FFFFFF;
+            --mint: #DDF5EC;
+            --accent-blue: #60a5fa;
+            --accent-purple: #a78bfa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--white);
+            color: var(--charcoal);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            line-height: 1.2;
+        }
+
+        /* Navigation */
+        nav {
+            padding: 30px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .nav-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: 1.3rem;
+            text-decoration: none;
+            color: var(--charcoal);
+        }
+
+        .nav-brand:hover {
+            opacity: 0.6;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 60px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 400;
+            margin-bottom: 60px;
+            max-width: 900px;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, #bfdbfe 0%, #93c5fd 50%, #60a5fa 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            margin-bottom: 60px;
+        }
+
+        /* Project Meta */
+        .project-meta {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            padding: 40px 0;
+            border-top: 1px solid #e5e5e5;
+            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: 80px;
+        }
+
+        .meta-item h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .meta-item p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .badge-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-top: 8px;
+        }
+
+        /* Content Section */
+        .content {
+            max-width: 900px;
+            margin: 0 auto 120px;
+            padding: 0 60px;
+        }
+
+        .section-header {
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            color: #888;
+        }
+
+        .section-header::before {
+            content: '[ ';
+        }
+
+        .section-header::after {
+            content: ' ]';
+        }
+
+        .content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .content h3 {
+            font-size: 1.8rem;
+            margin: 40px 0 20px;
+            font-weight: 400;
+        }
+
+        .content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .content strong {
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        .content ul {
+            margin: 20px 0 20px 30px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .content ul li {
+            margin-bottom: 12px;
+        }
+
+        /* Image Placeholder */
+        .project-image {
+            width: 100%;
+            height: 500px;
+            background: var(--light-gray);
+            border-radius: 12px;
+            margin: 60px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .project-image.large {
+            height: 600px;
+        }
+
+        .project-image-icon {
+            font-size: 5rem;
+            opacity: 0.5;
+        }
+
+        .project-image-caption {
+            font-size: 0.9rem;
+            color: #888;
+            font-style: italic;
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 60px 0;
+        }
+
+        .two-column .project-image {
+            height: 350px;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .feature-item {
+            padding: 30px;
+            background: var(--light-gray);
+            border-radius: 12px;
+        }
+
+        .feature-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .feature-item p {
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        /* Quote/Callout */
+        .callout {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            padding: 40px;
+            border-radius: 12px;
+            margin: 60px 0;
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        .callout p {
+            font-size: 1.3rem;
+            font-style: italic;
+            margin: 0;
+            color: var(--charcoal);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-radius: 12px;
+            border: 2px solid #93c5fd;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #2563eb;
+            margin-bottom: 10px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        /* Number Badge */
+        .number-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        /* What I Learned Section */
+        .learnings {
+            background: var(--light-gray);
+            padding: 80px 60px;
+            margin-top: 120px;
+        }
+
+        .learnings-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Side Navigation */
+        .side-nav {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .side-nav-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .side-nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #d1d5db;
+            border: 2px solid #d1d5db;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .side-nav-item:hover .side-nav-dot {
+            background: #60a5fa;
+            border-color: #60a5fa;
+            transform: scale(1.2);
+        }
+
+        .side-nav-item.active .side-nav-dot {
+            background: #2563eb;
+            border-color: #2563eb;
+            transform: scale(1.3);
+        }
+
+        .side-nav-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .side-nav-item:hover .side-nav-label {
+            color: #2563eb;
+        }
+
+        .side-nav-item.active .side-nav-label {
+            color: var(--charcoal);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px;
+            text-align: center;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .footer-nav a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .footer-nav a:hover {
+            opacity: 0.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav, .hero, .content, .learnings {
+                padding-left: 30px;
+                padding-right: 30px;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .project-meta {
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+
+            .two-column, .feature-grid, .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 20px;
+                font-size: 0.9rem;
+            }
+
+            .content h2 {
+                font-size: 2rem;
+            }
+
+            .side-nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="nav-brand">Chloe Wong</a>
+        <ul class="nav-links">
+            <li><a href="index.html">WORK</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+        </ul>
+    </nav>
+
+    <!-- Side Navigation -->
+    <div class="side-nav">
+        <div class="side-nav-item" data-section="overview">
+            <span class="side-nav-label">Overview</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="problem">
+            <span class="side-nav-label">The Problem</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="research">
+            <span class="side-nav-label">Discovery & Research</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="design">
+            <span class="side-nav-label">Design Thinking</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="prototype">
+            <span class="side-nav-label">Prototype & MVP</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="learned">
+            <span class="side-nav-label">What I Learned</span>
+            <div class="side-nav-dot"></div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1 class="hero-title">Building Micro-Communities Through Casual Campus Connections</h1>
+        <div class="hero-image">
+            <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                <source src="images/jumbuddy-hero.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <!-- Project Meta -->
+        <div class="project-meta">
+            <div class="meta-item">
+                <h3>Role</h3>
+                <p>UX/UI Developer</p>
+            </div>
+            <div class="meta-item">
+                <h3>Timeline</h3>
+                <p>48 hours<br>Tufts Jumbohack</p>
+            </div>
+            <div class="meta-item">
+                <h3>Team</h3>
+                <p>UX research<br>End-to-end design</p>
+            </div>
+            <div class="meta-item">
+                <h3>Focus</h3>
+                <p>Feature mapping<br>Dev handoff</p>
+                <div class="badge-tag">🎓 Campus Social</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overview Section -->
+    <section id="overview" class="content">
+        <div class="section-header">Overview</div>
+        <h2>Jumbuddy</h2>
+        <p>
+            Jumbuddy is a hyper-local social platform that helps students discover campus events, connect through shared interests, and casually join or post activities. It's designed to help students build micro-communities by making it easy and low pressure to find a "buddy"—for anything from late-night studying to spontaneous hot pot nights.
+        </p>
+        <p>
+            As the <strong>UX/UI developer</strong>, I led UX research, end-to-end interface design, feature mapping, and dev handoff within a 48-hour hackathon timeline at Tufts Jumbohack.
+        </p>
+
+        <div class="callout">
+            <p>
+                "Networking and making friends needs to be more personable, and interactions need to extend beyond just a 'follow.'"
+            </p>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem" class="content">
+        <div class="section-header">The Problem</div>
+        <h2>Students crave connection but struggle to turn shared interests into actual interactions</h2>
+        <p>
+            Between social anxiety, clunky group chats, and busy schedules, going from "same class" to a further friendship feels like an un-scalable mountain.
+        </p>
+
+        <div class="project-image">
+            <img src="images/jumbuddy-userflow.png" alt="Jumbuddy User Flow" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">
+        </div>
+        <p style="text-align: center; font-size: 0.95rem; color: #888; font-style: italic; margin-top: -40px;">
+            User flow diagram showing core interactions
+        </p>
+    </section>
+
+    <!-- Research Section -->
+    <section id="research" class="content">
+        <div class="section-header">Discovery & Research</div>
+        <h2>Survey</h2>
+        <p>
+            Using SurveyMonkey, we surveyed 30 college students, with the majority being in their freshman year, to gather insights:
+        </p>
+
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">80%</div>
+                <div class="stat-label">Feel like they don't have a platform to connect with other students</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">95%</div>
+                <div class="stat-label">Would love to branch out and expand their network</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">62%</div>
+                <div class="stat-label">Want to join more activities but feel fear doing so</div>
+            </div>
+        </div>
+
+        <div class="callout">
+            <p>
+                "Networking and making friends needs to be more personable, and interactions need to extend to beyond just a 'follow.'"
+            </p>
+        </div>
+
+        <h3>Design Constraints & Approach</h3>
+
+        <div style="display: flex; align-items: flex-start; margin: 30px 0;">
+            <span class="number-badge">1</span>
+            <div>
+                <p><strong>36 hours, 1 designer:</strong> With a tight hackathon window, I prioritized creating a streamlined MVP, designing what I needed to validate the concept.</p>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items: flex-start; margin: 30px 0;">
+            <span class="number-badge">2</span>
+            <div>
+                <p><strong>Developer collaboration:</strong> I aligned early with the developer team on tech feasibility (MongoDB + React), and my understanding of both helped me design within realistic data structures and ensure a smooth handoff.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Design Thinking Section -->
+    <section id="design" class="content">
+        <div class="section-header">Design Thinking & Methodology</div>
+        <h2>Design Process</h2>
+
+        <h3>Approach</h3>
+        <p>
+            Since I was under a time constraint to hand the MVP off to the developers, I applied human-centered design principles to define and validate core user needs quickly.
+        </p>
+
+        <h3>Key Features</h3>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h3>👤 Profile Creation</h3>
+                <p>Students can tag their interests, add classes, and share what they're open to—no awkward cold starts</p>
+            </div>
+            <div class="feature-item">
+                <h3>📱 Activity Feed & "Join" Flow</h3>
+                <p>See who's down for anything from gym sessions to trivia nights. One tap to join, no pressure</p>
+            </div>
+            <div class="feature-item">
+                <h3>✍️ Post an Activity</h3>
+                <p>Post what you're doing or what you're looking for—friends can opt in, or strangers can become buddies</p>
+            </div>
+            <div class="feature-item">
+                <h3>🗺️ Map Integration</h3>
+                <p>See what's happening around campus in real time</p>
+            </div>
+        </div>
+
+        <p style="margin-top: 40px;">
+            <strong>Every feature was designed to make social interaction feel natural, not performative.</strong>
+        </p>
+
+        <h3>User Flow</h3>
+        <p>
+            To avoid assumptions and guide design decisions, I sketched a user flow that I built off of, focusing on the MVP interactions: profile setup, post creation, and event joining. Given the strict time frame, I made a conscious decision to skip wireframing and stick to a user flow in order to quickly stay aligned with the developers on feasibility.
+        </p>
+
+        <div class="project-image">
+            <img src="images/jumbuddy.png" alt="Jumbuddy User Flow" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">
+        </div>
+        <p style="text-align: center; font-size: 0.95rem; color: #888; font-style: italic; margin-top: -40px;">
+            User flow diagram - profile setup to event joining
+        </p>
+
+        <h3>Design Heuristics</h3>
+        <p>
+            I embedded design heuristics to ensure a smooth user experience:
+        </p>
+        <ul>
+            <li><strong>Recognition over recall:</strong> Using icon-based tags in the activity feed area</li>
+            <li><strong>Progressive disclosure:</strong> Used in the onboarding to reduce cognitive load</li>
+            <li><strong>Clear affordances:</strong> Using visual hierarchy and familiar mobile patterns</li>
+        </ul>
+
+        <p>
+            While time was limited, I made sure there was space to balance speed with thoughtfulness—designing not just for screens, but for feelings, flow, and feasibility.
+        </p>
+    </section>
+
+    <!-- Prototype Section -->
+    <section id="prototype" class="content">
+        <div class="section-header">Prototype & MVP</div>
+        <h2>Onboarding Walkthrough</h2>
+
+        <div class="two-column">
+            <div>
+                <div style="position: relative; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); overflow: hidden; height: 100%;">
+                    <video controls style="width: 100%; height: 100%; display: block; border-radius: 12px;">
+                        <source src="images/Jumbuddy (online-video-cutter.com).mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <p style="text-align: center; font-size: 0.95rem; color: #888; font-style: italic; margin-top: 20px;">
+                    Jumbuddy walkthrough demo
+                </p>
+            </div>
+            <div>
+                <div style="position: relative; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); overflow: hidden; height: 100%;">
+                    <video controls style="width: 100%; height: 100%; display: block; border-radius: 12px;">
+                        <source src="images/Jumbuddy - onboarding (online-video-cutter.com).mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <p style="text-align: center; font-size: 0.95rem; color: #888; font-style: italic; margin-top: 20px;">
+                    Jumbuddy onboarding flow
+                </p>
+            </div>
+        </div>
+
+        <p style="text-align: center; margin: 40px 0;">
+            <a href="https://devpost.com/software/jumbuddy" target="_blank" rel="noopener noreferrer"
+               style="display: inline-block; background: linear-gradient(135deg, #60a5fa, #3b82f6); color: white; padding: 15px 40px; border-radius: 30px; text-decoration: none; font-weight: 600; transition: transform 0.2s;">
+                View Devpost Project →
+            </a>
+        </p>
+    </section>
+
+    <!-- What I Learned Section -->
+    <section id="learned" class="learnings">
+        <div class="learnings-content">
+            <div class="section-header">What I Learned</div>
+            <h2>Key takeaways from building Jumbuddy</h2>
+
+            <p>
+                <strong>Speed requires ruthless prioritization:</strong> With only 48 hours, I learned to identify the core user flows that would validate our concept and ruthlessly cut everything else. The MVP isn't about perfection—it's about testing assumptions fast.
+            </p>
+
+            <p>
+                <strong>Design for developers, not just users:</strong> Collaborating closely with the dev team taught me that good design also considers technical constraints. Understanding MongoDB and React helped me design within realistic data structures, making handoff seamless.
+            </p>
+
+            <p>
+                <strong>Research drives empathy and prioritization:</strong> Our survey revealed that 62% of students wanted to join activities but felt fear doing so. This insight shaped our entire "low-pressure join" interaction model. Data validates intuition.
+            </p>
+
+            <p>
+                <strong>Heuristics aren't optional—they're foundational:</strong> Even under time pressure, embedding design heuristics (recognition over recall, progressive disclosure) ensured a usable MVP. Good UX principles scale across timelines.
+            </p>
+
+            <p>
+                <strong>Social features need emotional design:</strong> Building for connection isn't just about features—it's about making interactions feel natural, not performative. Every button, every flow, every word needed to reduce friction and encourage authentic engagement.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p style="font-size: 1.1rem; margin-bottom: 10px;">Want to learn more about this project?</p>
+        <p style="color: #666;">Let's connect</p>
+        <div class="footer-nav">
+            <a href="index.html">← Back to Portfolio</a>
+            <a href="mailto:hello@chloewong.com">Email</a>
+            <a href="https://linkedin.com/in/chloewong" target="_blank">LinkedIn</a>
+        </div>
+    </footer>
+
+    <script>
+        // Side navigation scroll detection
+        const sections = document.querySelectorAll('section[id]');
+        const navItems = document.querySelectorAll('.side-nav-item');
+
+        // Intersection Observer for scroll detection
+        const observerOptions = {
+            root: null,
+            rootMargin: '-20% 0px -70% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionId = entry.target.id;
+
+                    // Remove active class from all nav items
+                    navItems.forEach(item => item.classList.remove('active'));
+
+                    // Add active class to corresponding nav item
+                    const activeNavItem = document.querySelector(`.side-nav-item[data-section="${sectionId}"]`);
+                    if (activeNavItem) {
+                        activeNavItem.classList.add('active');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Click navigation
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const sectionId = item.getAttribute('data-section');
+                const section = document.getElementById(sectionId);
+
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

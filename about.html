@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me - Chloe Wong</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --charcoal: #171717;
+            --light-gray: #F4F2EF;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #F4F2EF;
+            color: var(--charcoal);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            line-height: 1.2;
+        }
+
+        /* Navigation */
+        nav {
+            padding: 30px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e5e5e5;
+            background: #F4F2EF;
+        }
+
+        .nav-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: 1.3rem;
+            color: var(--charcoal);
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .nav-brand:hover {
+            opacity: 0.6;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.6;
+        }
+
+        /* About Section */
+        .about-container {
+            max-width: 900px;
+            margin: 80px auto;
+            padding: 0 60px;
+            position: relative;
+        }
+
+        .about-title {
+            font-size: 3.5rem;
+            font-weight: 400;
+            margin-bottom: 60px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .about-content {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 60px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-content::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, #f5a4d9, #7599e6, #867dff, #de5da0);
+            border-radius: 24px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .about-content:hover::before {
+            opacity: 0.15;
+        }
+
+        .about-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        }
+
+        .about-content h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            font-weight: 400;
+            position: relative;
+            display: inline-block;
+        }
+
+        .about-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #f5a4d9, #7599e6);
+            transition: width 0.6s ease;
+        }
+
+        .about-content:hover h2::after {
+            width: 100%;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #333;
+            position: relative;
+        }
+
+        .about-content strong {
+            font-weight: 600;
+            color: var(--charcoal);
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .highlight {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #f5a4d9, #7599e6, #867dff);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .highlight:hover {
+            color: #7599e6;
+        }
+
+        .highlight:hover::after {
+            opacity: 1;
+        }
+
+        /* Floating orbs background */
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #f5a4d9, transparent);
+            top: 10%;
+            right: -10%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .orb-2 {
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, #7599e6, transparent);
+            bottom: 20%;
+            left: -5%;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        .orb-3 {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, #867dff, transparent);
+            top: 50%;
+            left: 50%;
+            animation: float 12s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            33% {
+                transform: translate(30px, -30px);
+            }
+            66% {
+                transform: translate(-20px, 20px);
+            }
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px;
+            text-align: center;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .footer-nav a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #f5a4d9, #7599e6);
+            transition: width 0.3s ease;
+        }
+
+        .footer-nav a:hover::after {
+            width: 100%;
+        }
+
+        .footer-nav a:hover {
+            color: #7599e6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav, .about-container {
+                padding-left: 30px;
+                padding-right: 30px;
+            }
+
+            .about-title {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                padding: 40px 30px;
+            }
+
+            .nav-links {
+                gap: 20px;
+                font-size: 0.9rem;
+            }
+
+            .floating-orb {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="nav-brand">Chloe Wong</a>
+        <ul class="nav-links">
+            <li><a href="index.html">WORK</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+        </ul>
+    </nav>
+
+    <!-- About Section -->
+    <div class="about-container">
+        <!-- Floating background orbs -->
+        <div class="floating-orb orb-1"></div>
+        <div class="floating-orb orb-2"></div>
+        <div class="floating-orb orb-3"></div>
+
+        <h1 class="about-title">About Me</h1>
+
+        <div class="about-content">
+            <h2>Hi! I'm Chloe</h2>
+            <p>
+                I'm a <span class="highlight">Human Factors Engineering and Computer Science</span> student at Tufts University,
+                passionate about designing systems that are as <span class="highlight">intuitive</span> as they are <span class="highlight">impactful</span>.
+            </p>
+            <p>
+                Currently based in <span class="highlight">Boston and Hong Kong</span>, I focus on human-centered design,
+                digital accessibility, and emerging tech. Whether I'm wireframing in Figma, analyzing user behavior,
+                or building solutions in code, I aim to create experiences that feel <span class="highlight">thoughtful, inclusive, and beautifully simple</span>.
+            </p>
+            <p>
+                I love projects that bridge <span class="highlight">systems thinking with storytelling</span>—designing not just for how things work,
+                but for how people <em>feel</em> using them.
+            </p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p style="font-size: 1.1rem; margin-bottom: 10px;">Let's connect</p>
+        <div class="footer-nav">
+            <a href="index.html">← Back to Portfolio</a>
+            <a href="mailto:hello@chloewong.com">Email</a>
+            <a href="https://linkedin.com/in/chloewong" target="_blank">LinkedIn</a>
+            <a href="https://github.com/chloewong" target="_blank">GitHub</a>
+        </div>
+    </footer>
+</body>
+</html>

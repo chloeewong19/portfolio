@@ -824,7 +824,7 @@
         <a href="index.html" class="nav-brand">Chloe Wong</a>
         <ul class="nav-links">
             <li><a href="#work">WORK</a></li>
-            <li><a href="#about">ABOUT</a></li>
+            <li><a href="about.html">ABOUT</a></li>
         </ul>
     </nav>
 
@@ -881,18 +881,6 @@
             <div class="strips-container" id="stripsContainer"></div>
         </div>
 
-        <!-- About Section -->
-        <section id="about" class="max-w-3xl mx-auto mb-12 bg-white/80 backdrop-blur rounded-3xl p-8 shadow-lg">
-            <h2 class="text-3xl font-bold mb-4" style="color: var(--charcoal);">About Me</h2>
-            <p class="text-lg leading-relaxed mb-4" style="color: var(--charcoal);">
-                Hi! I'm Chloe, a product designer and developer passionate about creating delightful, user-centered experiences.
-                I love blending creativity with technology to build things that make people smile.
-            </p>
-            <p class="text-lg leading-relaxed" style="color: var(--charcoal);">
-                When I'm not designing or coding, you can find me exploring new coffee shops, taking photos, or tinkering with side projects.
-            </p>
-        </section>
-
         <!-- Contact -->
         <section class="max-w-3xl mx-auto text-center bg-gradient-to-br from-purple-100 to-pink-100 rounded-3xl p-8 shadow-lg">
             <h2 class="text-3xl font-bold mb-4" style="color: var(--charcoal);">Let's Connect</h2>
@@ -924,6 +912,16 @@
     <script>
         const projects = [
             {
+                title: "Jumbuddy",
+                emoji: "🎓",
+                video: "images/jumbuddy-hero.mp4",
+                gradient: "linear-gradient(135deg, #bfdbfe 0%, #93c5fd 50%, #60a5fa 100%)",
+                tags: ["UX Research", "User Flows", "Figma"],
+                description: "A hyper-local social platform that helps students discover campus events, connect through shared interests, and casually join or post activities. Making it easy and low pressure to find a 'buddy' for anything from late-night studying to spontaneous hot pot nights.",
+                details: "Led UX research with 30+ students, designed end-to-end interface in 48 hours, and created user flows prioritizing natural social interactions over performative networking.",
+                link: "jumbuddy.html"
+            },
+            {
                 title: "Trovr",
                 emoji: "🛍️",
                 video: "images/trovr-hero.mp4",
@@ -942,15 +940,6 @@
                 description: "Designed a real-time analytics dashboard for 50+ restaurant partners, enabling data-driven decisions around inventory reuse and waste reduction, directly supporting environmental sustainability.",
                 details: "Conducted end-to-end process analysis, led stakeholder interviews, and designed UX improvements that reduced user friction by ~40% while empowering partners with actionable sustainability metrics.",
                 link: "recube.html"
-            },
-            {
-                title: "Portfolio Website",
-                emoji: "✨",
-                image: "images/portfolio.jpg",
-                gradient: "linear-gradient(135deg, #bfdbfe 0%, #93c5fd 100%)",
-                tags: ["UI Design", "HTML/CSS", "JavaScript"],
-                description: "An interactive portfolio with a unique photobooth concept, showcasing creative design thinking and front-end development skills with smooth animations and tactile interactions.",
-                details: "Built from scratch using modern web technologies, featuring custom animations, responsive design, and an engaging user experience that tells a story through visual design."
             },
             {
                 title: "C2Pay",
