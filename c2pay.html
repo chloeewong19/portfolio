@@ -44,8 +44,15 @@
         }
 
         .nav-brand {
-            font-weight: 600;
-            font-size: 1.1rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: 1.3rem;
+            text-decoration: none;
+            color: var(--charcoal);
+        }
+
+        .nav-brand:hover {
+            opacity: 0.6;
         }
 
         .nav-links {
@@ -160,7 +167,7 @@
         .content p {
             font-size: 1.1rem;
             line-height: 1.8;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             color: #333;
         }
 
@@ -273,6 +280,18 @@
         .learnings-content {
             max-width: 900px;
             margin: 0 auto;
+        }
+
+        .learnings-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .learnings-content strong {
+            font-weight: 600;
+            color: var(--charcoal);
         }
 
         /* Side Navigation */
@@ -397,10 +416,10 @@
 <body>
     <!-- Navigation -->
     <nav>
-        <div class="nav-brand">Chloe Wong | UX/UI Designer</div>
+        <a href="index.html" class="nav-brand">Chloe Wong</a>
         <ul class="nav-links">
-            <li><a href="index.html">WORK</a></li>
-            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="index.html">Work</a></li>
+            <li><a href="about.html">About</a></li>
         </ul>
     </nav>
 

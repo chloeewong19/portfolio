@@ -381,7 +381,7 @@
         }
 
         .strip-title {
-            font-weight: 700;
+            font-weight: 600;
             font-size: 1rem;
             margin-bottom: 8px;
             display: flex;
@@ -700,7 +700,7 @@
 
         .hero-greeting {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 400;
             margin-bottom: 0.25rem;
             color: var(--charcoal);
@@ -708,7 +708,7 @@
 
         .hero-name {
             font-family: 'Playfair Display', serif;
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: 400;
             font-style: italic;
             margin-bottom: 0.25rem;
@@ -718,7 +718,7 @@
 
         .hero-title-wrapper {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+            font-size: 2.5rem;
             margin-bottom: 0.25rem;
             color: var(--charcoal);
             min-height: 60px;
@@ -748,7 +748,7 @@
 
         .hero-subtitle {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 400;
             color: var(--charcoal);
             margin-bottom: 0.25rem;
@@ -823,8 +823,8 @@
     <nav>
         <a href="index.html" class="nav-brand">Chloe Wong</a>
         <ul class="nav-links">
-            <li><a href="#work">WORK</a></li>
-            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="about.html">About</a></li>
         </ul>
     </nav>
 
@@ -853,7 +853,7 @@
             <button id="dispenseBtn" class="btn btn-primary" aria-label="Print photo strips">
                 Print projects 📸
             </button>
-            <button id="retractBtn" class="btn btn-secondary" aria-label="Rewind and hide strips">
+            <button id="retractBtn" class="btn btn-secondary" aria-label="Rewind and hide strips" style="display: none;">
                 Rewind ↩︎
             </button>
         </div>
@@ -882,17 +882,20 @@
         </div>
 
         <!-- Contact -->
-        <section class="max-w-3xl mx-auto text-center bg-gradient-to-br from-purple-100 to-pink-100 rounded-3xl p-8 shadow-lg">
-            <h2 class="text-3xl font-bold mb-4" style="color: var(--charcoal);">Let's Connect</h2>
-            <div class="flex gap-4 justify-center flex-wrap">
-                <a href="mailto:hello@chloewong.com" class="btn btn-primary" aria-label="Send email">
-                    Email Me
+        <section class="max-w-3xl mx-auto text-center" style="padding: 60px 0; border-top: 1px solid #e5e5e5;">
+            <p style="font-size: 1rem; font-weight: 400; color: #666; margin-bottom: 20px;">Let's connect</p>
+            <div class="flex gap-8 justify-center flex-wrap">
+                <a href="mailto:chloewong052@gmail.com" style="text-decoration: none; color: var(--charcoal); font-weight: 500; transition: color 0.3s ease;" onmouseover="this.style.color='#7599e6'" onmouseout="this.style.color='var(--charcoal)'" aria-label="Send email">
+                    Email
                 </a>
-                <a href="https://linkedin.com/in/chloewong" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" aria-label="Visit LinkedIn profile">
+                <a href="https://www.linkedin.com/in/chloe-wong-29b412234/" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: var(--charcoal); font-weight: 500; transition: color 0.3s ease;" onmouseover="this.style.color='#7599e6'" onmouseout="this.style.color='var(--charcoal)'" aria-label="Visit LinkedIn profile">
                     LinkedIn
                 </a>
-                <a href="https://github.com/chloewong" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" aria-label="Visit GitHub profile">
+                <a href="https://github.com/chloewong" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: var(--charcoal); font-weight: 500; transition: color 0.3s ease;" onmouseover="this.style.color='#7599e6'" onmouseout="this.style.color='var(--charcoal)'" aria-label="Visit GitHub profile">
                     GitHub
+                </a>
+                <a href="https://drive.google.com/file/d/1dmoGwxz_-ciB32ECIx9Ien_B3U7O9V2Z/view?usp=sharing" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: var(--charcoal); font-weight: 500; transition: color 0.3s ease;" onmouseover="this.style.color='#7599e6'" onmouseout="this.style.color='var(--charcoal)'" aria-label="View Resume">
+                    Resume
                 </a>
             </div>
         </section>
@@ -1045,6 +1048,7 @@
                         if (index === projects.length - 1) {
                             indicators.forEach(ind => ind.classList.remove('active'));
                             dispenseBtn.disabled = false;
+                            retractBtn.style.display = 'inline-block'; // Show rewind button
                             liveRegion.textContent = 'All strips printed';
                         }
                     }, 800);
@@ -1070,6 +1074,7 @@
                         if (index === strips.length - 1) {
                             stripsDispensed = false;
                             indicators.forEach(ind => ind.classList.remove('active'));
+                            retractBtn.style.display = 'none'; // Hide rewind button
                             liveRegion.textContent = 'All strips rewound';
                         }
                     }, 600);
@@ -1122,7 +1127,7 @@
         // Removed auto-dispense - user clicks "Print strip" button to dispense
 
         // Rotating title animation
-        const titles = ["ux/ui designer", "novice programmer", "product enthusiast"];
+        const titles = ["ux/ui designer", "human factors student", "product enthusiast"];
         let currentIndex = 0;
         const rotatingTitle = document.getElementById('rotatingTitle');
 
@@ -1201,15 +1206,22 @@
 
                 skillTooltip.textContent = closestSkill.name;
 
-                // Position tooltip within the orb (curved positioning)
-                const tooltipDistance = orbRect.width / 2 - 40; // Distance from orb center (inside)
+                // Position tooltip around a central point with orbital positioning
+                // Get the orb's actual center from its bounding rect and adjust manually
+                const actualOrbRect = orb.getBoundingClientRect();
+                const centerX = actualOrbRect.left + (actualOrbRect.width / 2) - 160; // Center point - 160px left
+                const centerY = actualOrbRect.top + (actualOrbRect.height / 2) - 50; // Center point - 50px up
+
+                // Position tooltip in an orbit around the center point
+                const orbitRadius = 60; // Distance from center point
                 const tooltipAngle = closestSkill.angle * Math.PI / 180;
-                const tooltipX = orbCenterX + Math.cos(tooltipAngle) * tooltipDistance;
-                const tooltipY = orbCenterY + Math.sin(tooltipAngle) * tooltipDistance;
+                const tooltipX = centerX + Math.cos(tooltipAngle) * orbitRadius;
+                const tooltipY = centerY + Math.sin(tooltipAngle) * orbitRadius;
 
                 skillTooltip.style.left = `${tooltipX}px`;
                 skillTooltip.style.top = `${tooltipY}px`;
                 skillTooltip.style.transform = 'translate(-50%, -50%)';
+                skillTooltip.style.maxWidth = `150px`; // Fixed max width
 
                 skillTooltip.classList.add('visible');
             } else {
