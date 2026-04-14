@@ -13,12 +13,12 @@ const BAYER4 = [
 export default function DitherCard() {
   const containerRef = useRef<HTMLDivElement>(null)
   const canvasRef    = useRef<HTMLCanvasElement>(null)
-  const cellSizeRef  = useRef(3)
+  const cellSizeRef  = useRef(1)
   const levelsRef    = useRef(6)
 
   const [localTime, setLocalTime] = useState('')
   const [hovered,   setHovered]   = useState(false)
-  const [cellSize,  setCellSize]  = useState(3)
+  const [cellSize,  setCellSize]  = useState(1)
   const [levels,    setLevels]    = useState(6)
 
   // Live Boston time
