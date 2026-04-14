@@ -1,0 +1,11 @@
+# No extra dependencies needed beyond a standard React setup.
+# This component uses only:
+# - React (useState, useRef, useEffect)
+# - Vanilla CSS-in-JS (style props + <style> tag)
+# - Native fetch() for the Anthropic API call
+# - Google Fonts via @import (no install)
+
+# Recommended stack for full site:
+# - Next.js 14+ (App Router)
+# - Tailwind CSS (optional — component uses inline styles)
+# - Vercel for deployment

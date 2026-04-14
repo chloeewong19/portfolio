@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /Users/chloewong/portfolio log --oneline --all -- portfolio-export/portfolio-hero.jsx)",
+      "Bash(npm run:*)",
+      "Bash(for f:*)",
+      "Bash(do echo:*)",
+      "Read(//Users/chloewong/portfolio/public/**)",
+      "Bash(done)",
+      "Bash(npx tsc:*)",
+      "Bash(node -e \"const p=require\\(''./package.json''\\); console.log\\(''framer-motion:'', p.dependencies[''framer-motion'']\\); console.log\\(''vite:'', p.devDependencies[''vite'']\\); console.log\\(''react:'', p.dependencies[''react'']\\)\")",
+      "Bash(npm install:*)",
+      "Bash(grep -E \"\\\\.html$\")",
+      "Bash(python3 -)",
+      "Bash(git add:*)",
+      "Bash(git push:*)",
+      "Bash(git commit -m ':*)"
+    ]
+  }
+}

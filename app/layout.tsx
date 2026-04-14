@@ -3,6 +3,7 @@ import { DM_Sans, Cormorant_Garamond } from 'next/font/google'
 import './globals.css'
 import Cursor from './components/Cursor'
 import ChatWidget from './components/ChatWidget'
+import { Analytics } from "@vercel/analytics/next"
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
@@ -43,6 +44,7 @@ export default function RootLayout({
         <Cursor />
         {children}
         <ChatWidget />
+        <Analytics />
       </body>
     </html>
   )
