@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recube Dashboard - Chloe Wong</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://api.fontshare.com">
+    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/portfolio.css">
+</head>
+<body>
+    <!-- Navigation -->
+        <nav>
+        <a href="/" class="nav-brand">chloe w</a>
+        <ul class="nav-links">
+            <li><a href="/#work">Work</a></li>
+            <li><a href="/playground">Playground</a></li>
+            <li><a href="/about">About</a></li>
+        </ul>
+    </nav>
+
+    <!-- Side Navigation -->
+    <div class="side-nav">
+        <div class="side-nav-item" data-section="overview">
+            <span class="side-nav-label">Overview</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="problem">
+            <span class="side-nav-label">Problem</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="research">
+            <span class="side-nav-label">Research</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="solution">
+            <span class="side-nav-label">Solution</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="process">
+            <span class="side-nav-label">Design Process</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="impact">
+            <span class="side-nav-label">Impact</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="learned">
+            <span class="side-nav-label">What I Learned</span>
+            <div class="side-nav-dot"></div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1 class="hero-title">Designing Data-Driven Sustainability for Reusable Packaging</h1>
+        <div class="hero-image">
+            <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                <source src="images/recube-hero.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <!-- Project Meta -->
+        <div class="project-meta">
+            <div class="meta-item">
+                <h3>Role</h3>
+                <p>UX/UI Designer<br>Frontend Designer</p>
+            </div>
+            <div class="meta-item">
+                <h3>Timeline</h3>
+                <p>1 month<br>2024</p>
+            </div>
+            <div class="meta-item">
+                <h3>Tools</h3>
+                <p>Figma, Jira</p>
+            </div>
+            <div class="meta-item">
+                <h3>Focus</h3>
+                <p>Analytics Dashboard<br>Search & Filtering</p>
+                <div class="badge-tag">♻️ Sustainability</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overview Section -->
+    <section id="overview" class="content">
+        <div class="section-header">Overview</div>
+        <h2>Empowering sustainable decisions through real-time data</h2>
+        <p>
+            Recube is a reusable packaging platform that partners with restaurants and malls to reduce single-use waste. As the sole UX and frontend designer, I designed and implemented a real-time analytics dashboard that gave 50+ restaurant partners visibility into their inventory reuse and waste reduction metrics.
+        </p>
+        <p>
+            My work focused on transforming complex logistics data into actionable insights, enabling restaurant managers and mall operators to make data-driven decisions about inventory management, sustainability impact, and operational efficiency.
+        </p>
+
+        <div class="callout">
+            <p>
+                "Great design isn't just about making things beautiful—it's about making complex data accessible and actionable for the people who need it most."
+            </p>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem" class="content">
+        <div class="section-header">The Problem</div>
+        <h2>Partners lacked visibility into their sustainability impact</h2>
+        <p>
+            Before the dashboard redesign, restaurant partners and mall managers struggled to understand their role in Recube's circular packaging system. Key pain points included:
+        </p>
+
+        <ul>
+            <li><strong>No real-time visibility:</strong> Partners couldn't track how many containers were in circulation or when they needed restocking</li>
+            <li><strong>Limited impact metrics:</strong> Restaurant managers had no way to quantify their environmental impact or share sustainability achievements with customers</li>
+            <li><strong>Inefficient search and filtering:</strong> Finding specific data points required manual effort and custom reports</li>
+            <li><strong>Poor user experience:</strong> The existing interface was cluttered, outdated, and didn't match the needs of non-technical users</li>
+        </ul>
+
+        <div class="project-image">
+            <img src="images/recube-before.png" alt="Old Dashboard Interface" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">
+        </div>
+        <p style="text-align: center; font-size: 0.95rem; color: #888; font-style: italic; margin-top: -40px;">
+            Previous dashboard interface lacked clarity and real-time data
+        </p>
+    </section>
+
+    <!-- Research Section -->
+    <section id="research" class="content">
+        <div class="section-header">Research & Discovery</div>
+        <h2>Understanding partner needs through stakeholder interviews</h2>
+        <p>
+            I led 4+ stakeholder interviews with restaurant managers, mall operators, and Recube's internal operations team to identify pain points and unmet needs. This qualitative research revealed key insights:
+        </p>
+
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">4+</div>
+                <div class="stat-label">Stakeholder interviews conducted</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Restaurant partners served</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">~40%</div>
+                <div class="stat-label">Reduction in user friction</div>
+            </div>
+        </div>
+
+        <p>
+            <strong>Key Findings:</strong>
+        </p>
+        <ul>
+            <li>Restaurant managers wanted to see <strong>environmental impact metrics</strong> they could share with customers</li>
+            <li>Mall managers needed <strong>real-time inventory alerts</strong> to prevent stockouts during peak hours</li>
+            <li>Both groups struggled with the <strong>return journey UX</strong>—users didn't know where or how to return containers</li>
+            <li>Partners wanted <strong>customizable views</strong> to focus on metrics relevant to their specific operations</li>
+        </ul>
+
+        <div class="callout">
+            <p>
+                "I need to know at a glance if we're running low on containers—I don't have time to dig through reports during lunch rush."
+            </p>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solution" class="content">
+        <div class="section-header">The Solution</div>
+        <h2>A real-time analytics dashboard built for action</h2>
+
+        <p>
+            I designed a clean, data-focused dashboard that prioritized real-time visibility, environmental impact metrics, and efficient search/filtering. The solution balanced technical requirements with partner needs, ensuring both restaurant managers and mall operators could access the data they needed without friction.
+        </p>
+
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h3>📊 Real-Time Analytics</h3>
+                <p>Live inventory tracking showing containers in circulation, available stock, and return rates</p>
+            </div>
+            <div class="feature-item">
+                <h3>🌱 Impact Metrics</h3>
+                <p>Quantified environmental impact including waste diverted, CO2 saved, and sustainability scores</p>
+            </div>
+            <div class="feature-item">
+                <h3>🔍 Advanced Search</h3>
+                <p>Robust filtering and search functionality to quickly find specific data points and trends</p>
+            </div>
+            <div class="feature-item">
+                <h3>⚡ Smart Alerts</h3>
+                <p>Automated notifications for low inventory, high return rates, and operational anomalies</p>
+            </div>
+        </div>
+
+        <div class="project-image large">
+            <img src="images/recube-dashboard-overview.png" alt="Dashboard Overview" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">
+        </div>
+        <p style="text-align: center; font-size: 0.95rem; color: #888; font-style: italic; margin-top: -40px;">
+            Dashboard overview showing real-time metrics and impact data
+        </p>
+    </section>
+
+    <!-- Design Process Section -->
+    <section id="process" class="content">
+        <div class="section-header">Design Process</div>
+        <h2>From user research to high-fidelity prototypes</h2>
+
+        <p>
+            <strong>1. User Research & Stakeholder Interviews:</strong> I conducted interviews with restaurant managers, mall operators, and Recube's operations team to understand their workflows, pain points, and data needs. This informed my information architecture and feature prioritization.
+        </p>
+
+        <p>
+            <strong>2. Information Architecture & Wireframes:</strong> I mapped out the dashboard's structure, prioritizing metrics based on user feedback. Low-fidelity wireframes helped validate the layout and interaction patterns with stakeholders before committing to visual design.
+        </p>
+
+        <div class="project-image">
+            <img src="images/recube-wireframes.png" alt="Dashboard Wireframes" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">
+        </div>
+        <p style="text-align: center; font-size: 0.95rem; color: #888; font-style: italic; margin-top: -40px;">
+            Early wireframes defining dashboard layout and hierarchy
+        </p>
+
+        <p>
+            <strong>3. High-Fidelity Design in Figma:</strong> I designed the visual interface in Figma, focusing on clarity, accessibility, and on-brand aesthetics. The green color palette reinforced Recube's sustainability mission while maintaining readability.
+        </p>
+
+        <div class="two-column">
+            <div>
+                <div class="project-image">
+                    <img src="images/recube-search.png" alt="Search Interface 1" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">
+                </div>
+                <p style="text-align: center; font-size: 0.95rem; color: #888; font-style: italic; margin-top: -40px;">
+                    Advanced search functionality
+                </p>
+            </div>
+            <div>
+                <div class="project-image">
+                    <img src="images/recube-search-empty.png" alt="Search Empty State" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">
+                </div>
+                <p style="text-align: center; font-size: 0.95rem; color: #888; font-style: italic; margin-top: -40px;">
+                    Empty state and search prompts
+                </p>
+            </div>
+        </div>
+
+        <p>
+            <strong>4. Agile Development & QA Testing:</strong> I collaborated with developers during sprint planning to ensure designs were technically feasible. I also led QA testing sessions to identify usability issues before launch, ensuring equitable experiences across different user roles.
+        </p>
+
+        <p>
+            Throughout the design process, I established a lightweight design system to maintain consistency:
+        </p>
+        <ul>
+            <li><strong>Color Palette:</strong> Green gradients reinforcing sustainability, with high-contrast text for accessibility</li>
+            <li><strong>Typography:</strong> Clear hierarchy using Plus Jakarta Sans for readability across data tables</li>
+            <li><strong>Iconography:</strong> Intuitive icons representing inventory, returns, and environmental impact</li>
+            <li><strong>Data Visualization:</strong> Clean charts and graphs using accessible colors and clear legends</li>
+        </ul>
+    </section>
+
+    <!-- Impact Section -->
+    <section id="impact" class="content">
+        <div class="section-header">Impact & Results</div>
+        <h2>Measurable improvements in user experience and efficiency</h2>
+
+        <p>
+            The redesigned dashboard delivered tangible improvements for both Recube partners and the internal operations team:
+        </p>
+
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">~40%</div>
+                <div class="stat-label">Reduction in user friction</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Restaurant partners empowered</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Real-time data visibility</div>
+            </div>
+        </div>
+
+        <p>
+            <strong>Key Outcomes:</strong>
+        </p>
+        <ul>
+            <li>Restaurant managers could now <strong>quantify and share their environmental impact</strong> with customers</li>
+            <li>Mall operators received <strong>automated alerts</strong> preventing inventory stockouts during peak hours</li>
+            <li>The improved return journey UX reduced <strong>customer confusion by ~40%</strong></li>
+            <li>Recube's operations team could <strong>monitor system health</strong> and identify inefficiencies faster</li>
+        </ul>
+
+        <div class="callout">
+            <p>
+                "The new dashboard transformed how I run my restaurant's sustainability program. Now I can show customers exactly how many meals we've saved from waste."
+            </p>
+        </div>
+    </section>
+
+    <!-- What I Learned Section -->
+    <section id="learned" class="learnings">
+        <div class="learnings-content">
+            <div class="section-header">What I Learned</div>
+            <h2>Key takeaways from designing for sustainability</h2>
+
+            <p>
+                <strong>Stakeholder alignment is critical for complex systems:</strong> I learned that conducting thorough stakeholder interviews early prevented scope creep and ensured the final design addressed real pain points. Translating qualitative insights into a prioritized roadmap required balancing competing needs.
+            </p>
+
+            <p>
+                <strong>Data design requires empathy:</strong> Designing for non-technical users meant simplifying complex logistics data without losing important nuance. I learned to prioritize clarity over comprehensiveness, showing only the metrics that drove action.
+            </p>
+
+            <p>
+                <strong>Real-time systems need thoughtful UX:</strong> Live data introduces unique challenges—like handling loading states, error messages, and data refresh patterns. I learned to design for edge cases like slow connections and incomplete data.
+            </p>
+
+            <p>
+                <strong>Sustainability design tells a story:</strong> Environmental impact metrics aren't just numbers—they're powerful narratives that motivate behavior change. I learned to frame data in ways that resonated emotionally with restaurant managers and customers alike.
+            </p>
+
+            <p>
+                <strong>Agile collaboration accelerates iteration:</strong> Working closely with developers during sprint planning helped me understand technical constraints early, reducing back-and-forth and enabling faster implementation. QA testing sessions revealed usability gaps I wouldn't have caught in design reviews alone.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p style="font-size: 1.1rem; margin-bottom: 10px;">Want to learn more about this project?</p>
+        <p style="color: #666;">Let's connect</p>
+        <div class="footer-nav">
+            <a href="index.html">← Back to Portfolio</a>
+            <a href="mailto:hello@chloewong.com">Email</a>
+            <a href="https://linkedin.com/in/chloewong" target="_blank">LinkedIn</a>
+        </div>
+    </footer>
+
+    <script>
+        // Side navigation scroll detection
+        const sections = document.querySelectorAll('section[id]');
+        const navItems = document.querySelectorAll('.side-nav-item');
+
+        // Intersection Observer for scroll detection
+        const observerOptions = {
+            root: null,
+            rootMargin: '-20% 0px -70% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionId = entry.target.id;
+
+                    // Remove active class from all nav items
+                    navItems.forEach(item => item.classList.remove('active'));
+
+                    // Add active class to corresponding nav item
+                    const activeNavItem = document.querySelector(`.side-nav-item[data-section="${sectionId}"]`);
+                    if (activeNavItem) {
+                        activeNavItem.classList.add('active');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Click navigation
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const sectionId = item.getAttribute('data-section');
+                const section = document.getElementById(sectionId);
+
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+    <script src="/scripts/nav-scroll.js" defer></script>
+</body>
+</html>

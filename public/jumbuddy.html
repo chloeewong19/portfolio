@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jumbuddy - Chloe Wong</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://api.fontshare.com">
+    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/portfolio.css">
+</head>
+<body>
+    <!-- Navigation -->
+        <nav>
+        <a href="/" class="nav-brand">chloe w</a>
+        <ul class="nav-links">
+            <li><a href="/#work">Work</a></li>
+            <li><a href="/playground">Playground</a></li>
+            <li><a href="/about">About</a></li>
+        </ul>
+    </nav>
+
+    <!-- Side Navigation -->
+    <div class="side-nav">
+        <div class="side-nav-item" data-section="overview">
+            <span class="side-nav-label">Overview</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="problem">
+            <span class="side-nav-label">The Problem</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="research">
+            <span class="side-nav-label">Discovery & Research</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="design">
+            <span class="side-nav-label">Design Thinking</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="prototype">
+            <span class="side-nav-label">Prototype & MVP</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="learned">
+            <span class="side-nav-label">What I Learned</span>
+            <div class="side-nav-dot"></div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1 class="hero-title">Building Micro-Communities Through Campus Connections</h1>
+        <div class="hero-image">
+            <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                <source src="images/jumbuddy-hero.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <!-- Project Meta -->
+        <div class="project-meta">
+            <div class="meta-item">
+                <h3>Role</h3>
+                <p>UX/UI Developer</p>
+            </div>
+            <div class="meta-item">
+                <h3>Timeline</h3>
+                <p>48 hours<br>Tufts Jumbohack</p>
+            </div>
+            <div class="meta-item">
+                <h3>Team</h3>
+                <p>UX research<br>End-to-end design</p>
+            </div>
+            <div class="meta-item">
+                <h3>Focus</h3>
+                <p>Feature mapping<br>Dev handoff</p>
+                <div class="badge-tag">🎓 Campus Social</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overview Section -->
+    <section id="overview" class="content">
+        <div class="section-header">Overview</div>
+        <h2>Jumbuddy</h2>
+        <p>
+            Jumbuddy is a hyper-local social platform that helps students discover campus events, connect through shared interests, and casually join or post activities. It's designed to help students build micro-communities by making it easy and low pressure to find a "buddy"—for anything from late-night studying to spontaneous hot pot nights.
+        </p>
+        <p>
+            As the <strong>UX/UI developer</strong>, I led UX research, end-to-end interface design, feature mapping, and dev handoff within a 48-hour hackathon timeline at Tufts Jumbohack.
+        </p>
+
+        <div class="callout">
+            <p>
+                "Networking and making friends needs to be more personable, and interactions need to extend beyond just a 'follow.'"
+            </p>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem" class="content">
+        <div class="section-header">The Problem</div>
+        <h2>Students crave connection but struggle to turn shared interests into actual interactions</h2>
+        <p>
+            Between social anxiety, clunky group chats, and busy schedules, going from "same class" to a further friendship feels like an un-scalable mountain.
+        </p>
+
+        <div class="project-image">
+            <img src="images/jumbuddy-userflow.png" alt="Jumbuddy User Flow" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">
+        </div>
+        <p style="text-align: center; font-size: 0.95rem; color: #888; font-style: italic; margin-top: -40px;">
+            User flow diagram showing core interactions
+        </p>
+    </section>
+
+    <!-- Research Section -->
+    <section id="research" class="content">
+        <div class="section-header">Discovery & Research</div>
+        <h2>Survey</h2>
+        <p>
+            Using SurveyMonkey, we surveyed 30 college students, with the majority being in their freshman year, to gather insights:
+        </p>
+
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">80%</div>
+                <div class="stat-label">Feel like they don't have a platform to connect with other students</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">95%</div>
+                <div class="stat-label">Would love to branch out and expand their network</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">62%</div>
+                <div class="stat-label">Want to join more activities but feel fear doing so</div>
+            </div>
+        </div>
+
+        <div class="callout">
+            <p>
+                "Networking and making friends needs to be more personable, and interactions need to extend to beyond just a 'follow.'"
+            </p>
+        </div>
+
+        <h3>Design Constraints & Approach</h3>
+
+        <div style="display: flex; align-items: flex-start; margin: 30px 0;">
+            <span class="number-badge">1</span>
+            <div>
+                <p><strong>36 hours, 1 designer:</strong> With a tight hackathon window, I prioritized creating a streamlined MVP, designing what I needed to validate the concept.</p>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items: flex-start; margin: 30px 0;">
+            <span class="number-badge">2</span>
+            <div>
+                <p><strong>Developer collaboration:</strong> I aligned early with the developer team on tech feasibility (MongoDB + React), and my understanding of both helped me design within realistic data structures and ensure a smooth handoff.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Design Thinking Section -->
+    <section id="design" class="content">
+        <div class="section-header">Design Thinking & Methodology</div>
+        <h2>Design Process</h2>
+
+        <h3>Approach</h3>
+        <p>
+            Since I was under a time constraint to hand the MVP off to the developers, I applied human-centered design principles to define and validate core user needs quickly.
+        </p>
+
+        <h3>Key Features</h3>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h3>👤 Profile Creation</h3>
+                <p>Students can tag their interests, add classes, and share what they're open to—no awkward cold starts</p>
+            </div>
+            <div class="feature-item">
+                <h3>📱 Activity Feed & "Join" Flow</h3>
+                <p>See who's down for anything from gym sessions to trivia nights. One tap to join, no pressure</p>
+            </div>
+            <div class="feature-item">
+                <h3>✍️ Post an Activity</h3>
+                <p>Post what you're doing or what you're looking for—friends can opt in, or strangers can become buddies</p>
+            </div>
+            <div class="feature-item">
+                <h3>🗺️ Map Integration</h3>
+                <p>See what's happening around campus in real time</p>
+            </div>
+        </div>
+
+        <p style="margin-top: 40px;">
+            <strong>Every feature was designed to make social interaction feel natural, not performative.</strong>
+        </p>
+
+        <h3>User Flow</h3>
+        <p>
+            To avoid assumptions and guide design decisions, I sketched a user flow that I built off of, focusing on the MVP interactions: profile setup, post creation, and event joining. Given the strict time frame, I made a conscious decision to skip wireframing and stick to a user flow in order to quickly stay aligned with the developers on feasibility.
+        </p>
+
+        <div class="project-image">
+            <img src="images/jumbuddy.png" alt="Jumbuddy User Flow" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">
+        </div>
+        <p style="text-align: center; font-size: 0.95rem; color: #888; font-style: italic; margin-top: -40px;">
+            User flow diagram - profile setup to event joining
+        </p>
+
+        <h3>Design Heuristics</h3>
+        <p>
+            I embedded design heuristics to ensure a smooth user experience:
+        </p>
+        <ul>
+            <li><strong>Recognition over recall:</strong> Using icon-based tags in the activity feed area</li>
+            <li><strong>Progressive disclosure:</strong> Used in the onboarding to reduce cognitive load</li>
+            <li><strong>Clear affordances:</strong> Using visual hierarchy and familiar mobile patterns</li>
+        </ul>
+
+        <p>
+            While time was limited, I made sure there was space to balance speed with thoughtfulness—designing not just for screens, but for feelings, flow, and feasibility.
+        </p>
+    </section>
+
+    <!-- Prototype Section -->
+    <section id="prototype" class="content">
+        <div class="section-header">Prototype & MVP</div>
+        <h2>Onboarding Walkthrough</h2>
+
+        <div class="two-column">
+            <div>
+                <div style="position: relative; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); overflow: hidden; height: 100%;">
+                    <video controls style="width: 100%; height: 100%; display: block; border-radius: 12px;">
+                        <source src="images/Jumbuddy (online-video-cutter.com).mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <p style="text-align: center; font-size: 0.95rem; color: #888; font-style: italic; margin-top: 20px;">
+                    Jumbuddy walkthrough demo
+                </p>
+            </div>
+            <div>
+                <div style="position: relative; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); overflow: hidden; height: 100%;">
+                    <video controls style="width: 100%; height: 100%; display: block; border-radius: 12px;">
+                        <source src="images/Jumbuddy - onboarding (online-video-cutter.com).mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <p style="text-align: center; font-size: 0.95rem; color: #888; font-style: italic; margin-top: 20px;">
+                    Jumbuddy onboarding flow
+                </p>
+            </div>
+        </div>
+
+        <p style="text-align: center; margin: 40px 0;">
+            <a href="https://devpost.com/software/jumbuddy" target="_blank" rel="noopener noreferrer"
+               style="display: inline-block; background: linear-gradient(135deg, #60a5fa, #3b82f6); color: white; padding: 15px 40px; border-radius: 30px; text-decoration: none; font-weight: 600; transition: transform 0.2s;">
+                View Devpost Project →
+            </a>
+        </p>
+    </section>
+
+    <!-- What I Learned Section -->
+    <section id="learned" class="learnings">
+        <div class="learnings-content">
+            <div class="section-header">What I Learned</div>
+            <h2>Key takeaways from building Jumbuddy</h2>
+
+            <p>
+                <strong>Speed requires ruthless prioritization:</strong> With only 48 hours, I learned to identify the core user flows that would validate our concept and ruthlessly cut everything else. The MVP isn't about perfection—it's about testing assumptions fast.
+            </p>
+
+            <p>
+                <strong>Design for developers, not just users:</strong> Collaborating closely with the dev team taught me that good design also considers technical constraints. Understanding MongoDB and React helped me design within realistic data structures, making handoff seamless.
+            </p>
+
+            <p>
+                <strong>Research drives empathy and prioritization:</strong> Our survey revealed that 62% of students wanted to join activities but felt fear doing so. This insight shaped our entire "low-pressure join" interaction model. Data validates intuition.
+            </p>
+
+            <p>
+                <strong>Heuristics aren't optional—they're foundational:</strong> Even under time pressure, embedding design heuristics (recognition over recall, progressive disclosure) ensured a usable MVP. Good UX principles scale across timelines.
+            </p>
+
+            <p>
+                <strong>Social features need emotional design:</strong> Building for connection isn't just about features—it's about making interactions feel natural, not performative. Every button, every flow, every word needed to reduce friction and encourage authentic engagement.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p style="font-size: 1.1rem; margin-bottom: 10px;">Want to learn more about this project?</p>
+        <p style="color: #666;">Let's connect</p>
+        <div class="footer-nav">
+            <a href="index.html">← Back to Portfolio</a>
+            <a href="mailto:hello@chloewong.com">Email</a>
+            <a href="https://linkedin.com/in/chloewong" target="_blank">LinkedIn</a>
+        </div>
+    </footer>
+
+    <script>
+        // Side navigation scroll detection
+        const sections = document.querySelectorAll('section[id]');
+        const navItems = document.querySelectorAll('.side-nav-item');
+
+        // Intersection Observer for scroll detection
+        const observerOptions = {
+            root: null,
+            rootMargin: '-20% 0px -70% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionId = entry.target.id;
+
+                    // Remove active class from all nav items
+                    navItems.forEach(item => item.classList.remove('active'));
+
+                    // Add active class to corresponding nav item
+                    const activeNavItem = document.querySelector(`.side-nav-item[data-section="${sectionId}"]`);
+                    if (activeNavItem) {
+                        activeNavItem.classList.add('active');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Click navigation
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const sectionId = item.getAttribute('data-section');
+                const section = document.getElementById(sectionId);
+
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+    <script src="/scripts/nav-scroll.js" defer></script>
+</body>
+</html>

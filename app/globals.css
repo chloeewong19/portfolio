@@ -1,0 +1,190 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── Landing page palette ── */
+  --color-ink-deep:    #1e1208;
+  --color-ink-mid:     #5a3c22;
+  --color-ink-faint:   #a07850;
+  --color-cream:       #fdf6ec;
+  --color-gold-light:  #e8c87a;
+  --color-glass-bg:    rgba(253, 248, 242, 0.52);
+
+  /* ── About page tokens ── */
+  --color-ink:        #3d1020;
+  --color-muted:      #8b3a52;
+  --color-faint:      #c47a8a;
+  --color-hover-bg:   #fff0f5;
+  --color-red-dot:    #c47a8a;
+  --color-border:     #f4afc0;
+
+  /* ── Fonts ── */
+  --font-sans:     var(--font-dm-sans), 'DM Sans', system-ui, sans-serif;
+  --font-display:  var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
+  --font-body:     'General Sans', var(--font-dm-sans), system-ui, sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 15.5px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-cream);
+  color: var(--color-ink-deep);
+  line-height: 1.65;
+  font-weight: 300;
+  animation: pageFadeIn 0.5s ease both;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ── Nav link — slide underline ── */
+.nav-link {
+  position: relative;
+  display: inline-block;
+  font-family: 'General Sans', var(--font-dm-sans), sans-serif;
+  font-size: 0.70rem;
+  font-weight: 500;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--color-ink-mid);
+  transition: color 150ms ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1px;
+  background: var(--color-ink-deep);
+  transition: width 200ms ease;
+}
+
+.nav-link:hover { color: var(--color-ink-deep); }
+.nav-link:hover::after { width: 100%; }
+
+/* ── Small label utility (about page) ── */
+.pixel-label {
+  font-family: 'General Sans', var(--font-dm-sans), sans-serif;
+  font-size: 0.60rem;
+  font-weight: 500;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  line-height: 1.6;
+}
+
+.pixel-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--color-red-dot);
+  display: inline-block;
+  flex-shrink: 0;
+  image-rendering: pixelated;
+}
+
+.rule {
+  border: none;
+  border-top: 1px solid var(--color-border);
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(160,100,50,0.25); border-radius: 2px; }
+
+/* ── Animations ── */
+@keyframes pageFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.55s cubic-bezier(0.16,1,0.3,1) both; }
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Status dot pulse */
+@keyframes dotPulse {
+  0%, 100% { transform: scale(1);   opacity: 1; }
+  50%       { transform: scale(1.5); opacity: 0.6; }
+}
+.dot-pulse { animation: dotPulse 2.8s ease-in-out infinite; }
+
+/* ── Custom cursor ── */
+body.has-cursor { cursor: none; }
+body.has-cursor a,
+body.has-cursor button,
+body.has-cursor [role="button"] { cursor: none; }
+
+/* ── Accessibility ── */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 8px;
+  background: var(--color-ink-deep);
+  color: var(--color-cream);
+  padding: 8px 16px;
+  font-size: 0.82rem;
+  border-radius: 0 0 4px 4px;
+  text-decoration: none;
+  z-index: 200;
+  transition: top 150ms;
+}
+.skip-link:focus { top: 0; }
+
+:focus-visible {
+  outline: 2px solid var(--color-ink-mid);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ── Hero grid — stack on mobile ── */
+@media (max-width: 720px) {
+  .hero-grid {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
