@@ -34,7 +34,7 @@ export default function Nav() {
         zIndex: 50,
         width: scrolled ? 480 : '100vw',
         height: scrolled ? 52 : 72,
-        background: scrolled ? 'rgba(255, 255, 255, 0.82)' : '#ffffff',
+        background: scrolled ? 'rgba(253, 246, 236, 0.82)' : '#fdf6ec',
         backdropFilter: scrolled ? 'blur(16px)' : 'none',
         WebkitBackdropFilter: scrolled ? 'blur(16px)' : 'none',
         borderRadius: scrolled ? 100 : 0,

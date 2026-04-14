@@ -14,7 +14,7 @@ export default function Home() {
       <section
         aria-label="Introduction"
         style={{
-          background: '#ffffff',
+          background: 'var(--color-cream)',
           paddingTop: 72,           // clear fixed nav
           minHeight: '100vh',
           display: 'flex',
@@ -41,7 +41,7 @@ export default function Home() {
       <main
         id="main-content"
         style={{
-          background: '#ffffff',
+          background: 'var(--color-cream)',
           padding: '0 24px 120px',
         }}
       >
