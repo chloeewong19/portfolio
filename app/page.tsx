@@ -3,7 +3,7 @@
 import Nav from './components/Nav'
 import PhotoGrid from './components/PhotoGrid'
 import DitherCard from './components/DitherCard'
-import MeshCard from './components/MeshCard'
+import SkyCard from './components/SkyCard'
 
 export default function Home() {
   return (
@@ -33,7 +33,7 @@ export default function Home() {
           }}
         >
           <DitherCard />
-          <MeshCard />
+          <SkyCard />
         </div>
       </section>
 

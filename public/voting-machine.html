@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting Machine - Chloe Wong</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://api.fontshare.com">
+    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/portfolio.css">
+    <style>
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 40px 0;
+            align-items: start;
+        }
+        .quote-block {
+            border-left: 2px solid var(--border);
+            padding: 16px 20px;
+            margin: 0;
+        }
+        .quote-block p {
+            font-style: italic;
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 1.65;
+            margin: 0 0 8px;
+        }
+        .quote-block cite {
+            font-size: 0.72rem;
+            font-style: normal;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--faint);
+        }
+        .pill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 24px 0 0;
+            padding: 0;
+            list-style: none;
+        }
+        .pill-list li {
+            background: var(--hover-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 5px 14px;
+            font-size: 0.78rem;
+            color: var(--muted);
+            line-height: 1.4;
+        }
+        .screen-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin: 40px 0 8px;
+        }
+        .screen-row img {
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            display: block;
+        }
+        .screen-row-labels {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+        .screen-row-labels span {
+            font-size: 0.72rem;
+            color: #aaa;
+            font-style: italic;
+            text-align: center;
+            display: block;
+        }
+        @media (max-width: 680px) {
+            .two-col { grid-template-columns: 1fr; }
+            .screen-row { grid-template-columns: 1fr 1fr; }
+            .screen-row-labels { grid-template-columns: 1fr 1fr; }
+            .screen-row img:last-child, .screen-row-labels span:last-child { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="nav-brand">chloe w</a>
+        <ul class="nav-links">
+            <li><a href="/#work">Work</a></li>
+            <li><a href="/playground">Playground</a></li>
+            <li><a href="/about">About</a></li>
+        </ul>
+    </nav>
+
+    <div class="side-nav">
+        <div class="side-nav-item" data-section="overview">
+            <span class="side-nav-label">Overview</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="research">
+            <span class="side-nav-label">Research</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="design">
+            <span class="side-nav-label">Design</span>
+            <div class="side-nav-dot"></div>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero">
+        <h1 class="hero-title">Redesigning the Voting Experience for Accessibility</h1>
+        <div class="hero-image">
+            <img src="images/voting-machine-overview.png" alt="Voting Machine UI Overview" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+        </div>
+        <div class="project-meta">
+            <div class="meta-item">
+                <h3>Role</h3>
+                <p>UX + Product Designer</p>
+            </div>
+            <div class="meta-item">
+                <h3>Year</h3>
+                <p>2026</p>
+            </div>
+            <div class="meta-item">
+                <h3>Context</h3>
+                <p>Computer Interface Design Class</p>
+            </div>
+            <div class="meta-item">
+                <h3>Tools</h3>
+                <p>Figma · UX Research</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll 1: Overview -->
+    <section id="overview" class="content">
+        <div class="section-header">Overview</div>
+        <h2>The voting machine is a civic interface that fails its most vulnerable users</h2>
+        <p>
+            Current voting machine UIs are cluttered, hard to read, and offer almost no support for
+            voters with language barriers, low tech literacy, or physical disabilities. For a Computer
+            Interface Design class project, I redesigned the full end-to-end voting flow — from
+            language selection through ballot confirmation — grounded in real user interviews.
+        </p>
+
+        <div class="screen-row" style="margin-top: 40px;">
+            <img src="images/voting-machine-welcome.png" alt="Welcome screen">
+            <img src="images/voting-machine-accessibility.png" alt="Accessibility setup">
+            <img src="images/voting-machine-high-contrast.png" alt="High contrast mode">
+        </div>
+        <div class="screen-row-labels">
+            <span>Language selection — step one</span>
+            <span>Accessibility preferences</span>
+            <span>High contrast mode</span>
+        </div>
+    </section>
+
+    <!-- Scroll 2: Research -->
+    <section id="research" class="content">
+        <div class="section-header">Research</div>
+        <h2>Two very different voters. The same broken system.</h2>
+        <p>
+            We interviewed voters across ages, backgrounds, and tech comfort levels. Two personas
+            emerged that shaped every design decision.
+        </p>
+
+        <div class="two-col" style="margin-top: 36px;">
+            <div class="quote-block">
+                <p>"I find the voting process confusing — the steps lack clarity. I don't know much
+                about local candidates and wish there were an easier way to learn about them on the
+                ballot itself."</p>
+                <cite>Henry, 21 · First-time Undergraduate Voter</cite>
+            </div>
+            <div class="quote-block">
+                <p>"The words on the ballot are hard to understand, the print is too small, and the
+                bubbles are difficult to fill in. After a long day of work, I'm tired of waiting in
+                line or redoing my ballot if I make a small mistake."</p>
+                <cite>Hanh Tran, 50 · Vietnamese-American Voter</cite>
+            </div>
+        </div>
+
+        <p style="margin-top: 36px;"><strong>Shared pain points across all interviews:</strong></p>
+        <ul class="pill-list">
+            <li>Unclear, step-less instructions</li>
+            <li>Confusing eligibility feedback</li>
+            <li>No candidate info at point of voting</li>
+            <li>Small text & difficult inputs</li>
+            <li>Language barriers</li>
+            <li>No confirmation vote was recorded</li>
+            <li>Fear of irreversible mistakes</li>
+            <li>No guidance for first-time voters</li>
+        </ul>
+    </section>
+
+    <!-- Scroll 3: Design -->
+    <section id="design" class="content">
+        <div class="section-header">Design</div>
+        <h2>Every decision earned by the research</h2>
+        <p>
+            The redesign covers 8 steps — identity verification, accessibility setup, guided onboarding,
+            candidate selection, ballot measures, and review. Key decisions:
+            <strong>language selection before anything else</strong>,
+            <strong>candidate context at the point of voting</strong>,
+            <strong>back buttons on every screen</strong>, and a
+            <strong>dedicated review step</strong> before submission.
+        </p>
+
+        <div class="screen-row">
+            <img src="images/voting-machine-candidates.png" alt="Candidate selection">
+            <img src="images/voting-machine-review.png" alt="Review screen">
+            <img src="images/voting-machine-success.png" alt="Confirmation">
+        </div>
+        <div class="screen-row-labels">
+            <span>Candidate selection with context</span>
+            <span>Review before submitting</span>
+            <span>Unambiguous confirmation</span>
+        </div>
+
+        <p style="margin-top: 8px;">
+            <a href="https://www.figma.com/design/KUPVR6yq6f7hnICI6qL3Xk/Voting-Machine" target="_blank"
+               style="display: inline-flex; align-items: center; gap: 8px; color: var(--muted); border: 1px solid var(--border); padding: 10px 20px; border-radius: 8px; font-size: 0.82rem; font-weight: 500; text-decoration: none;">
+                View full prototype in Figma →
+            </a>
+        </p>
+    </section>
+
+    <footer>
+        <p style="font-size: 1.1rem; margin-bottom: 10px;">Want to learn more about this project?</p>
+        <p style="color: #666;">Let's connect</p>
+        <div class="footer-nav">
+            <a href="/">← Back to Portfolio</a>
+            <a href="mailto:hello@chloewong.com">Email</a>
+            <a href="https://linkedin.com/in/chloewong" target="_blank">LinkedIn</a>
+        </div>
+    </footer>
+
+    <script>
+        const sections = document.querySelectorAll('section[id]');
+        const navItems = document.querySelectorAll('.side-nav-item');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navItems.forEach(i => i.classList.remove('active'));
+                    const active = document.querySelector(`.side-nav-item[data-section="${entry.target.id}"]`);
+                    if (active) active.classList.add('active');
+                }
+            });
+        }, { rootMargin: '-20% 0px -70% 0px' });
+        sections.forEach(s => observer.observe(s));
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const s = document.getElementById(item.getAttribute('data-section'));
+                if (s) s.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+    <script src="/scripts/nav-scroll.js" defer></script>
+</body>
+</html>

@@ -4,20 +4,12 @@ import { useEffect, useRef, useState } from 'react'
 
 const PROJECTS = [
   {
-    title: 'Jumbuddy',
-    tags: ['UX Research', 'User Flows', 'Figma'],
-    description: 'A hyper-local social platform helping students discover campus events and connect through shared interests.',
-    link: '/jumbuddy.html',
-    thumb: '/images/jumbuddy-hero.mp4',
-    year: '2024',
-  },
-  {
-    title: 'Trovr',
-    tags: ['Figma', 'User Research', 'UX/UI'],
-    description: 'A student-based marketplace built in 36 hours with rapid prototyping and user-centered design.',
-    link: '/trovr.html',
-    thumb: '/images/trovr-hero.mp4',
-    year: '2024',
+    title: 'Voting Machine',
+    tags: ['Figma', 'UX Research', 'Accessibility'],
+    description: 'A deep dive into redesigning the voting experience for accessibility — from language selection to ballot confirmation.',
+    link: '/voting-machine.html',
+    thumb: '/images/voting-machine-overview.png',
+    year: '2026',
   },
   {
     title: 'Recube Dashboard',
