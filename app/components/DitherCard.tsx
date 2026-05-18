@@ -58,11 +58,9 @@ export default function DitherCard() {
     return () => clearInterval(id)
   }, [])
 
-  // Weather + sunset via geolocation → Open-Meteo
+  // Weather + sunset via geolocation → Open-Meteo (falls back to Boston)
   useEffect(() => {
-    if (!navigator.geolocation) return
-    navigator.geolocation.getCurrentPosition(({ coords }) => {
-      const { latitude: lat, longitude: lon } = coords
+    function fetchWeather(lat: number, lon: number) {
       fetch(
         `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
         `&current=temperature_2m,weather_code&daily=sunrise,sunset` +
@@ -76,7 +74,16 @@ export default function DitherCard() {
           sunset:  d.daily.sunset[0],
         }))
         .catch(() => {})
-    }, () => {})
+    }
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        ({ coords }) => fetchWeather(coords.latitude, coords.longitude),
+        ()           => fetchWeather(42.36, -71.06), // Boston fallback
+      )
+    } else {
+      fetchWeather(42.36, -71.06)
+    }
   }, [])
 
   // Sync slider state → render refs (no effect re-run needed)
