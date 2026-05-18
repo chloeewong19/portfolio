@@ -35,6 +35,14 @@ const PROJECTS = [
     thumb: '/images/c2pay hero.png',
     year: '2024',
   },
+  {
+    title: 'Voting Machine',
+    tags: ['Figma', 'UX Research', 'Accessibility'],
+    description: 'A deep dive into redesigning the voting experience for accessibility — from language selection to ballot confirmation.',
+    link: '/voting-machine.html',
+    thumb: '/images/voting-machine-overview.png',
+    year: '2026',
+  },
 ]
 
 function useReveal() {
