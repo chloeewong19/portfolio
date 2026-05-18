@@ -4,6 +4,14 @@ import { useEffect, useRef, useState } from 'react'
 
 const PROJECTS = [
   {
+    title: 'Voting Machine',
+    tags: ['Figma', 'UX Research', 'Accessibility'],
+    description: 'A deep dive into redesigning the voting experience for accessibility — from language selection to ballot confirmation.',
+    link: '/voting-machine.html',
+    thumb: '/images/voting-machine-overview.png',
+    year: '2026',
+  },
+  {
     title: 'Recube Dashboard',
     tags: ['UX/UI', 'Analytics', 'Figma'],
     description: 'A real-time analytics dashboard for 50+ restaurant partners to drive sustainability decisions.',
@@ -18,14 +26,6 @@ const PROJECTS = [
     link: '/c2pay.html',
     thumb: '/images/c2pay hero.png',
     year: '2024',
-  },
-  {
-    title: 'Voting Machine',
-    tags: ['Figma', 'UX Research', 'Accessibility'],
-    description: 'A deep dive into redesigning the voting experience for accessibility — from language selection to ballot confirmation.',
-    link: '/voting-machine.html',
-    thumb: '/images/voting-machine-overview.png',
-    year: '2026',
   },
 ]
 
