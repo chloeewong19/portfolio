@@ -31,7 +31,7 @@
         }
         .screen-row-labels span {
             font-size: 0.72rem;
-            color: #aaa;
+            color: var(--faint);
             font-style: italic;
             text-align: center;
             display: block;
@@ -112,7 +112,7 @@
             line-height: 1.7;
         }
         .persona-card .mini-label {
-            font-size: 0.65rem;
+            font-size: 0.72rem;
             font-weight: 500;
             letter-spacing: 0.10em;
             text-transform: uppercase;
@@ -152,7 +152,7 @@
             padding: 20px;
         }
         .reg-card .reg-name {
-            font-size: 0.68rem;
+            font-size: 0.72rem;
             font-weight: 500;
             letter-spacing: 0.10em;
             text-transform: uppercase;
@@ -209,6 +209,25 @@
             color: var(--muted);
             line-height: 1.7;
         }
+
+        /* Figma CTA */
+        .cta-btn {
+            display: flex;
+            width: fit-content;
+            align-items: center;
+            gap: 10px;
+            background: var(--ink);
+            color: var(--cream);
+            padding: 14px 28px;
+            border-radius: 100px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            text-decoration: none;
+            transition: opacity 150ms;
+            margin: 32px auto 0;
+        }
+        .cta-btn:hover { opacity: 0.75; }
 
         @media (max-width: 680px) {
             .screen-row { grid-template-columns: 1fr 1fr; }
@@ -284,8 +303,7 @@
         <p>
             Current voting machine UIs are cluttered, hard to read, and offer almost no support for
             voters with language barriers, low tech literacy, or physical and cognitive disabilities.
-            For a Computer Interface Design class project, I redesigned the end-to-end voting flow —
-            from language selection through ballot confirmation — grounded in structured interviews and
+            For a Computer Interface Design class project, I redesigned the end-to-end voting flow, from language selection through ballot confirmation, grounded in structured interviews and
             disability regulation frameworks studied in a concurrent Disability and Technology course.
         </p>
 
@@ -310,7 +328,7 @@
             <img src="images/voting-machine-high-contrast.png" alt="High contrast mode">
         </div>
         <div class="screen-row-labels">
-            <span>Language selection — step one</span>
+            <span>Language selection, step one</span>
             <span>Accessibility preferences</span>
             <span>High contrast mode</span>
         </div>
@@ -321,7 +339,7 @@
         <div class="section-header">Research</div>
         <h2>Two very different voters. The same broken system.</h2>
         <p>
-            We ran <strong>5 structured interviews</strong> with voters ranging from 19 to 55 — first-timers,
+            We ran <strong>5 structured interviews</strong> with voters ranging from 19 to 55: first-timers,
             immigrant voters, and seasoned poll-goers. Each session followed the same protocol: walk us through
             your last voting experience, describe what confused you, and tell us what would have helped.
             Interview matrices were synthesised across demographics, behaviors, pain points, and goals.
@@ -335,7 +353,7 @@
                 <p class="persona-name">Henry</p>
                 <p class="persona-role">21 · First-time Undergraduate Voter</p>
                 <blockquote>
-                    "I find the voting process confusing — the steps lack clarity. I don't know much about
+                    "I find the voting process confusing; the steps lack clarity. I don't know much about
                     local candidates and wish there were an easier way to learn about them on the ballot itself.
                     I simply hope for a simpler guide through the entire process."
                 </blockquote>
@@ -360,7 +378,7 @@
                 <blockquote>
                     "The words on the ballot are hard to understand, the print is too small, and the
                     bubbles are difficult to fill in. After a long day of work, I'm tired of waiting in
-                    line — and terrified of making a mistake I can't undo."
+                    line, and terrified of making a mistake I can't undo."
                 </blockquote>
                 <p class="mini-label">Pain Points</p>
                 <ul>
@@ -373,7 +391,7 @@
                 <ul>
                     <li>Full Vietnamese language support across all screens</li>
                     <li>Large, easy-to-select touch targets</li>
-                    <li>Forgiving error prevention — easy to go back and correct</li>
+                    <li>Forgiving error prevention: easy to go back and correct</li>
                 </ul>
             </div>
         </div>
@@ -395,7 +413,7 @@
     <!-- Accessibility Framework -->
     <section id="accessibility" class="content">
         <div class="section-header">Accessibility Framework</div>
-        <h2>Designing within — and beyond — what the law requires</h2>
+        <h2>Designing within and beyond what the law requires</h2>
         <p>
             Running parallel to this project, I took a Disability and Technology course where we
             studied the legal frameworks that govern accessibility in civic systems. Three regulations
@@ -406,19 +424,19 @@
             <div class="reg-card">
                 <p class="reg-name">HAVA 2002</p>
                 <p>The Help America Vote Act requires every polling place to have at least one accessible
-                voting system — one that allows voters with disabilities the same privacy and independence
+                voting system, one that allows voters with disabilities the same privacy and independence
                 as any other voter. Prior ballot designs widely violated this.</p>
             </div>
             <div class="reg-card">
                 <p class="reg-name">ADA Title II</p>
                 <p>State and local governments must make programs, activities, and services equally accessible
-                to people with disabilities. Voting is a government service — so every screen in the
+                to people with disabilities. Voting is a government service, so every screen in the
                 flow must meet this standard.</p>
             </div>
             <div class="reg-card">
                 <p class="reg-name">WCAG 2.1 AA</p>
-                <p>The Web Content Accessibility Guidelines' four principles — Perceivable, Operable,
-                Understandable, Robust — formed the design checklist for every interaction state, contrast
+                <p>The Web Content Accessibility Guidelines' four principles (Perceivable, Operable,
+                Understandable, Robust) formed the design checklist for every interaction state, contrast
                 ratio, and input control in the prototype.</p>
             </div>
         </div>
@@ -433,14 +451,14 @@
                 <span class="accom-num">1</span>
                 <div class="accom-body">
                     <strong>Large, high-feedback touch targets</strong>
-                    <p>Big bubbles and buttons that visibly change color when selected — eliminating guesswork about whether a selection was registered.</p>
+                    <p>Big bubbles and buttons that visibly change color when selected, eliminating guesswork about whether a selection was registered.</p>
                 </div>
             </li>
             <li>
                 <span class="accom-num">2</span>
                 <div class="accom-body">
                     <strong>Candidate context at point of voting</strong>
-                    <p>Brief 2–3 sentence summaries of each candidate's background, party endorsement, and photo — displayed directly on the ballot so no prior research is required.</p>
+                    <p>Brief 2–3 sentence summaries of each candidate's background, party endorsement, and photo, displayed directly on the ballot so no prior research is required.</p>
                 </div>
             </li>
             <li>
@@ -460,28 +478,28 @@
                 <span class="accom-num">4</span>
                 <div class="accom-body">
                     <strong>Full multilingual support</strong>
-                    <p>All ballot text, candidate information, instructions, and error messages available in the voter's chosen language — selected on the very first screen.</p>
+                    <p>All ballot text, candidate information, instructions, and error messages available in the voter's chosen language, selected on the very first screen.</p>
                 </div>
             </li>
             <li>
                 <span class="accom-num">5</span>
                 <div class="accom-body">
                     <strong>Plain-language ballot measures</strong>
-                    <p>Propositions and measures rewritten in accessible language, without legal jargon — ensuring voters understand what they are actually deciding.</p>
+                    <p>Propositions and measures rewritten in accessible language, without legal jargon, ensuring voters understand what they are actually deciding.</p>
                 </div>
             </li>
             <li>
                 <span class="accom-num">6</span>
                 <div class="accom-body">
                     <strong>Guided voting onboarding</strong>
-                    <p>A clear, step-by-step flow explaining each stage of the voting process before and while it unfolds — designed for first-time voters like Henry.</p>
+                    <p>A clear, step-by-step flow explaining each stage of the voting process before and while it unfolds, designed for first-time voters like Henry.</p>
                 </div>
             </li>
             <li>
                 <span class="accom-num">7</span>
                 <div class="accom-body">
                     <strong>Persistent accessibility controls</strong>
-                    <p>Adjustable text size, high-contrast mode, and audio readout / screen reader support — available on every screen, not buried in settings.</p>
+                    <p>Adjustable text size, high-contrast mode, and audio readout / screen reader support, available on every screen, not buried in settings.</p>
                 </div>
             </li>
             <li>
@@ -499,7 +517,7 @@
                 <div class="accom-body">
                     <strong>Cognitive load reduction</strong>
                     <ul>
-                        <li>One decision per screen — progressive disclosure to prevent overwhelm</li>
+                        <li>One decision per screen: progressive disclosure to prevent overwhelm</li>
                         <li>Maximum one tooltip open at a time</li>
                         <li>Visual hierarchy that always leads with the most critical information</li>
                         <li>Progress indicator visible throughout the flow</li>
@@ -514,7 +532,7 @@
         <div class="section-header">Design</div>
         <h2>Every decision earned by the research</h2>
         <p>
-            The redesign covers 8 steps — identity verification, accessibility setup, guided onboarding,
+            The redesign covers 8 steps: identity verification, accessibility setup, guided onboarding,
             candidate selection, ballot measures, review, and confirmation. Key decisions:
             <strong>language selection before anything else</strong>,
             <strong>candidate context at the point of voting</strong>,
@@ -533,35 +551,32 @@
             <span>Unambiguous confirmation</span>
         </div>
 
-        <p style="margin-top: 8px;">
-            <a href="https://www.figma.com/design/KUPVR6yq6f7hnICI6qL3Xk/Voting-Machine" target="_blank"
-               style="display: inline-flex; align-items: center; gap: 8px; color: var(--muted); border: 1px solid var(--border); padding: 10px 20px; border-radius: 8px; font-size: 0.82rem; font-weight: 500; text-decoration: none;">
-                View full prototype in Figma →
-            </a>
-        </p>
+        <a href="https://www.figma.com/design/KUPVR6yq6f7hnICI6qL3Xk/Voting-Machine" target="_blank" class="cta-btn">
+            View full prototype in Figma →
+        </a>
     </section>
 
     <!-- Reflection -->
     <section id="reflection" class="content">
         <div class="section-header">Reflection</div>
-        <h2>Accessibility is not a checklist — it's a lens</h2>
+        <h2>Accessibility is not a checklist. It's a lens.</h2>
         <p>
             Going into this project, I thought accessibility meant contrast ratios and alt text. The
-            interviews dismantled that. Henry wasn't failing because of a visual impairment — he was
+            interviews dismantled that. Henry wasn't failing because of a visual impairment; he was
             failing because the system assumed prior knowledge he didn't have. Hanh wasn't struggling
-            because of a disability — she was struggling because the entire interface was built for
+            because of a disability; she was struggling because the entire interface was built for
             someone with a law degree and 20/20 vision.
         </p>
         <p>
             Studying HAVA, ADA Title II, and WCAG in parallel gave me a framework, but the interviews
-            gave me the why. Regulations tell you the floor — they don't tell you what a good experience
+            gave me the why. Regulations tell you the floor; they don't tell you what a good experience
             feels like. The most useful design questions I learned to ask weren't "does this meet Section
-            508?" but "what does this user have to already know for this screen to make sense — and is
+            508?" but "what does this user have to already know for this screen to make sense? And is
             that fair to assume?"
         </p>
         <p>
             If I continued this project, I'd test with voters who rely on screen readers and switch-access
-            devices — groups underrepresented in our five interviews. I'd also explore what a mail-in ballot
+            devices, groups underrepresented in our five interviews. I'd also explore what a mail-in ballot
             redesign could look like, since inconsistency across voting methods was a recurring frustration
             that the digital interface alone can't fully solve.
         </p>

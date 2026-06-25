@@ -7,7 +7,7 @@
   --cream:    #fdf6ec;
   --ink:      #3d1020;
   --muted:    #8b3a52;
-  --faint:    #c47a8a;
+  --faint:    #a05068;
   --border:   #f4afc0;
   --hover-bg: #fff0f5;
 }
@@ -147,7 +147,7 @@ nav.scrolled {
 
 .meta-item h3 {
   font-family: 'General Sans', 'DM Sans', sans-serif;
-  font-size: 0.58rem;
+  font-size: 0.72rem;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -181,7 +181,7 @@ nav.scrolled {
 
 .section-header {
   font-family: 'General Sans', 'DM Sans', sans-serif;
-  font-size: 0.60rem;
+  font-size: 0.72rem;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.12em;

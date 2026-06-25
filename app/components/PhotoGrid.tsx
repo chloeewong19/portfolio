@@ -17,7 +17,7 @@ const PROJECTS = [
     description: 'A real-time analytics dashboard for 50+ restaurant partners to drive sustainability decisions.',
     link: '/recube.html',
     thumb: '/images/recube-hero.mp4',
-    year: '2024',
+    year: '2025',
   },
   {
     title: 'C2Pay',
@@ -25,7 +25,7 @@ const PROJECTS = [
     description: 'A mobile SDK for adaptive MFA using device trust, biometrics, and C2PA attestation.',
     link: '/c2pay.html',
     thumb: '/images/c2pay hero.png',
-    year: '2024',
+    year: '2025',
   },
 ]
 
