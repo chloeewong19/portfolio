@@ -2,6 +2,30 @@
 
 import { useEffect, useRef, useState } from 'react'
 
+const WMO_EMOJI: Record<number, string> = {
+  0: '☀️', 1: '🌤️', 2: '⛅', 3: '☁️',
+  45: '🌫️', 48: '🌫️',
+  51: '🌦️', 53: '🌦️', 55: '🌦️',
+  61: '🌧️', 63: '🌧️', 65: '🌧️',
+  71: '🌨️', 73: '🌨️', 75: '🌨️', 77: '🌨️',
+  80: '🌦️', 81: '🌧️', 82: '🌧️',
+  85: '🌨️', 86: '🌨️',
+  95: '⛈️', 96: '⛈️', 99: '⛈️',
+}
+
+function weatherEmoji(code: number) {
+  return WMO_EMOJI[code] ?? '🌡️'
+}
+
+function sunCountdown(isoTime: string, now: Date): string {
+  const t = new Date(isoTime)
+  const diffMs = t.getTime() - now.getTime()
+  if (diffMs < 0) return ''
+  const h = Math.floor(diffMs / 3_600_000)
+  const m = Math.floor((diffMs % 3_600_000) / 60_000)
+  return h > 0 ? `${h}h ${m}m` : `${m}m`
+}
+
 // Ordered 4×4 Bayer matrix (values 0-15)
 const BAYER4 = [
   [ 0,  8,  2, 10],
@@ -20,6 +44,7 @@ export default function DitherCard() {
   const [hovered,   setHovered]   = useState(false)
   const [cellSize,  setCellSize]  = useState(1)
   const [levels,    setLevels]    = useState(6)
+  const [weather,   setWeather]   = useState<{ temp: number; code: number; sunset: string; sunrise: string } | null>(null)
 
   // Live Boston time
   useEffect(() => {
@@ -31,6 +56,34 @@ export default function DitherCard() {
     update()
     const id = setInterval(update, 1000)
     return () => clearInterval(id)
+  }, [])
+
+  // Weather + sunset via geolocation → Open-Meteo (falls back to Boston)
+  useEffect(() => {
+    function fetchWeather(lat: number, lon: number) {
+      fetch(
+        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
+        `&current=temperature_2m,weather_code&daily=sunrise,sunset` +
+        `&temperature_unit=fahrenheit&timezone=auto&forecast_days=1`
+      )
+        .then(r => r.json())
+        .then(d => setWeather({
+          temp:    Math.round(d.current.temperature_2m),
+          code:    d.current.weather_code,
+          sunrise: d.daily.sunrise[0],
+          sunset:  d.daily.sunset[0],
+        }))
+        .catch(() => {})
+    }
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        ({ coords }) => fetchWeather(coords.latitude, coords.longitude),
+        ()           => fetchWeather(42.36, -71.06), // Boston fallback
+      )
+    } else {
+      fetchWeather(42.36, -71.06)
+    }
   }, [])
 
   // Sync slider state → render refs (no effect re-run needed)
@@ -295,6 +348,44 @@ export default function DitherCard() {
             Boston · {localTime || '—:—:—'}
           </span>
         </div>
+
+        {weather && (() => {
+          const now = new Date()
+          const afterSunrise = now > new Date(weather.sunrise)
+          const beforeSunset = now < new Date(weather.sunset)
+          const isDaytime = afterSunrise && beforeSunset
+          const countdown = isDaytime
+            ? sunCountdown(weather.sunset, now)
+            : sunCountdown(weather.sunrise, now)
+          const label = isDaytime ? 'Sunset' : 'Sunrise'
+          return (
+            <div style={{
+              marginTop: 10,
+              paddingTop: 10,
+              borderTop: '1px solid rgba(255,255,255,0.07)',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}>
+              <span style={{
+                fontFamily: "'General Sans', var(--font-dm-sans), sans-serif",
+                fontSize: '0.68rem',
+                color: 'rgba(255, 210, 165, 0.70)',
+                letterSpacing: '0.03em',
+              }}>
+                {weatherEmoji(weather.code)} {weather.temp}°F
+              </span>
+              <span style={{
+                fontFamily: "'General Sans', var(--font-dm-sans), sans-serif",
+                fontSize: '0.68rem',
+                color: 'rgba(255, 210, 165, 0.45)',
+                letterSpacing: '0.03em',
+              }}>
+                {label} in {countdown}
+              </span>
+            </div>
+          )
+        })()}
       </div>
     </div>
   )

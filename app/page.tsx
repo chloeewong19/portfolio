@@ -3,7 +3,6 @@
 import Nav from './components/Nav'
 import PhotoGrid from './components/PhotoGrid'
 import DitherCard from './components/DitherCard'
-import MeshCard from './components/MeshCard'
 
 export default function Home() {
   return (
@@ -33,7 +32,7 @@ export default function Home() {
           }}
         >
           <DitherCard />
-          <MeshCard />
+          <div style={{ borderRadius: 20, background: 'rgba(0,0,0,0.04)', border: '1px solid rgba(0,0,0,0.06)' }} />
         </div>
       </section>
 
