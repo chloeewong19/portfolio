@@ -6,7 +6,7 @@ import Nav from '../components/Nav'
 const EXPERIENCE = [
   { role: 'Student Technology Experience Intern', org: 'Tufts Technology Services', period: 'Spring 2025' },
   { role: 'Lead Designer', org: 'JumboCode', period: '2024–2025' },
-  { role: 'Product Design Intern', org: 'Recube', period: 'Summer 2024' },
+  { role: 'Product Design Intern', org: 'Recube', period: 'Summer 2024', tag: 'Internship' },
 ]
 
 const EDUCATION = [
@@ -56,7 +56,7 @@ function SectionHeading({ children, dot }: Readonly<{ children: React.ReactNode;
   )
 }
 
-function EntryRow({ role, org, period }: Readonly<{ role: string; org: string; period: string }>) {
+function EntryRow({ role, org, period, tag }: Readonly<{ role: string; org: string; period: string; tag?: string }>) {
   const [hovered, setHovered] = useState(false)
   return (
     <li
@@ -73,9 +73,19 @@ function EntryRow({ role, org, period }: Readonly<{ role: string; org: string; p
       }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '12px' }}>
-        <div>
+        <div style={{ display: 'flex', alignItems: 'baseline', flexWrap: 'wrap', gap: '6px' }}>
           <span style={{ fontSize: '0.88rem', fontWeight: 400, color: 'var(--color-ink)' }}>{role}</span>
-          <span style={{ fontSize: '0.84rem', color: 'var(--color-muted)', marginLeft: '6px' }}>/ {org}</span>
+          <span style={{ fontSize: '0.84rem', color: 'var(--color-muted)' }}>/ {org}</span>
+          {tag && (
+            <span style={{
+              fontSize: '0.58rem', fontWeight: 500, letterSpacing: '0.07em', textTransform: 'uppercase',
+              color: 'var(--color-muted)',
+              border: '1px solid var(--color-border)',
+              borderRadius: 4, padding: '1px 6px',
+            }}>
+              {tag}
+            </span>
+          )}
         </div>
         <span className="pixel-label" style={{ color: 'var(--color-faint)', whiteSpace: 'nowrap', flexShrink: 0 }}>{period}</span>
       </div>

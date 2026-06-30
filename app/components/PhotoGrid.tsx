@@ -29,7 +29,7 @@ const PROJECTS = [
   },
   {
     title: 'C2Pay',
-    tags: ['React Native', 'C2PA', 'HackHarvard Winner'],
+    tags: ['Coding', 'C2PA', 'HackHarvard Winner'],
     description: 'A mobile SDK for adaptive MFA using device trust, biometrics, and C2PA attestation.',
     link: '/c2pay.html',
     thumb: '/images/c2pay hero.png',
