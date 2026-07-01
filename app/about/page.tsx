@@ -48,7 +48,7 @@ function PhotoItem({ label, src }: Readonly<{ label: string; src: string }>) {
 function SectionHeading({ children, dot }: Readonly<{ children: React.ReactNode; dot?: boolean }>) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
-      {dot && <span className="pixel-dot dot-pulse" />}
+      {dot && <span className="dot-pulse" style={{ color: 'var(--color-red-dot)', fontSize: '0.9rem', lineHeight: 1, display: 'inline-block' }}>✿</span>}
       <span className="pixel-label" style={{ color: 'var(--color-muted)' }}>
         {children}
       </span>
@@ -121,41 +121,16 @@ export default function About() {
             </h1>
 
             <p className="fade-up" style={{ fontSize: '0.95rem', lineHeight: 1.75, color: 'var(--color-muted)', maxWidth: '420px', animationDelay: '80ms' }}>
-              I&apos;m a sophomore at Tufts University studying Human Factors Engineering and Computer
-              Science, with a focus on accessibility and inclusive design. Currently interning at
-              Tufts Technology Services and leading design at JumboCode.
+              I&apos;m a student at Tufts University studying Human Factors Engineering and Computer
+              Science, with a focus on accessibility and inclusive design.
             </p>
 
-            {/* Currently */}
-            <div className="fade-up" style={{ animationDelay: '160ms' }}>
-              <p className="pixel-label" style={{ color: 'var(--color-faint)', marginBottom: '10px' }}>
-                Currently
-              </p>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '7px' }}>
-                {[
-                  'Building Merae (a social life tracking app) and Trovr (a campus marketplace)',
-                  'Exploring wearable tech and BCIs',
-                  'Getting into the Boston AI community',
-                  'Café hopping around Somerville',
-                ].map(item => (
-                  <li key={item} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontSize: '0.88rem', color: 'var(--color-muted)', lineHeight: 1.65 }}>
-                    <span className="pixel-label" style={{ color: 'var(--color-red-dot)', marginTop: '3px', flexShrink: 0, fontSize: '6px' }}>▸</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <p className="fade-up" style={{ fontSize: '0.88rem', color: 'var(--color-muted)', lineHeight: 1.7, animationDelay: '240ms' }}>
-              I post my work on{' '}
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-ink)', borderBottom: '1px solid var(--color-border)', paddingBottom: '1px', transition: 'border-color 150ms' }}>
-                Twitter
-              </a>{' '}
-              and{' '}
+            <p className="fade-up" style={{ fontSize: '0.88rem', color: 'var(--color-muted)', lineHeight: 1.7, animationDelay: '160ms' }}>
+              Connect on{' '}
               <a href="https://www.linkedin.com/in/chloe-wong-29b412234/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-ink)', borderBottom: '1px solid var(--color-border)', paddingBottom: '1px' }}>
                 LinkedIn
               </a>
-              . Say hello at{' '}
+              {' '}or say hello at{' '}
               <a href="mailto:chloewong052@gmail.com" style={{ color: 'var(--color-ink)', borderBottom: '1px solid var(--color-border)', paddingBottom: '1px' }}>
                 chloewong052@gmail.com
               </a>
@@ -180,6 +155,28 @@ export default function About() {
             </div>
           </div>
         </div>
+
+        {/* ── Resume ── */}
+        <section style={{ paddingTop: '48px', paddingBottom: '48px', borderBottom: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '40px' }}>
+          <div>
+            <span className="pixel-label" style={{ color: 'var(--color-muted)', display: 'block', marginBottom: '6px' }}>Resume</span>
+            <p style={{ fontSize: '0.88rem', color: 'var(--color-muted)', margin: 0, lineHeight: 1.6 }}>UX / product design · accessibility · full-stack</p>
+          </div>
+          <a
+            href="https://drive.google.com/file/d/1dmoGwxz_-ciB32ECIx9Ien_B3U7O9V2Z/view?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: '8px', flexShrink: 0,
+              background: 'var(--color-ink)', color: 'var(--color-cream)',
+              padding: '13px 26px', borderRadius: '100px',
+              fontSize: '0.85rem', fontWeight: 500,
+              textDecoration: 'none',
+            }}
+          >
+            View Resume ↗
+          </a>
+        </section>
 
         {/* ── Photo strip ── */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px', paddingTop: '64px', paddingBottom: '64px' }}>

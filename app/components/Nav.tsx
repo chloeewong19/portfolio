@@ -75,7 +75,7 @@ export default function Nav() {
           whiteSpace: 'nowrap',
         }}
       >
-        Chloe W
+        Chloe W <span style={{ opacity: 0.45, fontSize: '0.8em' }}>✿</span>
       </Link>
 
       {/* Links */}

@@ -4,36 +4,28 @@ import { useEffect, useRef, useState } from 'react'
 
 const PROJECTS = [
   {
-    title: 'Jumbuddy',
-    tags: ['UX Research', 'User Flows', 'Figma'],
-    description: 'A hyper-local social platform helping students discover campus events and connect through shared interests.',
-    link: '/jumbuddy.html',
-    thumb: '/images/jumbuddy-hero.mp4',
-    year: '2024',
-  },
-  {
-    title: 'Trovr',
-    tags: ['Figma', 'User Research', 'UX/UI'],
-    description: 'A student-based marketplace built in 36 hours with rapid prototyping and user-centered design.',
-    link: '/trovr.html',
-    thumb: '/images/trovr-hero.mp4',
-    year: '2024',
-  },
-  {
     title: 'Recube Dashboard',
-    tags: ['UX/UI', 'Analytics', 'Figma'],
-    description: 'A real-time analytics dashboard for 50+ restaurant partners to drive sustainability decisions.',
+    tags: ['Internship', 'Analytics', 'Figma'],
+    description: 'Real-time inventory and sustainability analytics, built from scratch for 50+ restaurant partners at a reusable packaging startup.',
     link: '/recube.html',
     thumb: '/images/recube-hero.mp4',
-    year: '2024',
+    year: '2025',
+  },
+  {
+    title: 'Accessible Voting Machine',
+    tags: ['HFE', 'Accessibility', 'UX Research'],
+    description: 'An end-to-end voting machine redesign covering physical, cognitive, sensory, and language-based accessibility needs across 8 screens.',
+    link: '/voting-machine.html',
+    thumb: '/images/voting-machine-overview.png',
+    year: '2026',
   },
   {
     title: 'C2Pay',
     tags: ['Coding', 'C2PA', 'HackHarvard Winner'],
-    description: 'A mobile SDK for adaptive MFA using device trust, biometrics, and C2PA attestation.',
+    description: 'A HackHarvard-winning authentication SDK built in 24 hours — adaptive MFA using device trust, biometrics, and C2PA content provenance.',
     link: '/c2pay.html',
     thumb: '/images/c2pay hero.png',
-    year: '2024',
+    year: '2025',
   },
 ]
 
@@ -108,7 +100,7 @@ function ProjectCard({ title, tags, description, link, thumb, year, index }: Rea
           WebkitBackdropFilter: 'blur(6px)',
           borderRadius: 20, padding: '3px 9px',
         }}>
-          {year}
+          <span style={{ opacity: 0.5, marginRight: 3 }}>✿</span>{year}
         </span>
       </div>
 
@@ -131,21 +123,15 @@ function ProjectCard({ title, tags, description, link, thumb, year, index }: Rea
         </div>
 
         {/* Tags */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
-          {tags.map(tag => (
-            <span key={tag} style={{
-              fontFamily: "'General Sans', var(--font-dm-sans), sans-serif",
-              fontSize: '0.60rem', fontWeight: 500,
-              letterSpacing: '0.07em', textTransform: 'uppercase',
-              color: '#7a5030',
-              border: '1px solid rgba(120,80,40,0.18)',
-              borderRadius: 4, padding: '2px 7px',
-              background: 'rgba(248,244,238,0.9)',
-            }}>
-              {tag}
-            </span>
-          ))}
-        </div>
+        <p style={{
+          fontFamily: "'General Sans', var(--font-dm-sans), sans-serif",
+          fontSize: '0.72rem', fontWeight: 500,
+          color: 'rgba(80,45,12,0.55)',
+          margin: 0, lineHeight: 1,
+          letterSpacing: '0.03em',
+        }}>
+          {tags.join('  ·  ')}
+        </p>
 
         <p style={{
           fontFamily: "'General Sans', var(--font-dm-sans), sans-serif",
@@ -166,10 +152,9 @@ export default function PhotoGrid() {
       {/* Section label */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '64px 0 24px' }}>
         <span style={{
-          width: 6, height: 6, borderRadius: '50%',
-          background: '#7aad6a', display: 'inline-block', flexShrink: 0,
-          animation: 'dotPulse 2.8s ease-in-out infinite',
-        }} />
+          fontSize: '0.9rem', color: '#7aad6a', display: 'inline-block', flexShrink: 0,
+          animation: 'dotPulse 2.8s ease-in-out infinite', lineHeight: 1,
+        }}>✿</span>
         <span style={{
           fontFamily: "'General Sans', var(--font-dm-sans), sans-serif",
           fontSize: '0.68rem', fontWeight: 500,

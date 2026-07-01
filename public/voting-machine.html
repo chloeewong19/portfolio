@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting Machine - Chloe Wong</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://api.fontshare.com">
+    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/portfolio.css">
+    <style>
+        .screen-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin: 40px 0 8px;
+        }
+        .screen-row img {
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            display: block;
+        }
+        .screen-row-labels {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+        .screen-row-labels span {
+            font-size: 0.72rem;
+            color: var(--faint);
+            font-style: italic;
+            text-align: center;
+            display: block;
+        }
+
+        /* Stat row */
+        .stat-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 36px 0;
+        }
+        .stat-box {
+            background: var(--hover-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px 20px;
+            text-align: center;
+        }
+        .stat-box .num {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 2.4rem;
+            font-weight: 400;
+            color: var(--ink);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+        .stat-box .label {
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--faint);
+        }
+
+        /* Persona cards */
+        .persona-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 36px 0;
+        }
+        .persona-card {
+            background: var(--hover-bg);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 28px;
+        }
+        .persona-card .persona-name {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.55rem;
+            font-weight: 400;
+            color: var(--ink);
+            margin: 0 0 2px;
+        }
+        .persona-card .persona-role {
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--faint);
+            margin: 0 0 16px;
+        }
+        .persona-card blockquote {
+            border-left: 2px solid var(--border);
+            padding: 10px 14px;
+            margin: 0 0 16px;
+            font-style: italic;
+            font-size: 0.85rem;
+            color: var(--muted);
+            line-height: 1.65;
+        }
+        .persona-card ul {
+            margin: 0;
+            padding-left: 18px;
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+        .persona-card .mini-label {
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+            color: var(--faint);
+            margin: 14px 0 6px;
+        }
+
+        /* Pain point pills */
+        .pill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 20px 0 0;
+            padding: 0;
+            list-style: none;
+        }
+        .pill-list li {
+            background: var(--hover-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 5px 14px;
+            font-size: 0.78rem;
+            color: var(--muted);
+        }
+
+        /* Regulation cards */
+        .reg-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 14px;
+            margin: 32px 0;
+        }
+        .reg-card {
+            background: var(--hover-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .reg-card .reg-name {
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin: 0 0 6px;
+        }
+        .reg-card p {
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Accommodations list */
+        .accom-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .accom-list > li {
+            border-bottom: 1px solid var(--border);
+            padding: 18px 0;
+            display: grid;
+            grid-template-columns: 28px 1fr;
+            gap: 14px;
+            align-items: start;
+        }
+        .accom-list > li:first-child { padding-top: 0; }
+        .accom-list > li:last-child  { border-bottom: none; }
+        .accom-num {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.1rem;
+            color: var(--faint);
+            font-weight: 400;
+            padding-top: 1px;
+        }
+        .accom-body strong {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--ink);
+            display: block;
+            margin-bottom: 4px;
+        }
+        .accom-body p {
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.65;
+            margin: 0;
+        }
+        .accom-body ul {
+            margin: 6px 0 0 16px;
+            padding: 0;
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        /* Collapsible accommodations toggle */
+        .accom-toggle {
+            margin-top: 28px;
+        }
+        .accom-toggle summary {
+            cursor: pointer;
+            list-style: none;
+            font-size: 0.92rem;
+            color: var(--muted);
+            line-height: 1.6;
+            padding: 14px 18px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--hover-bg);
+            user-select: none;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            transition: background 150ms;
+        }
+        .accom-toggle summary::-webkit-details-marker { display: none; }
+        .accom-toggle summary::marker { display: none; }
+        .accom-toggle summary:hover { background: var(--border); }
+        .accom-toggle-hint {
+            flex-shrink: 0;
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--faint);
+            white-space: nowrap;
+        }
+        .accom-toggle-hint::before { content: 'Show all 9 ↓'; }
+        .accom-toggle[open] .accom-toggle-hint::before { content: 'Collapse ↑'; }
+        .accom-toggle[open] summary {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            border-bottom: none;
+        }
+        .accom-toggle[open] .accom-list {
+            border: 1px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 10px 10px;
+            padding: 0 18px;
+        }
+
+        /* Persona toggle */
+        .persona-toggle {
+            margin-top: 24px;
+        }
+        .persona-toggle summary {
+            cursor: pointer;
+            list-style: none;
+            font-size: 0.92rem;
+            color: var(--muted);
+            line-height: 1.6;
+            padding: 14px 18px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--hover-bg);
+            user-select: none;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            transition: background 150ms;
+        }
+        .persona-toggle summary::-webkit-details-marker { display: none; }
+        .persona-toggle summary::marker { display: none; }
+        .persona-toggle summary:hover { background: var(--border); }
+        .persona-toggle-hint {
+            flex-shrink: 0;
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--faint);
+            white-space: nowrap;
+        }
+        .persona-toggle-hint::before { content: 'Show ↓'; }
+        .persona-toggle[open] .persona-toggle-hint::before { content: 'Collapse ↑'; }
+        .persona-toggle[open] summary {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            border-bottom: none;
+        }
+        .persona-toggle[open] .persona-row {
+            border: 1px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 10px 10px;
+            padding: 20px 18px;
+        }
+
+        /* Figma CTA */
+        .cta-btn {
+            display: flex;
+            width: fit-content;
+            align-items: center;
+            gap: 10px;
+            background: var(--ink);
+            color: var(--cream);
+            padding: 14px 28px;
+            border-radius: 100px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            text-decoration: none;
+            transition: opacity 150ms;
+            margin: 32px auto 0;
+        }
+        .cta-btn:hover { opacity: 0.75; }
+
+        @media (max-width: 680px) {
+            .screen-row { grid-template-columns: 1fr 1fr; }
+            .screen-row-labels { grid-template-columns: 1fr 1fr; }
+            .screen-row img:last-child, .screen-row-labels span:last-child { display: none; }
+            .persona-row, .reg-grid, .stat-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="nav-brand">Chloe W</a>
+        <ul class="nav-links">
+            <li><a href="/#work">Work</a></li>
+            <li><a href="mailto:chloewong052@gmail.com">Contact</a></li>
+            <li><a href="/about">About</a></li>
+        </ul>
+    </nav>
+
+    <div class="side-nav">
+        <div class="side-nav-item" data-section="overview">
+            <span class="side-nav-label">Overview</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="research">
+            <span class="side-nav-label">Research</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="accessibility">
+            <span class="side-nav-label">Accessibility</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="design">
+            <span class="side-nav-label">Design</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="reflection">
+            <span class="side-nav-label">Reflection</span>
+            <div class="side-nav-dot"></div>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero">
+        <h1 class="hero-title">Redesigning the Voting Experience for Accessibility</h1>
+        <div class="hero-image">
+            <img src="images/voting-machine-overview.png" alt="Voting Machine UI Overview" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+        </div>
+        <div class="project-meta">
+            <div class="meta-item">
+                <h3>Role</h3>
+                <p>UX + Product Designer</p>
+            </div>
+            <div class="meta-item">
+                <h3>Year</h3>
+                <p>2026</p>
+            </div>
+            <div class="meta-item">
+                <h3>Context</h3>
+                <p>Computer Interface Design</p>
+            </div>
+            <div class="meta-item">
+                <h3>Tools</h3>
+                <p>Figma · UX Research</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overview -->
+    <section id="overview" class="content">
+        <div class="section-header">Overview</div>
+        <h2>The voting machine is a civic interface that fails its most vulnerable users</h2>
+        <p>
+            Current voting machine UIs are cluttered, hard to read, and offer almost no support for
+            voters with language barriers, low tech literacy, or physical and cognitive disabilities.
+            For a Computer Interface Design class project, I redesigned the end-to-end voting flow, from language selection through ballot confirmation, grounded in structured interviews and
+            disability regulation frameworks studied in a concurrent Disability and Technology course.
+        </p>
+
+        <div class="stat-row">
+            <div class="stat-box">
+                <div class="num">5</div>
+                <div class="label">Structured Interviews</div>
+            </div>
+            <div class="stat-box">
+                <div class="num">2</div>
+                <div class="label">Personas Developed</div>
+            </div>
+            <div class="stat-box">
+                <div class="num">9</div>
+                <div class="label">Design Accommodations</div>
+            </div>
+        </div>
+
+        <div class="screen-row" style="margin-top: 40px;">
+            <img src="images/voting-machine-welcome.png" alt="Welcome screen">
+            <img src="images/voting-machine-accessibility.png" alt="Accessibility setup">
+            <img src="images/voting-machine-high-contrast.png" alt="High contrast mode">
+        </div>
+        <div class="screen-row-labels">
+            <span>Language selection, step one</span>
+            <span>Accessibility preferences</span>
+            <span>High contrast mode</span>
+        </div>
+    </section>
+
+    <!-- Research -->
+    <section id="research" class="content">
+        <div class="section-header">Research</div>
+        <h2>Two very different voters. The same broken system.</h2>
+        <p>
+            We ran <strong>5 structured interviews</strong> with voters ranging from 19 to 55: first-timers,
+            immigrant voters, and seasoned poll-goers. Each session followed the same protocol: walk us through
+            your last voting experience, describe what confused you, and tell us what would have helped.
+            Interview matrices were synthesised across demographics, behaviors, pain points, and goals.
+        </p>
+        <p>
+            Two personas emerged that anchored every design decision.
+        </p>
+
+        <details class="persona-toggle">
+            <summary>
+                <span>View personas</span>
+                <span class="persona-toggle-hint"></span>
+            </summary>
+            <div class="persona-row">
+                <div class="persona-card">
+                    <p class="persona-name">Henry</p>
+                    <p class="persona-role">21 · First-time Undergraduate Voter</p>
+                    <blockquote>
+                        "I find the voting process confusing; the steps lack clarity. I don't know much about
+                        local candidates and wish there were an easier way to learn about them on the ballot itself.
+                        I simply hope for a simpler guide through the entire process."
+                    </blockquote>
+                    <p class="mini-label">Pain Points</p>
+                    <ul>
+                        <li>No step-by-step guidance through registration or voting</li>
+                        <li>Limited knowledge of local candidates on the ballot</li>
+                        <li>No accessible way to research candidates at the point of voting</li>
+                        <li>Uncertainty about whether the vote was properly recorded</li>
+                    </ul>
+                    <p class="mini-label">Goals</p>
+                    <ul>
+                        <li>Clear, guided process from start to finish</li>
+                        <li>Easy access to candidate context directly on the ballot</li>
+                        <li>Confidence that his vote was counted correctly</li>
+                    </ul>
+                </div>
+
+                <div class="persona-card">
+                    <p class="persona-name">Hanh Tran</p>
+                    <p class="persona-role">50 · Vietnamese-American Voter</p>
+                    <blockquote>
+                        "The words on the ballot are hard to understand, the print is too small, and the
+                        bubbles are difficult to fill in. After a long day of work, I'm tired of waiting in
+                        line, and terrified of making a mistake I can't undo."
+                    </blockquote>
+                    <p class="mini-label">Pain Points</p>
+                    <ul>
+                        <li>Legal jargon on ballot measures is inaccessible</li>
+                        <li>Small text and difficult-to-fill bubbles cause physical strain</li>
+                        <li>No Vietnamese language option throughout the flow</li>
+                        <li>No clear confirmation that the vote was successfully cast</li>
+                    </ul>
+                    <p class="mini-label">Goals</p>
+                    <ul>
+                        <li>Full Vietnamese language support across all screens</li>
+                        <li>Large, easy-to-select touch targets</li>
+                        <li>Forgiving error prevention: easy to go back and correct</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+
+        <p><strong>Shared pain points across all 5 interviews:</strong></p>
+        <ul class="pill-list">
+            <li>Unclear, step-less instructions</li>
+            <li>Confusing eligibility feedback</li>
+            <li>No candidate info at point of voting</li>
+            <li>Small text &amp; difficult inputs</li>
+            <li>Language barriers</li>
+            <li>No confirmation vote was recorded</li>
+            <li>Fear of irreversible mistakes</li>
+            <li>No guidance for first-time voters</li>
+            <li>Inconsistency across voting methods</li>
+        </ul>
+    </section>
+
+    <!-- Accessibility Framework -->
+    <section id="accessibility" class="content">
+        <div class="section-header">Accessibility Framework</div>
+        <h2>Designing within and beyond what the law requires</h2>
+        <p>
+            Running parallel to this project, I took a Disability and Technology course where we
+            studied the legal frameworks that govern accessibility in civic systems. Three regulations
+            directly shaped the scope of this redesign.
+        </p>
+
+        <div class="reg-grid">
+            <div class="reg-card">
+                <p class="reg-name">HAVA 2002</p>
+                <p>The Help America Vote Act requires every polling place to have at least one accessible
+                voting system, one that allows voters with disabilities the same privacy and independence
+                as any other voter. Prior ballot designs widely violated this.</p>
+            </div>
+            <div class="reg-card">
+                <p class="reg-name">ADA Title II</p>
+                <p>State and local governments must make programs, activities, and services equally accessible
+                to people with disabilities. Voting is a government service, so every screen in the
+                flow must meet this standard.</p>
+            </div>
+            <div class="reg-card">
+                <p class="reg-name">WCAG 2.1 AA</p>
+                <p>The Web Content Accessibility Guidelines' four principles (Perceivable, Operable,
+                Understandable, Robust) formed the design checklist for every interaction state, contrast
+                ratio, and input control in the prototype.</p>
+            </div>
+        </div>
+
+        <details class="accom-toggle">
+            <summary>
+                From this research, I compiled a list of concrete design accommodations addressing physical,
+                cognitive, sensory, and language-based needs.
+                <span class="accom-toggle-hint"></span>
+            </summary>
+
+            <ol class="accom-list" style="margin-top: 28px;">
+                <li>
+                    <span class="accom-num">1</span>
+                    <div class="accom-body">
+                        <strong>Large, high-feedback touch targets</strong>
+                        <p>Big bubbles and buttons that visibly change color when selected, eliminating guesswork about whether a selection was registered.</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="accom-num">2</span>
+                    <div class="accom-body">
+                        <strong>Candidate context at point of voting</strong>
+                        <p>Brief 2–3 sentence summaries of each candidate's background, party endorsement, and photo, displayed directly on the ballot so no prior research is required.</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="accom-num">3</span>
+                    <div class="accom-body">
+                        <strong>Error prevention at every step</strong>
+                        <ul>
+                            <li>Back button available on every screen</li>
+                            <li>Real-time warnings when a required field is skipped</li>
+                            <li>"Are you sure?" confirmation before submission</li>
+                            <li>Full review screen showing all selections before final submit</li>
+                            <li>Submission confirmation so voters know their vote was received</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <span class="accom-num">4</span>
+                    <div class="accom-body">
+                        <strong>Full multilingual support</strong>
+                        <p>All ballot text, candidate information, instructions, and error messages available in the voter's chosen language, selected on the very first screen.</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="accom-num">5</span>
+                    <div class="accom-body">
+                        <strong>Plain-language ballot measures</strong>
+                        <p>Propositions and measures rewritten in accessible language, without legal jargon, ensuring voters understand what they are actually deciding.</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="accom-num">6</span>
+                    <div class="accom-body">
+                        <strong>Guided voting onboarding</strong>
+                        <p>A clear, step-by-step flow explaining each stage of the voting process before and while it unfolds, designed for first-time voters like Henry.</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="accom-num">7</span>
+                    <div class="accom-body">
+                        <strong>Persistent accessibility controls</strong>
+                        <p>Adjustable text size, high-contrast mode, and audio readout / screen reader support, available on every screen, not buried in settings.</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="accom-num">8</span>
+                    <div class="accom-body">
+                        <strong>Motor accessibility</strong>
+                        <ul>
+                            <li>Oversized touch targets for voters with limited fine motor control</li>
+                            <li>Full physical keyboard compatibility for switch-access devices</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <span class="accom-num">9</span>
+                    <div class="accom-body">
+                        <strong>Cognitive load reduction</strong>
+                        <ul>
+                            <li>One decision per screen: progressive disclosure to prevent overwhelm</li>
+                            <li>Maximum one tooltip open at a time</li>
+                            <li>Visual hierarchy that always leads with the most critical information</li>
+                            <li>Progress indicator visible throughout the flow</li>
+                        </ul>
+                    </div>
+                </li>
+            </ol>
+        </details>
+    </section>
+
+    <!-- Design -->
+    <section id="design" class="content">
+        <div class="section-header">Design</div>
+        <h2>Every decision earned by the research</h2>
+        <p>
+            The redesign covers 8 steps: identity verification, accessibility setup, guided onboarding,
+            candidate selection, ballot measures, review, and confirmation. Key decisions:
+            <strong>language selection before anything else</strong>,
+            <strong>candidate context at the point of voting</strong>,
+            <strong>back buttons on every screen</strong>, and a
+            <strong>dedicated review step</strong> before submission.
+        </p>
+
+        <div class="screen-row">
+            <img src="images/voting-machine-candidates.png" alt="Candidate selection">
+            <img src="images/voting-machine-review.png" alt="Review screen">
+            <img src="images/voting-machine-success.png" alt="Confirmation">
+        </div>
+        <div class="screen-row-labels">
+            <span>Candidate selection with context</span>
+            <span>Review before submitting</span>
+            <span>Unambiguous confirmation</span>
+        </div>
+
+        <a href="https://www.figma.com/design/KUPVR6yq6f7hnICI6qL3Xk/Voting-Machine" target="_blank" class="cta-btn">
+            View full prototype in Figma →
+        </a>
+    </section>
+
+    <!-- Reflection -->
+    <section id="reflection" class="content">
+        <div class="section-header">Reflection</div>
+        <h2>Accessibility is not a checklist. It's a lens.</h2>
+        <p>
+            Going into this project, I thought accessibility meant contrast ratios and alt text. The
+            interviews dismantled that. Henry wasn't failing because of a visual impairment; he was
+            failing because the system assumed prior knowledge he didn't have. Hanh wasn't struggling
+            because of a disability; she was struggling because the entire interface was built for
+            someone with a law degree and 20/20 vision.
+        </p>
+        <p>
+            Studying HAVA, ADA Title II, and WCAG in parallel gave me a framework, but the interviews
+            gave me the why. Regulations tell you the floor; they don't tell you what a good experience
+            feels like. The most useful design questions I learned to ask weren't "does this meet Section
+            508?" but "what does this user have to already know for this screen to make sense? And is
+            that fair to assume?"
+        </p>
+        <p>
+            If I continued this project, I'd test with voters who rely on screen readers and switch-access
+            devices, groups underrepresented in our five interviews. I'd also explore what a mail-in ballot
+            redesign could look like, since inconsistency across voting methods was a recurring frustration
+            that the digital interface alone can't fully solve.
+        </p>
+    </section>
+
+    <!-- Case study navigation -->
+    <div class="cs-nav" aria-label="Case study navigation">
+      <div class="cs-nav-inner">
+        <a href="/recube.html" class="cs-nav-item prev">
+            <span class="cs-nav-direction">
+                <span class="cs-nav-flower">✿</span>
+                Previous
+            </span>
+            <span class="cs-nav-title">← Recube Dashboard</span>
+        </a>
+        <a href="/c2pay.html" class="cs-nav-item next">
+            <span class="cs-nav-direction">
+                <span class="cs-nav-flower">✿</span>
+                Next
+            </span>
+            <span class="cs-nav-title">C2Pay →</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p style="font-size: 0.82rem; color: var(--faint);">Chloe Wong · chloewong052@gmail.com</p>
+        <div class="footer-nav">
+            <a href="/">← Portfolio</a>
+            <a href="mailto:chloewong052@gmail.com">Email</a>
+            <a href="https://www.linkedin.com/in/chloe-wong-29b412234/" target="_blank">LinkedIn</a>
+        </div>
+    </footer>
+
+    <script>
+        const sections = document.querySelectorAll('section[id]');
+        const navItems = document.querySelectorAll('.side-nav-item');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navItems.forEach(i => i.classList.remove('active'));
+                    const active = document.querySelector(`.side-nav-item[data-section="${entry.target.id}"]`);
+                    if (active) active.classList.add('active');
+                }
+            });
+        }, { rootMargin: '-20% 0px -70% 0px' });
+        sections.forEach(s => observer.observe(s));
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const s = document.getElementById(item.getAttribute('data-section'));
+                if (s) s.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+    <script src="/scripts/nav-scroll.js" defer></script>
+</body>
+</html>
