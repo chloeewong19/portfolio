@@ -4,13 +4,15 @@ import { useState } from 'react'
 import Nav from '../components/Nav'
 
 const EXPERIENCE = [
-  { role: 'Student Technology Experience Intern', org: 'Tufts Technology Services', period: 'Spring 2025' },
-  { role: 'Lead Designer', org: 'JumboCode', period: '2024–2025' },
-  { role: 'Product Design Intern', org: 'Recube', period: 'Summer 2024' },
+  { role: 'Data & AI Intern', org: 'Ernst & Young', period: 'May–Aug 2026' },
+  { role: 'Business Planning & UX Intern', org: 'Tufts Technology Services', period: 'Dec 2025–Present' },
+  { role: 'Product & Design Intern', org: 'SlasherPro', period: 'Aug–Sep 2025' },
+  { role: 'UX Intern', org: 'Recube', period: 'Jun–Sep 2025' },
+  { role: 'Lead Designer', org: 'JumboCode', period: 'May 2025–Present' },
 ]
 
 const EDUCATION = [
-  { role: 'B.S. Human Factors Engineering + CS', org: 'Tufts University', period: '2023–2027' },
+  { role: 'BSE Human Factors Engineering + CS', org: 'Tufts University', period: '2024–2028' },
 ]
 
 function PhotoItem({ label, src }: Readonly<{ label: string; src: string }>) {

@@ -14,7 +14,7 @@ const PROJECTS = [
   {
     title: 'Recube Dashboard',
     tags: ['UX/UI', 'Analytics', 'Figma'],
-    description: 'A real-time analytics dashboard for 50+ restaurant partners to drive sustainability decisions.',
+    description: 'Redesigned key return-journey flows, reducing task-completion friction by ~40% in UAT with 12 participants. Built a real-time analytics dashboard for 50+ restaurant partners.',
     link: '/recube.html',
     thumb: '/images/recube-hero.mp4',
     year: '2025',
