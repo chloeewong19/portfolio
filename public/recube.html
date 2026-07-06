@@ -56,7 +56,7 @@
 
     <!-- Hero Section -->
     <div class="hero">
-        <h1 class="hero-title">Designing Data-Driven Sustainability for Reusable Packaging</h1>
+        <h1 class="hero-title">Analytics dashboard for a reusable packaging startup</h1>
         <div class="hero-image">
             <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
                 <source src="images/recube-hero.mp4" type="video/mp4">
@@ -89,14 +89,14 @@
     <!-- Overview Section -->
     <section id="overview" class="content">
         <div class="section-header">Overview</div>
-        <h2>Real-time data for a zero-waste supply chain</h2>
+        <h2>Building the dashboard Recube's partners actually needed</h2>
         <p>
-            Recube partners with restaurants and malls to replace single-use packaging with a reusable container loop. As their sole UX and frontend designer, I built an analytics dashboard from scratch — giving 50+ restaurant partners live visibility into inventory, returns, and sustainability impact for the first time.
+            Recube partners with restaurants and malls to replace single-use packaging with a reusable container loop. As their sole UX and frontend designer, I built the analytics dashboard from zero, giving 50+ restaurant partners their first look at live inventory counts, return rates, and sustainability impact.
         </p>
 
         <div class="callout">
             <p>
-                "I need to know at a glance if we're running low on containers — I don't have time to dig through reports during lunch rush."
+                "I need to know at a glance if we're running low on containers. I don't have time to dig through reports during lunch rush."
             </p>
         </div>
     </section>
@@ -106,20 +106,20 @@
         <div class="section-header">The Problem</div>
         <h2>Partners were flying blind</h2>
         <p>
-            The existing interface was cluttered and static — no live data, no impact metrics, no way to act quickly. Restaurant managers couldn't tell how many containers were out in the field or prove their sustainability wins to customers.
+            The old interface was cluttered and static. No live data, no impact metrics, no quick way to act. Restaurant managers couldn't tell how many containers were in the field, or show customers any proof of their sustainability work.
         </p>
 
         <ul>
-            <li><strong>No real-time visibility:</strong> Inventory levels were only updated manually, causing stockouts during peak hours</li>
-            <li><strong>No impact story:</strong> Partners had sustainability results but nothing to show customers or stakeholders</li>
-            <li><strong>Painful search:</strong> Finding specific records meant manual exports and custom reports</li>
+            <li><strong>Inventory updated manually:</strong> Stockouts happened because nobody knew stock levels in real time</li>
+            <li><strong>No shareable impact data:</strong> Partners had sustainability wins but nothing concrete to show customers</li>
+            <li><strong>No search:</strong> Finding a specific record meant exporting spreadsheets and hunting manually</li>
         </ul>
 
         <div class="project-image">
             <img src="images/recube-before.png" alt="Old Dashboard Interface" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">
         </div>
         <p style="text-align: center; font-size: 0.95rem; color: #888; font-style: italic; margin-top: -40px;">
-            The old interface — cluttered, static, no actionable data
+            The old interface: cluttered, static, no actionable data
         </p>
     </section>
 
@@ -147,37 +147,37 @@
         </div>
 
         <ul>
-            <li>Restaurant managers needed <strong>sharable impact metrics</strong> — waste diverted, containers returned — to tell their sustainability story</li>
-            <li>Mall operators needed <strong>live inventory alerts</strong> to prevent stockouts before they became a problem</li>
-            <li>Both groups wanted the return journey to be self-explanatory — users often didn't know where or how to return containers</li>
+            <li>Restaurant managers wanted <strong>shareable numbers</strong>: waste diverted, containers returned. Something to show customers.</li>
+            <li>Mall operators needed <strong>live inventory alerts</strong> so they could act before a stockout, not after</li>
+            <li>Both groups wanted the return flow to be obvious. Users often didn't know where or how to return containers.</li>
         </ul>
     </section>
 
     <!-- Solution Section -->
     <section id="solution" class="content">
         <div class="section-header">The Solution</div>
-        <h2>A dashboard that surfaces the right data at the right moment</h2>
+        <h2>A dashboard built around two questions: what's happening now, and what's the trend?</h2>
 
         <p>
-            I designed for two mental modes: <em>quick-scan</em> (is everything OK right now?) and <em>deep-dive</em> (show me trends over time). The layout puts live status front and center, with search and filtering that don't require any training to use.
+            I designed for two mental modes: <em>quick-scan</em> (is everything OK right now?) and <em>deep-dive</em> (show me the numbers over time). Live status sits front and center; search and filters are discoverable without any training.
         </p>
 
         <div class="feature-grid">
             <div class="feature-item">
-                <h3>📊 Real-Time Analytics</h3>
-                <p>Live inventory tracking showing containers in circulation, available stock, and return rates</p>
+                <h3>📊 Real-Time Inventory</h3>
+                <p>Live counts of containers in circulation, in stock, and in transit, refreshed automatically</p>
             </div>
             <div class="feature-item">
-                <h3>🌱 Impact Metrics</h3>
-                <p>Quantified environmental impact including waste diverted, CO2 saved, and sustainability scores</p>
+                <h3>🌱 Impact Numbers</h3>
+                <p>Waste diverted, CO₂ saved, containers returned. Concrete numbers partners could put in front of customers.</p>
             </div>
             <div class="feature-item">
-                <h3>🔍 Advanced Search</h3>
-                <p>Robust filtering and search functionality to quickly find specific data points and trends</p>
+                <h3>🔍 Search &amp; Filter</h3>
+                <p>Find any record without exporting a spreadsheet. Filters by location, date, and container type</p>
             </div>
             <div class="feature-item">
-                <h3>⚡ Smart Alerts</h3>
-                <p>Automated notifications for low inventory, high return rates, and operational anomalies</p>
+                <h3>⚡ Low-Stock Alerts</h3>
+                <p>Notifications fire before stockouts happen, not after. Thresholds configurable per location</p>
             </div>
         </div>
 
@@ -195,11 +195,11 @@
         <h2>Research → wireframes → Figma → shipped</h2>
 
         <p>
-            <strong>1. Information Architecture:</strong> Research surfaced two distinct use cases — quick operational checks and trend analysis. I separated them into a live status view and a filterable data table, so neither user had to wade through the other's workflow.
+            <strong>1. Information Architecture:</strong> Research surfaced two distinct use cases: quick operational checks and longer-term trend analysis. I split them into a live status view and a filterable data table, so neither user type had to dig through the other's workflow.
         </p>
 
         <p>
-            <strong>2. Wireframes:</strong> Low-fidelity wireframes let me validate hierarchy with stakeholders before any visual polish. The key decision here was what to show above the fold — we landed on inventory status and the three most-watched impact metrics.
+            <strong>2. Wireframes:</strong> Low-fidelity wireframes let me validate hierarchy with stakeholders before any visual polish. The main call was what to show above the fold. We landed on inventory status and the three most-watched impact metrics.
         </p>
 
         <div class="project-image">
@@ -210,7 +210,7 @@
         </p>
 
         <p>
-            <strong>3. High-Fidelity in Figma:</strong> Green palette tied to Recube's brand; high-contrast text kept data legible at a glance. I built a lightweight component library so the dev handoff stayed clean — no one-off styles.
+            <strong>3. High-Fidelity in Figma:</strong> Green palette tied to Recube's brand; high-contrast text kept data legible at a glance. I built a lightweight component library so the dev handoff stayed clean with no one-off styles.
         </p>
 
         <div class="two-column">
@@ -233,7 +233,7 @@
         </div>
 
         <p>
-            <strong>4. Dev collaboration & QA:</strong> I sat in on sprint planning to flag anything technically risky before it got built. QA sessions caught edge cases — empty states, loading skeletons, error messaging — that design reviews miss.
+            <strong>4. Dev collaboration & QA:</strong> I sat in on sprint planning to flag anything technically risky before it got built. QA sessions caught edge cases that design reviews miss: empty states, loading skeletons, error messaging.
         </p>
     </section>
 
@@ -258,7 +258,7 @@
         </div>
 
         <ul>
-            <li>Managers could share <strong>CO₂ saved and containers returned</strong> directly with customers — a metric they'd never had before</li>
+            <li>Managers could share <strong>CO₂ saved and containers returned</strong> directly with customers. It was a number they'd never had before.</li>
             <li>Mall operators got <strong>proactive low-stock alerts</strong>, ending reactive scrambling during peak hours</li>
             <li>Ops team went from manual reporting to <strong>live system health monitoring</strong></li>
         </ul>
@@ -277,15 +277,15 @@
             <h2>Three things I'd take into any data project</h2>
 
             <p>
-                <strong>Show only what drives action.</strong> My first instinct was to surface every metric we had. Stakeholders pushed back — rightly — and we cut it down to the handful of numbers that actually change what someone does next. Less noise, faster decisions.
+                <strong>Show only what drives action.</strong> My first instinct was to surface every metric we had. Stakeholders pushed back, rightly, and we cut it down to the handful of numbers that actually change what someone does next. Less noise, faster decisions.
             </p>
 
             <p>
-                <strong>Live data needs defensive design.</strong> Real-time dashboards break in ways static UIs don't — stale data, failed syncs, partial loads. I had to design loading states, error banners, and refresh logic as first-class screens, not afterthoughts.
+                <strong>Live data needs defensive design.</strong> Real-time dashboards break in ways static UIs don't: stale data, failed syncs, partial loads. I had to design loading states, error banners, and refresh logic as first-class screens, not afterthoughts.
             </p>
 
             <p>
-                <strong>Impact metrics are marketing, not just data.</strong> When restaurant managers could see "412 containers returned this month," they started putting it on their menus. Numbers become stories when framed right — that realization shaped how I wrote every label in the dashboard.
+                <strong>Impact metrics are marketing, not just data.</strong> When restaurant managers could see "412 containers returned this month," they started putting it on their menus. Numbers become stories when framed right. That realization shaped how I wrote every label in the dashboard.
             </p>
         </div>
     </section>
@@ -293,19 +293,19 @@
     <!-- Case study navigation -->
     <div class="cs-nav" aria-label="Case study navigation">
       <div class="cs-nav-inner">
-        <a href="/c2pay.html" class="cs-nav-item prev">
+        <a href="/voting-machine.html" class="cs-nav-item prev">
             <span class="cs-nav-direction">
                 <span class="cs-nav-flower">✿</span>
                 Previous
             </span>
-            <span class="cs-nav-title">← C2Pay</span>
+            <span class="cs-nav-title">← Accessible Voting Machine</span>
         </a>
-        <a href="/voting-machine.html" class="cs-nav-item next">
+        <a href="/c2pay.html" class="cs-nav-item next">
             <span class="cs-nav-direction">
                 <span class="cs-nav-flower">✿</span>
                 Next
             </span>
-            <span class="cs-nav-title">Accessible Voting Machine →</span>
+            <span class="cs-nav-title">C2Pay →</span>
         </a>
       </div>
     </div>

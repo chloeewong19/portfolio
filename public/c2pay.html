@@ -79,7 +79,7 @@
         <div class="section-header">Overview</div>
         <h2>People lie. Cryptography doesn't.</h2>
         <p>
-            C2Pay is an adaptive MFA SDK my team built in 36 hours at HackHarvard. It scores payments in real time using device signals, motion patterns, and biometrics — and only asks for extra verification when something actually looks off. Clean sessions see nothing; suspicious ones hit a biometric check and get a cryptographically signed receipt.
+            C2Pay is an adaptive MFA SDK my team built in 36 hours at HackHarvard. It scores payments in real time using device signals, motion patterns, and biometrics. It only asks for extra verification when something actually looks off. Clean sessions see nothing; suspicious ones hit a biometric check and get a cryptographically signed receipt.
         </p>
 
         <div class="stats-grid">
@@ -103,7 +103,7 @@
         <div class="section-header">The Problem</div>
         <h2>Static auth treats every payment the same. That's the problem.</h2>
         <p>
-            Most MFA is all-or-nothing — add friction everywhere, or nowhere. Low-risk purchases get the same hoops as fraud attempts. It's not a security strategy, it's just annoyance at scale.
+            Most MFA is all-or-nothing: add friction everywhere, or nowhere. Low-risk purchases get the same hoops as fraud attempts. It's not a security strategy, it's just annoyance at scale.
         </p>
 
         <div class="callout">
@@ -114,7 +114,7 @@
             <img src="images/c2pay c2pa recipet.png" alt="C2PA receipt" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">
         </div>
         <p style="text-align: center; font-size: 0.82rem; color: var(--faint); font-style: italic; margin-top: -40px;">
-            A C2PA-signed transaction manifest — machine-verifiable proof of device, user, and timestamp
+            A C2PA-signed transaction manifest, machine-verifiable proof of device, user, and timestamp
         </p>
     </section>
 
@@ -124,7 +124,7 @@
         <h2>An SDK that scores the risk, then decides how much auth is needed</h2>
 
         <p>
-            It sits between the checkout UI and the payment processor. Signals go in, a risk score comes out, and the SDK decides whether to pass the transaction through or escalate — all behind a single <code style="font-size: 0.9em; background: var(--hover-bg); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border);">C2Pay.verify()</code> call.
+            It sits between the checkout UI and the payment processor. Signals go in, a risk score comes out, and the SDK decides whether to pass the transaction through or escalate. All through a single <code style="font-size: 0.9em; background: var(--hover-bg); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border);">C2Pay.verify()</code> call.
         </p>
 
         <div class="feature-grid">
@@ -182,7 +182,7 @@
         <h2>The decisions that actually mattered</h2>
 
         <p>
-            <strong>Why C2PA?</strong> It was designed for media provenance, not payments — but a C2PA manifest is just a JSON-LD document signed with an asymmetric key. We repurposed it for transactions: same format, same verifiability, completely different context.
+            <strong>Why C2PA?</strong> It was designed for media provenance, not payments. But a C2PA manifest is just a JSON-LD document signed with an asymmetric key. We repurposed it for transactions: same format, same verifiability, completely different context.
         </p>
 
         <p>
@@ -190,7 +190,7 @@
         </p>
 
         <p>
-            <strong>The pivot:</strong> We started with AI image detection. Four hours in we realised the core primitive — cryptographic attestation — was more directly useful for payments. Narrower scope, cleaner demo, won the track.
+            <strong>The pivot:</strong> We started with AI image detection. Four hours in we realised the core primitive, cryptographic attestation, was more directly useful for payments. Narrower scope, cleaner demo, won the track.
         </p>
 
         <div class="project-image">
@@ -206,27 +206,27 @@
         <div class="stats-grid" style="grid-template-columns: repeat(5, 1fr);">
             <div class="stat-item">
                 <div class="stat-number" style="font-size: 1.6rem;">20</div>
-                <div class="stat-label">bits — Face ID<br>(1-in-1M FAR)</div>
+                <div class="stat-label">bits / Face ID<br>(1-in-1M FAR)</div>
             </div>
             <div class="stat-item">
                 <div class="stat-number" style="font-size: 1.6rem;">64</div>
-                <div class="stat-label">bits — Behavioral<br>patterns</div>
+                <div class="stat-label">bits / Behavioral<br>patterns</div>
             </div>
             <div class="stat-item">
                 <div class="stat-number" style="font-size: 1.6rem;">80</div>
-                <div class="stat-label">bits — TEE device<br>attestation</div>
+                <div class="stat-label">bits / TEE device<br>attestation</div>
             </div>
             <div class="stat-item">
                 <div class="stat-number" style="font-size: 1.6rem;">128</div>
-                <div class="stat-label">bits — Ed25519<br>signature</div>
+                <div class="stat-label">bits / Ed25519<br>signature</div>
             </div>
             <div class="stat-item">
                 <div class="stat-number" style="font-size: 1.6rem;">256</div>
-                <div class="stat-label">bits — SHA-256<br>hash</div>
+                <div class="stat-label">bits / SHA-256<br>hash</div>
             </div>
         </div>
         <p style="text-align: center; font-size: 0.88rem; color: var(--muted); margin-top: 8px;">
-            Combined: 548 bits — effective attack complexity of 2<sup>332</sup> operations (more than atoms in the observable universe)
+            Combined: 548 bits total, effective attack complexity of 2<sup>332</sup> operations (more than atoms in the observable universe)
         </p>
     </section>
 
@@ -241,11 +241,11 @@
             </p>
 
             <p>
-                <strong>Standards are free engineering.</strong> C2PA saved us hours. We didn't design a manifest format — we just used the one Adobe, Microsoft, and Google already agreed on. In a hackathon, building on established protocols is the move.
+                <strong>Standards are free engineering.</strong> C2PA saved us hours. We didn't design a manifest format. We just used the one Adobe, Microsoft, and Google already agreed on. In a hackathon, building on established protocols is the move.
             </p>
 
             <p>
-                <strong>Auth is a spectrum.</strong> Not every action needs the same friction. Since C2Pay, I think about security UX in tiers — what's the action, what's the risk, what's proportionate?
+                <strong>Auth is a spectrum.</strong> Not every action needs the same friction. Since C2Pay, I think about security UX in tiers: what's the action, what's the risk, what's proportionate?
             </p>
 
             <div style="margin-top: 60px; text-align: center;">
@@ -258,19 +258,19 @@
     <!-- Case study navigation -->
     <div class="cs-nav">
       <div class="cs-nav-inner">
-        <a href="/voting-machine.html" class="cs-nav-item prev">
+        <a href="/recube.html" class="cs-nav-item prev">
             <span class="cs-nav-direction">
                 <span class="cs-nav-flower">✿</span>
                 Previous
             </span>
-            <span class="cs-nav-title">← Accessible Voting Machine</span>
+            <span class="cs-nav-title">← Recube Dashboard</span>
         </a>
-        <a href="/recube.html" class="cs-nav-item next">
+        <a href="/voting-machine.html" class="cs-nav-item next">
             <span class="cs-nav-direction">
                 <span class="cs-nav-flower">✿</span>
                 Next
             </span>
-            <span class="cs-nav-title">Recube Dashboard →</span>
+            <span class="cs-nav-title">Accessible Voting Machine →</span>
         </a>
       </div>
     </div>

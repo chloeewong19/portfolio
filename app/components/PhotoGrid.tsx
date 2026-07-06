@@ -4,25 +4,25 @@ import { useEffect, useRef, useState } from 'react'
 
 const PROJECTS = [
   {
-    title: 'Recube Dashboard',
-    tags: ['Internship', 'Analytics', 'Figma'],
-    description: 'Real-time inventory and sustainability analytics, built from scratch for 50+ restaurant partners at a reusable packaging startup.',
-    link: '/recube.html',
-    thumb: '/images/recube-hero.mp4',
-    year: '2025',
-  },
-  {
     title: 'Accessible Voting Machine',
     tags: ['HFE', 'Accessibility', 'UX Research'],
-    description: 'An end-to-end voting machine redesign covering physical, cognitive, sensory, and language-based accessibility needs across 8 screens.',
+    description: 'Redesigned a voting machine UI for a class project: 8 screens, grounded in 5 user interviews and disability regulation research.',
     link: '/voting-machine.html',
     thumb: '/images/voting-machine-overview.png',
     year: '2026',
   },
   {
+    title: 'Recube Dashboard',
+    tags: ['Internship', 'Analytics', 'Figma'],
+    description: 'Analytics dashboard I built for a reusable packaging startup. Gave 50+ restaurant partners their first look at live inventory and sustainability data.',
+    link: '/recube.html',
+    thumb: '/images/recube-hero.mp4',
+    year: '2025',
+  },
+  {
     title: 'C2Pay',
     tags: ['Coding', 'C2PA', 'HackHarvard Winner'],
-    description: 'A HackHarvard-winning authentication SDK built in 24 hours — adaptive MFA using device trust, biometrics, and C2PA content provenance.',
+    description: 'Won HackHarvard Finance Track with an adaptive MFA SDK built in 36 hours. Uses device trust, biometrics, and C2PA manifests to verify payments.',
     link: '/c2pay.html',
     thumb: '/images/c2pay hero.png',
     year: '2025',
