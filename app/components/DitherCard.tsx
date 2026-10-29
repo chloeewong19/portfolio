@@ -283,7 +283,7 @@ export default function DitherCard() {
             color: 'rgba(255, 210, 165, 0.82)',
             letterSpacing: '0.03em',
           }}>
-            Incoming @ EY Data &amp; AI
+            #OpenToWork
           </span>
           <span style={{
             fontFamily: "'General Sans', var(--font-dm-sans), sans-serif",
