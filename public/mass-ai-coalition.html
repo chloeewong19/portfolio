@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Massachusetts AI Coalition — Redesign Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display:wght@600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
+<style>
+  :root{
+    --bg: #08090a;
+    --bg-alt: #0e1210;
+    --coral: #e0452e;
+    --coral-dim: #3a1810;
+    --teal: #1d9e75;
+    --teal-dim: #0d2a20;
+    --ink: #f4f2ec;
+    --ink-dim: #9a9a94;
+    --line: #232320;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Space Mono', monospace;
+    line-height: 1.6;
+  }
+  h1,h2,h3{
+    font-family: 'Big Shoulders Stencil Display', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    line-height: 1.05;
+  }
+  a{color:inherit;}
+  .wrap{max-width: 1120px; margin: 0 auto; padding: 0 32px;}
+  .eyebrow{
+    display:inline-block;
+    border: 1px solid var(--line);
+    padding: 6px 14px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--ink-dim);
+    margin-bottom: 20px;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding: 14px 26px;
+    border-radius: 999px;
+    font-family:'Space Mono',monospace;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-decoration:none;
+    border: 1px solid var(--line);
+    cursor:pointer;
+  }
+  .btn-primary{background: var(--coral); border-color: var(--coral); color:#1a0a06; font-weight:700;}
+  .btn-primary:hover{background:#c73a25;}
+  .btn-ghost{background:transparent; color: var(--ink); border-color:#3a3a36;}
+  .btn-ghost:hover{border-color:#5a5a54;}
+
+  /* NAV */
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 20px 32px; border-bottom: 1px solid var(--line);
+    max-width: 1120px; margin: 0 auto;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .logo{display:flex; align-items:center; gap:10px; font-family:'Big Shoulders Stencil Display'; font-size:20px; letter-spacing:1px;}
+  .logo i{color: var(--coral); font-size: 22px;}
+  .nav-links{display:flex; gap:22px; font-size:13px; letter-spacing:1px; flex-wrap:wrap;}
+  .nav-links a{opacity:0.85;}
+  .nav-links a:hover{opacity:1; color: var(--coral);}
+
+  /* HERO */
+  .hero{position:relative; overflow:hidden; border-bottom:1px solid var(--line);}
+  .skyline{width:100%; display:block; opacity:0.55;}
+  .hero-inner{
+    max-width:1120px; margin:0 auto; padding: 90px 32px 70px;
+    position:relative; z-index:2; text-align:center;
+  }
+  .hero h1{font-size: 64px;}
+  .hero p.sub{font-size:16px; color:var(--ink-dim); margin:22px 0 6px; max-width:560px; margin-left:auto; margin-right:auto;}
+  .hero p.powered{font-size:12px; letter-spacing:2px; color:#6a6a64; margin-bottom:34px;}
+  .hero-ctas{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+  .hero-gradient{
+    position:absolute; inset:0; z-index:1;
+    background: linear-gradient(180deg, rgba(8,9,10,0.2) 0%, rgba(8,9,10,0.75) 65%, var(--bg) 100%);
+  }
+
+  /* SECTION generic */
+  section{padding: 76px 0; border-bottom: 1px solid var(--line);}
+  .section-head{text-align:center; max-width:640px; margin: 0 auto 48px;}
+  .section-head h2{font-size:38px; margin: 10px 0 16px;}
+  .section-head p{color:var(--ink-dim); font-size:15px;}
+
+  /* PERSONA GRID */
+  .legend{display:flex; gap:24px; justify-content:center; margin-bottom:36px; font-size:12px; letter-spacing:1px; color:var(--ink-dim);}
+  .legend span{display:inline-flex; align-items:center; gap:8px;}
+  .dot{width:9px; height:9px; border-radius:50%; display:inline-block;}
+  .dot-coral{background:var(--coral);}
+  .dot-teal{background:var(--teal);}
+  .persona-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+  .p-card{
+    border-radius: 10px; padding: 22px; border:1px solid var(--line);
+  }
+  .p-card.coral{background: var(--coral-dim); border-color:#4a2418;}
+  .p-card.teal{background: var(--teal-dim); border-color:#154531;}
+  .p-card i{font-size:22px; margin-bottom:12px; display:block;}
+  .p-card.coral i{color: var(--coral);}
+  .p-card.teal i{color: var(--teal);}
+  .p-card h3{font-family:'Space Mono'; text-transform:uppercase; font-size:15px; letter-spacing:1px; margin-bottom:8px; font-weight:700;}
+  .p-card p{font-size:13px; color:var(--ink-dim); margin-bottom:14px; min-height:52px;}
+  .p-card a{font-size:12px; letter-spacing:1px; text-decoration:none; display:inline-flex; align-items:center; gap:6px;}
+  .p-card.coral a{color:var(--coral);}
+  .p-card.teal a{color:var(--teal);}
+
+  /* OTIS */
+  .otis-box{
+    max-width: 720px; margin: 0 auto;
+    background: var(--bg-alt); border:1px solid var(--line); border-radius:14px;
+    padding: 22px;
+  }
+  .otis-input{
+    display:flex; align-items:center; justify-content:space-between;
+    color:#7a7a74; font-size:14px; gap: 12px;
+  }
+  .otis-input .mic{width:38px; height:38px; border-radius:50%; background:#1a1c1a; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .otis-send{background:#f4f2ec; color:#111; border:none; padding:10px 18px; border-radius:999px; font-family:'Space Mono'; font-size:13px; display:flex; align-items:center; gap:6px; white-space:nowrap;}
+  .otis-note{font-size:13px; color:var(--ink-dim); margin-top:18px; text-align:center; max-width:560px; margin-left:auto; margin-right:auto;}
+
+  /* WHY SECTION */
+  .why-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; max-width:900px; margin: 0 auto;}
+  .why-grid p.mission{
+    grid-column: 1 / -1; text-align:left; color:var(--ink-dim); font-size:15px; max-width:760px;
+    margin-bottom: 8px;
+  }
+  .reason{border:1px solid var(--line); border-left:3px solid var(--coral); padding:18px 20px; border-radius:6px; background:var(--bg-alt);}
+  .reason .num{color:var(--coral); font-family:'Big Shoulders Stencil Display'; font-size:20px; margin-right:8px;}
+  .reason h4{display:inline; font-size:14px; letter-spacing:1px; text-transform:uppercase;}
+  .reason p{font-size:13px; color:var(--ink-dim); margin-top:8px;}
+  .see-all{display:block; text-align:center; margin-top:28px; font-size:13px; letter-spacing:1px; color:var(--coral); text-decoration:none;}
+
+  /* BACKERS */
+  .backers{display:flex; flex-wrap:wrap; justify-content:center; gap:14px;}
+  .chip{border:1px solid var(--line); padding:10px 20px; border-radius:999px; font-size:13px; letter-spacing:1px; color:var(--ink-dim);}
+
+  footer{padding: 40px 32px; text-align:center;}
+  footer .disclaimer{font-size:12px; color:#5a5a54; max-width:520px; margin: 0 auto 10px;}
+  footer .credit{font-size:12px; color:var(--ink-dim);}
+  footer .credit a{color:var(--coral); text-decoration:none;}
+
+  @media (max-width: 760px){
+    .hero h1{font-size:40px;}
+    .persona-grid{grid-template-columns:1fr 1fr;}
+    .why-grid{grid-template-columns:1fr;}
+    .why-grid p.mission{text-align:left;}
+    .nav-links{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo"><i class="ti ti-brand-openai"></i> MASSACHUSETTS AI COALITION</div>
+  <div class="nav-links">
+    <a href="#">Founders</a><a href="#">Operators</a><a href="#">Students</a>
+    <a href="#">Angels</a><a href="#">Partners</a><a href="#">Creators</a><a href="#">Visitors</a>
+  </div>
+  <a href="#" class="btn btn-primary" style="padding:10px 20px; font-size:12px;">Sign in</a>
+</nav>
+
+<div class="hero">
+  <svg class="skyline" viewBox="0 0 1200 360" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="360" fill="#0b0f10"/>
+    <g fill="#151a19">
+      <rect x="20" y="180" width="60" height="180"/>
+      <rect x="95" y="140" width="45" height="220"/>
+      <rect x="150" y="200" width="70" height="160"/>
+      <rect x="235" y="100" width="50" height="260"/>
+      <rect x="300" y="160" width="55" height="200"/>
+      <rect x="370" y="60" width="40" height="300"/>
+      <rect x="425" y="190" width="65" height="170"/>
+      <rect x="505" y="120" width="48" height="240"/>
+      <rect x="565" y="150" width="60" height="210"/>
+      <rect x="640" y="80" width="42" height="280"/>
+      <rect x="695" y="170" width="58" height="190"/>
+      <rect x="765" y="130" width="50" height="230"/>
+      <rect x="830" y="200" width="65" height="160"/>
+      <rect x="910" y="110" width="46" height="250"/>
+      <rect x="970" y="165" width="58" height="195"/>
+      <rect x="1040" y="190" width="52" height="170"/>
+      <rect x="1105" y="145" width="60" height="215"/>
+    </g>
+    <g fill="#e0452e" opacity="0.5">
+      <rect x="370" y="60" width="40" height="6"/>
+      <rect x="640" y="80" width="42" height="6"/>
+      <rect x="910" y="110" width="46" height="6"/>
+    </g>
+  </svg>
+  <div class="hero-gradient"></div>
+  <div class="hero-inner">
+    <h1>Massachusetts<br>AI Coalition</h1>
+    <p class="sub">A private-sector initiative to make Mass the global leader in AI.</p>
+    <p class="powered">POWERED BY TECH COMPANIES IN MA</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn btn-primary"><i class="ti ti-arrow-right"></i> Get involved</a>
+      <a href="#" class="btn btn-ghost">Get updates</a>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">FIND YOUR PATH</span>
+      <h2>What brings you here?</h2>
+      <p>Pick your path — every role has a next step.</p>
+    </div>
+    <div class="legend">
+      <span><i class="dot dot-coral"></i>Building or funding it</span>
+      <span><i class="dot dot-teal"></i>Learning or joining in</span>
+    </div>
+    <div class="persona-grid">
+      <div class="p-card coral"><i class="ti ti-rocket"></i><h3>Founders</h3><p>You're building something. We'll help you build it here — benefits, customers, and funding.</p><a href="#">Learn more <i class="ti ti-arrow-right"></i></a></div>
+      <div class="p-card coral"><i class="ti ti-coin"></i><h3>Angels</h3><p>Take the Angel Pledge. Deploy capital into the Boston AI ecosystem.</p><a href="#">Learn more <i class="ti ti-arrow-right"></i></a></div>
+      <div class="p-card coral"><i class="ti ti-handshake"></i><h3>Partners</h3><p>Back the movement with capital and support. Take the Partners Pledge.</p><a href="#">Learn more <i class="ti ti-arrow-right"></i></a></div>
+      <div class="p-card teal"><i class="ti ti-school"></i><h3>Students</h3><p>Get connected to the companies and people shaping the future. Go on Startup Treks.</p><a href="#">Learn more <i class="ti ti-arrow-right"></i></a></div>
+      <div class="p-card teal"><i class="ti ti-building-skyscraper"></i><h3>Operators</h3><p>Get retrained for the AI age after work. Help build the talent pipeline.</p><a href="#">Learn more <i class="ti ti-arrow-right"></i></a></div>
+      <div class="p-card teal"><i class="ti ti-plane-departure"></i><h3>Visitors</h3><p>Tour the ecosystem — meet founders, visit companies, explore the city.</p><a href="#">Learn more <i class="ti ti-arrow-right"></i></a></div>
+      <div class="p-card teal"><i class="ti ti-microphone-2"></i><h3>Voices</h3><p>Help us tell the story of what's happening in Boston. Become a new voice in town.</p><a href="#">Learn more <i class="ti ti-arrow-right"></i></a></div>
+      <div class="p-card teal"><i class="ti ti-ticket"></i><h3>Event attendees</h3><p>Just want to show up? Browse 100+ AI events happening across Boston.</p><a href="#">Learn more <i class="ti ti-arrow-right"></i></a></div>
+      <div class="p-card teal"><i class="ti ti-users"></i><h3>Supporters</h3><p>Back a taskforce shaping the future of AI in Massachusetts.</p><a href="#">Learn more <i class="ti ti-arrow-right"></i></a></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head" style="margin-bottom:32px;">
+      <span class="eyebrow">STILL DECIDING?</span>
+      <h2 style="font-size:30px;">Talk to Otis</h2>
+    </div>
+    <div class="otis-box">
+      <div class="otis-input">
+        <span>Type or hold the mic and speak to talk to Otis…</span>
+        <button class="otis-send"><i class="ti ti-send-2"></i> Send</button>
+      </div>
+    </div>
+    <p class="otis-note">Otis is named for James Otis Jr. and Mercy Otis Warren — a Massachusetts brother and sister who showed up for their fellow patriots at the start of the American Revolution. Ask Otis anything, and he'll point the way.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head" style="margin-bottom:32px;">
+      <span class="eyebrow">OUR MISSION</span>
+      <h2>Help Mass lead in AI</h2>
+    </div>
+    <div class="why-grid">
+      <p class="mission">Massachusetts has the talent, companies, and momentum to lead the AI transformation in our areas of strength — healthcare, education, robotics, life sciences, defense, and climate tech. Here's why builders are choosing to stay.</p>
+      <div class="reason"><span class="num">01</span><h4>Unmatched talent density</h4><p>The talent capital of the world: MIT, Harvard, founders, operators, PhDs, researchers, and more.</p></div>
+      <div class="reason"><span class="num">02</span><h4>Access to capital</h4><p>Deep access to capital across venture firms, universities, and angels.</p></div>
+      <div class="reason"><span class="num">03</span><h4>Tight-knit founder community</h4><p>Small enough to know everyone. Big enough to matter.</p></div>
+      <div class="reason"><span class="num">04</span><h4>World-class healthcare</h4><p>MGH, Brigham, Children's, Dana-Farber — the best on the planet.</p></div>
+      <div class="reason"><span class="num">05</span><h4>Pro-innovation government</h4><p>Leadership that wants you here, with the same goals to lead in AI.</p></div>
+    </div>
+    <a href="#" class="see-all">See all 10 reasons to build here <i class="ti ti-arrow-right"></i></a>
+  </div>
+</section>
+
+<section style="border-bottom:none;">
+  <div class="wrap">
+    <div class="section-head" style="margin-bottom:28px;">
+      <span class="eyebrow">FOUNDING HOSTS</span>
+      <h2 style="font-size:26px;">Backed by</h2>
+    </div>
+    <div class="backers">
+      <span class="chip">WHOOP</span>
+      <span class="chip">HubSpot</span>
+      <span class="chip">DraftKings</span>
+      <span class="chip">Klaviyo</span>
+      <span class="chip">Wayfair</span>
+      <span class="chip">+ more</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="disclaimer">Concept redesign — not an official Massachusetts AI Coalition property. Copy and program names belong to the Coalition; layout and structure reimagined below.</p>
+  <p class="credit">Redesigned by Chloe Wong, Tufts University '28 — <a href="mailto:chloe.wong670133@tufts.edu">chloe.wong670133@tufts.edu</a></p>
+</footer>
+
+</body>
+</html>

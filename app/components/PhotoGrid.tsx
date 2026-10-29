@@ -2,15 +2,45 @@
 
 import { useEffect, useRef, useState } from 'react'
 
-const PROJECTS = [
+type Project = {
+  title: string
+  tags: string[]
+  description: string
+  link: string
+  thumb: string
+  year: string
+  external?: boolean
+}
+
+const RECENT: Project[] = [
   {
     title: 'Mahjong Tile Drop',
     tags: ['3D', 'Interaction Design', 'Coding'],
-    description: 'A real-time 3D mahjong table with physics and synthesized sound. Pour a set and wash it the Cantonese way. The first piece of a beginner-friendly mahjong app.',
+    description: 'A real-time 3D mahjong table with physics and synthesized sound. Pour a set and wash it the Cantonese way.',
     link: '/mahjong.html',
     thumb: '/images/mahjong-tile-drop.mp4',
     year: '2026',
   },
+  {
+    title: 'Jumbo Ventures',
+    tags: ['Web Design', 'Branding', 'Live Site'],
+    description: "Website for Tufts' entrepreneurship club, where I'm head of design. A hand-illustrated hero traces the path from campus to Boston.",
+    link: 'https://tuftsjumboventures.org/',
+    thumb: '/images/jumboventures.jpg',
+    year: '2026',
+    external: true,
+  },
+  {
+    title: 'Mass AI Coalition',
+    tags: ['Concept', 'Web Design', 'Information Architecture'],
+    description: 'Unofficial redesign concept for the Massachusetts AI Coalition, built with Claude. Every visitor picks a path and gets a clear next step.',
+    link: '/mass-ai-coalition.html',
+    thumb: '/images/mass-ai-coalition.jpg',
+    year: '2026',
+  },
+]
+
+const PAST: Project[] = [
   {
     title: 'Accessible Voting Machine',
     tags: ['HFE', 'Accessibility', 'UX Research'],
@@ -55,13 +85,15 @@ function useReveal() {
   return ref
 }
 
-function ProjectCard({ title, tags, description, link, thumb, year, index }: Readonly<typeof PROJECTS[0] & { index: number }>) {
+function ProjectCard({ title, tags, description, link, thumb, year, external, index, small }: Readonly<Project & { index: number; small?: boolean }>) {
   const [hovered, setHovered] = useState(false)
   const isVideo = thumb.endsWith('.mp4')
 
   return (
     <a
       href={link}
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noopener noreferrer' : undefined}
       className="reveal"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -85,7 +117,7 @@ function ProjectCard({ title, tags, description, link, thumb, year, index }: Rea
       }}
     >
       {/* Thumbnail */}
-      <div style={{ height: 210, overflow: 'hidden', position: 'relative', flexShrink: 0, background: '#f4f0ec' }}>
+      <div style={{ height: small ? 170 : 210, overflow: 'hidden', position: 'relative', flexShrink: 0, background: '#f4f0ec' }}>
         {isVideo ? (
           <video autoPlay loop muted playsInline
             style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}>
@@ -117,7 +149,7 @@ function ProjectCard({ title, tags, description, link, thumb, year, index }: Rea
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <h3 style={{
             fontFamily: 'var(--font-cormorant), Georgia, serif',
-            fontWeight: 500, fontSize: '1.40rem',
+            fontWeight: 500, fontSize: small ? '1.25rem' : '1.40rem',
             color: '#1a1008', margin: 0, lineHeight: 1.1, letterSpacing: '-0.01em',
           }}>
             {title}
@@ -127,7 +159,7 @@ function ProjectCard({ title, tags, description, link, thumb, year, index }: Rea
             opacity: hovered ? 1 : 0,
             transform: hovered ? 'translate(0,0)' : 'translate(-5px,4px)',
             transition: 'opacity 160ms ease, transform 160ms ease',
-          }}>→</span>
+          }}>{external ? '↗' : '→'}</span>
         </div>
 
         {/* Tags */}
@@ -152,32 +184,45 @@ function ProjectCard({ title, tags, description, link, thumb, year, index }: Rea
   )
 }
 
+function SectionLabel({ children, first }: Readonly<{ children: string; first?: boolean }>) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: first ? '64px 0 24px' : '88px 0 24px' }}>
+      <span style={{
+        fontSize: '0.9rem', color: '#7aad6a', display: 'inline-block', flexShrink: 0,
+        animation: 'dotPulse 2.8s ease-in-out infinite', lineHeight: 1,
+      }}>✿</span>
+      <span style={{
+        fontFamily: "'General Sans', var(--font-dm-sans), sans-serif",
+        fontSize: '0.68rem', fontWeight: 500,
+        letterSpacing: '0.14em', textTransform: 'uppercase', color: '#7a5030',
+      }}>
+        {children}
+      </span>
+    </div>
+  )
+}
+
 export default function PhotoGrid() {
   const ref = useReveal()
 
   return (
     <section ref={ref}>
-      {/* Section label */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '64px 0 24px' }}>
-        <span style={{
-          fontSize: '0.9rem', color: '#7aad6a', display: 'inline-block', flexShrink: 0,
-          animation: 'dotPulse 2.8s ease-in-out infinite', lineHeight: 1,
-        }}>✿</span>
-        <span style={{
-          fontFamily: "'General Sans', var(--font-dm-sans), sans-serif",
-          fontSize: '0.68rem', fontWeight: 500,
-          letterSpacing: '0.14em', textTransform: 'uppercase', color: '#7a5030',
-        }}>
-          Selected Work
-        </span>
+      <SectionLabel first>Recent Projects</SectionLabel>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
+        gap: 16,
+      }}>
+        {RECENT.map((p, i) => <ProjectCard key={p.title} {...p} index={i} small />)}
       </div>
 
+      <SectionLabel>Past Case Studies</SectionLabel>
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 380px), 1fr))',
         gap: 16,
       }}>
-        {PROJECTS.map((p, i) => <ProjectCard key={p.title} {...p} index={i} />)}
+        {PAST.map((p, i) => <ProjectCard key={p.title} {...p} index={i} />)}
       </div>
     </section>
   )
