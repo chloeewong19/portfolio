@@ -33,9 +33,9 @@ const RECENT: Project[] = [
   {
     title: 'Mass AI Coalition',
     tags: ['Concept', 'Web Design', 'Information Architecture'],
-    description: 'Unofficial redesign concept for the Massachusetts AI Coalition, built with Claude. Every visitor picks a path and gets a clear next step.',
+    description: 'Unofficial redesign concept for the Massachusetts AI Coalition. Boston wayfinding meets championship banner, opening on a miniature-city film I made with Higgsfield.',
     link: '/mass-ai-coalition.html',
-    thumb: '/images/mass-ai-coalition.jpg',
+    thumb: '/images/mass-ai-coalition.mp4',
     year: '2026',
   },
 ]
