@@ -171,7 +171,7 @@ export default function ContactScreen({ navigate, sound, setCreatureAnim }) {
         {/* Links */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 4, marginTop: 'auto' }}>
           <LinkItem href="https://www.linkedin.com/in/chloe-wong-29b412234/" label="→ LINKEDIN" />
-          <LinkItem href="https://drive.google.com/file/d/1dmoGwxz_-ciB32ECIx9Ien_B3U7O9V2Z/view?usp=sharing" label="→ RESUME" />
+          <LinkItem href="https://drive.google.com/file/d/13evRYVsBz5dzptfA-9G_OyLuWJ2Rv42R/view?usp=sharing" label="→ RESUME" />
           <LinkItem href="mailto:chloewong052@gmail.com" label="→ EMAIL" />
         </div>
       </div>

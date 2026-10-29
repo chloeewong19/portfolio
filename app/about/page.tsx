@@ -4,13 +4,15 @@ import { useState } from 'react'
 import Nav from '../components/Nav'
 
 const EXPERIENCE = [
-  { role: 'Student Technology Experience Intern', org: 'Tufts Technology Services', period: 'Spring 2025' },
-  { role: 'Lead Designer', org: 'JumboCode', period: '2024–2025' },
-  { role: 'Product Design Intern', org: 'Recube', period: 'Summer 2024', tag: 'Internship' },
+  { role: 'Data & AI Intern', org: 'Ernst & Young, Singapore', period: 'Summer 2026', tag: 'Internship' },
+  { role: 'Business Planning & Student Experience Intern', org: 'Tufts Technology Services', period: 'Dec 2025 – May 2026' },
+  { role: 'Product & Design Engineer Intern', org: 'SlasherPro', period: 'Aug – Sep 2025', tag: 'Internship' },
+  { role: 'User Experience Intern', org: 'Recube', period: 'Jun – Sep 2025', tag: 'Internship' },
+  { role: 'Lead Designer, Schools on Wheels', org: 'Tufts JumboCode', period: 'May 2025 – Present' },
 ]
 
 const EDUCATION = [
-  { role: 'B.S. Human Factors Engineering + CS', org: 'Tufts University', period: '2023–2027' },
+  { role: 'B.S.E. Human Factors Engineering + CS', org: 'Tufts University', period: '2024–2028' },
 ]
 
 function PhotoItem({ label, src }: Readonly<{ label: string; src: string }>) {
@@ -163,7 +165,7 @@ export default function About() {
             <p style={{ fontSize: '0.88rem', color: 'var(--color-muted)', margin: 0, lineHeight: 1.6 }}>UX / product design · accessibility · full-stack</p>
           </div>
           <a
-            href="https://drive.google.com/file/d/1dmoGwxz_-ciB32ECIx9Ien_B3U7O9V2Z/view?usp=sharing"
+            href="https://drive.google.com/file/d/13evRYVsBz5dzptfA-9G_OyLuWJ2Rv42R/view?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -199,7 +201,7 @@ export default function About() {
               { label: '← Work',  href: '/' },
               { label: 'Email',   href: 'mailto:chloewong052@gmail.com' },
               { label: 'LinkedIn', href: 'https://www.linkedin.com/in/chloe-wong-29b412234/' },
-              { label: 'Resume',  href: 'https://drive.google.com/file/d/1dmoGwxz_-ciB32ECIx9Ien_B3U7O9V2Z/view?usp=sharing' },
+              { label: 'Resume',  href: 'https://drive.google.com/file/d/13evRYVsBz5dzptfA-9G_OyLuWJ2Rv42R/view?usp=sharing' },
             ].map(({ label, href }) => (
               <a
                 key={label}
