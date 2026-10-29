@@ -4,6 +4,14 @@ import { useEffect, useRef, useState } from 'react'
 
 const PROJECTS = [
   {
+    title: 'Mahjong Tile Drop',
+    tags: ['3D', 'Interaction Design', 'Coding'],
+    description: 'A real-time 3D mahjong table with physics and synthesized sound. Pour a set and wash it the Cantonese way. The first piece of a beginner-friendly mahjong app.',
+    link: '/mahjong.html',
+    thumb: '/images/mahjong-tile-drop.mp4',
+    year: '2026',
+  },
+  {
     title: 'Accessible Voting Machine',
     tags: ['HFE', 'Accessibility', 'UX Research'],
     description: 'Redesigned a voting machine UI for a class project: 8 screens, grounded in 5 user interviews and disability regulation research.',

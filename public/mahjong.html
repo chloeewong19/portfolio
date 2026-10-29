@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahjong Tile Drop - Chloe Wong</title>
+    <meta name="description" content="A real-time 3D mahjong table with physics, synthesized sound and a Cantonese-style tile wash.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://api.fontshare.com">
+    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/portfolio.css">
+    <style>
+        /* Live demo in the hero. The overlay keeps page scrolling from turning into camera zoom until the visitor chooses to play. */
+        .demo-frame { position: relative; height: 560px; padding: 0; overflow: hidden; background: #0b0f13; }
+        .demo-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+        .demo-cover { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; cursor: pointer; background: #0b0f13; display: block; font: inherit; }
+        .demo-cover video { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.92; }
+        .demo-cover-label { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px; border-radius: 999px; background: rgba(253, 248, 240, 0.94); color: #1a1008; font-family: 'General Sans', 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500; white-space: nowrap; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); transition: transform 180ms ease; }
+        .demo-cover:hover .demo-cover-label, .demo-cover:focus-visible .demo-cover-label { transform: translate(-50%, -50%) scale(1.04); }
+        .demo-cover:focus-visible { outline: 2px solid #1a1008; outline-offset: 3px; }
+        .demo-links { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 12px; font-size: 0.82rem; color: var(--faint); }
+        .demo-links a { color: var(--muted); }
+        .spec-list { margin: 24px 0 0; padding-left: 1.2em; }
+        .spec-list li { margin-bottom: 10px; line-height: 1.7; }
+        @media (max-width: 768px) { .demo-frame { height: 460px; } }
+        @media (prefers-reduced-motion: reduce) { .demo-cover video { display: none; } .demo-cover { background: #0b0f13 url('/images/mahjong-tile-drop.jpg') center / cover no-repeat; } }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="/" class="nav-brand">Chloe W</a>
+        <ul class="nav-links">
+            <li><a href="/#work">Work</a></li>
+            <li><a href="mailto:chloewong052@gmail.com">Contact</a></li>
+            <li><a href="/about">About</a></li>
+        </ul>
+    </nav>
+
+    <!-- Side Navigation -->
+    <div class="side-nav">
+        <div class="side-nav-item" data-section="overview">
+            <span class="side-nav-label">Overview</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="solution">
+            <span class="side-nav-label">What I Built</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="technical">
+            <span class="side-nav-label">Craft Details</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="next">
+            <span class="side-nav-label">Where It's Going</span>
+            <div class="side-nav-dot"></div>
+        </div>
+        <div class="side-nav-item" data-section="learned">
+            <span class="side-nav-label">What I Learned</span>
+            <div class="side-nav-dot"></div>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero">
+        <h1 class="hero-title">A mahjong table you can actually play with</h1>
+        <div class="hero-image demo-frame" id="demo">
+            <button class="demo-cover" id="demoCover" type="button" aria-label="Play the live 3D demo">
+                <video autoplay loop muted playsinline poster="/images/mahjong-tile-drop.jpg" aria-hidden="true">
+                    <source src="/images/mahjong-tile-drop.mp4" type="video/mp4">
+                </video>
+                <span class="demo-cover-label">&#9654;&nbsp; Play the live demo</span>
+            </button>
+        </div>
+        <div class="demo-links">
+            <span>Drag a tile to slide it, sweep the felt to wash, tap a tile to flip it.</span>
+            <a href="/mahjong-tile-drop.html">Open full screen &#8599;</a>
+        </div>
+
+        <div class="project-meta">
+            <div class="meta-item">
+                <h3>Role</h3>
+                <p>Designer<br>Developer</p>
+            </div>
+            <div class="meta-item">
+                <h3>Timeline</h3>
+                <p>Personal project<br>Fall 2026</p>
+            </div>
+            <div class="meta-item">
+                <h3>Stack</h3>
+                <p>Three.js · cannon.js<br>Web Audio · Claude</p>
+            </div>
+            <div class="meta-item">
+                <h3>Part of</h3>
+                <p>A beginner-friendly<br>Hong Kong mahjong app</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overview -->
+    <section id="overview" class="content">
+        <div class="section-header">Overview</div>
+        <h2>Mahjong is a game you hear before you see.</h2>
+        <p>
+            The clack of tiles hitting the table, the rattle of everyone washing the set together between hands. Most mahjong apps skip all of that and go straight to flat tiles on a grid. I wanted to see if a screen could get closer to the real table, so I built a 3D one with real physics.
+        </p>
+        <p>
+            It's the first piece of a mahjong app I'm building for beginners. Before designing the rules and tutorials, I wanted the core feel to be right.
+        </p>
+
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">1:1</div>
+                <div class="stat-label">Real-world scale, in centimetres</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">36</div>
+                <div class="stat-label">Tiles poured and washed in one go</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Audio files. Every clack is synthesized</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What I Built -->
+    <section id="solution" class="content">
+        <div class="section-header">What I Built</div>
+        <h2>A felt table that behaves like the real thing</h2>
+        <p>
+            Everything runs live in the browser on desktop and phone. Tiles fall, bounce, stack and slide based on physics, not canned animations, so no two drops look the same.
+        </p>
+
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h3>Drop and pour</h3>
+                <p>Drop single tiles (Red Dragon, Green Dragon, East Wind, Five of Dots, or a random mix), or pour a whole set face down the way it comes out of the box.</p>
+            </div>
+            <div class="feature-item">
+                <h3>The Cantonese wash</h3>
+                <p>Two palms swirl in opposite directions, drifting in and out across the felt, the way players mix a set between hands. You can also sweep the tiles yourself.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Pick up and flip</h3>
+                <p>Drag any tile to slide it around, or tap it to flip it over. Tiles push each other out of the way as you move them.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Slow-mo and orbit</h3>
+                <p>At real speed a drop is over in about a quarter of a second, so slow-mo lets you watch the tumble. Orbit and zoom to see the table from any angle.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Craft Details -->
+    <section id="technical" class="content">
+        <div class="section-header">Craft Details</div>
+        <h2>The small decisions that make it feel right</h2>
+
+        <p>
+            <strong>Real units.</strong> The whole scene is in centimetres. Tiles are 26 × 35 × 20 mm and gravity is 982 cm/s², so drops land at the speed your eye expects. Tuning bounce and friction got much easier once the numbers matched the real world.
+        </p>
+
+        <p>
+            <strong>A tile built like a tile.</strong> Each one is a rounded, bevelled slab with an ivory face and a jade back, split crisply in the shader instead of using two separate pieces. The characters have a soft highlight above and a darker edge below, so they read as carved in rather than printed on.
+        </p>
+
+        <p>
+            <strong>Sound without recordings.</strong> Every sound is generated on the fly. Tile on felt is a low, muffled thud; tile on tile is a sharper click with a short woody ping. Volume follows how hard the tiles hit, so a gentle slide sounds different from a drop.
+        </p>
+
+        <p>
+            <strong>Making the hands visible.</strong> The palms that wash the tiles are invisible physics objects. On their own, the tiles looked like they were moving by themselves, so I drew each palm as a soft shadow on the felt. Now a sweep reads instantly.
+        </p>
+
+        <div class="callout">
+            <p>The trickiest bug: after a few seconds, the washing hands stopped pushing tiles. The physics engine was putting the idle hands to "sleep" to save work, and they never woke back up. Keeping them awake fixed it.</p>
+        </div>
+
+        <h3>Built for real people</h3>
+        <ul class="spec-list">
+            <li>Every control is a real button with a label, so it works with a keyboard and screen readers.</li>
+            <li>Two fingers orbit the camera on a phone, so one finger stays free for moving tiles.</li>
+            <li>The pour speeds up when reduced motion is turned on, and sound only starts after you tap, never on page load.</li>
+        </ul>
+    </section>
+
+    <!-- Where It's Going -->
+    <section id="next" class="content">
+        <div class="section-header">Where It's Going</div>
+        <h2>From a table to a game that teaches you</h2>
+        <p>
+            Mahjong is hard to pick up. Rules vary between families, scoring is opaque, and most people learn by watching relatives play. The table is the first step toward an app that teaches Hong Kong mahjong while you play.
+        </p>
+        <p>
+            I've since built a playable web prototype with Claude: a full rules engine for one hand, scoring that explains every point in plain English, bots that suggest a discard and say why, and helper labels on every tile. It's covered by 41 tests, including a 1,000-hand simulation. Next is talking to beginners and using what I hear to design the guided tutorial.
+        </p>
+    </section>
+
+    <!-- What I Learned -->
+    <section id="learned" class="learnings">
+        <div class="learnings-content">
+            <div class="section-header">What I Learned</div>
+            <h2>What a 3D table taught me about feel</h2>
+
+            <p>
+                <strong>Feel is a feature.</strong> Nobody asks for the sound of tiles, but it's the first thing people notice. The details you'd never put in a spec are often what make something memorable.
+            </p>
+
+            <p>
+                <strong>Show what the system is doing.</strong> The palm shadows added nothing to the physics, but without them the wash didn't make sense. If people can't see the cause, the effect feels random.
+            </p>
+
+            <p>
+                <strong>Start with the riskiest part.</strong> If the table didn't feel good, a mahjong app built on top of it wouldn't either. Building it first told me the idea was worth pursuing.
+            </p>
+        </div>
+    </section>
+
+    <!-- Case study navigation -->
+    <div class="cs-nav">
+      <div class="cs-nav-inner">
+        <a href="/c2pay.html" class="cs-nav-item prev">
+            <span class="cs-nav-direction">
+                <span class="cs-nav-flower">✿</span>
+                Previous
+            </span>
+            <span class="cs-nav-title">← C2Pay</span>
+        </a>
+        <a href="/voting-machine.html" class="cs-nav-item next">
+            <span class="cs-nav-direction">
+                <span class="cs-nav-flower">✿</span>
+                Next
+            </span>
+            <span class="cs-nav-title">Accessible Voting Machine →</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p style="font-size: 0.82rem; color: var(--faint);">Chloe Wong · chloewong052@gmail.com</p>
+        <div class="footer-nav">
+            <a href="/">← Portfolio</a>
+            <a href="mailto:chloewong052@gmail.com">Email</a>
+            <a href="https://www.linkedin.com/in/chloe-wong-29b412234/" target="_blank">LinkedIn</a>
+        </div>
+    </footer>
+
+    <script>
+        // Swap the preview clip for the live table on click.
+        document.getElementById('demoCover').addEventListener('click', function () {
+            var frame = document.createElement('iframe');
+            frame.src = '/mahjong-tile-drop.html';
+            frame.title = 'Mahjong Tile Drop, live 3D demo';
+            frame.allow = 'autoplay';
+            var box = document.getElementById('demo');
+            box.innerHTML = '';
+            box.appendChild(frame);
+            frame.focus();
+        });
+
+        const sections = document.querySelectorAll('section[id]');
+        const navItems = document.querySelectorAll('.side-nav-item');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navItems.forEach(item => item.classList.remove('active'));
+                    const active = document.querySelector(`.side-nav-item[data-section="${entry.target.id}"]`);
+                    if (active) active.classList.add('active');
+                }
+            });
+        }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+
+        sections.forEach(s => observer.observe(s));
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const section = document.getElementById(item.getAttribute('data-section'));
+                if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+    <script src="/scripts/nav-scroll.js" defer></script>
+</body>
+</html>

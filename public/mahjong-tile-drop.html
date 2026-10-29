@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mahjong Tile Drop - Chloe Wong</title>
+<meta name="description" content="A real-time 3D mahjong table: drop tiles, pour a set and wash it the Cantonese way.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&display=swap&text=%E4%B8%AD%E7%99%BC%E6%9D%B1%E4%BA%94%E7%AD%92%E5%8D%97%E8%A5%BF%E5%8C%97">
+<style>
+/* Layout: full-bleed WebGL table, a quiet title top-left, one floating control tray at the bottom. Single dark look by choice (a lamp-lit table at night). */
+:root{
+  --bg:#0b0f13;
+  --panel:rgba(15,20,26,.82);
+  --line:rgba(236,230,216,.13);
+  --ink:#ece6d8;
+  --muted:#939c97;
+  --accent:#c4122f;
+  --accent-ink:#fff5f2;
+  --chip:rgba(236,230,216,.06);
+  --chip-on:#ece6d8;
+  --chip-on-ink:#141a20;
+  --ui:"Manrope",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --han:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
+  color-scheme:dark;
+}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--ui);overflow:hidden;-webkit-font-smoothing:antialiased}
+#stage{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:default;outline:none}
+#stage.over-tile{cursor:grab}
+#stage.grabbing{cursor:grabbing}
+
+.top{position:fixed;top:calc(env(safe-area-inset-top,0px) + 18px);left:18px;right:18px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;pointer-events:none}
+.brand h1{margin:0;font-size:17px;font-weight:700;letter-spacing:.01em;text-wrap:balance}
+.brand p{margin:4px 0 0;font-size:12.5px;color:var(--muted);max-width:38ch;line-height:1.45}
+.count{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap;padding-top:3px}
+.count b{color:var(--ink);font-weight:700}
+
+.tray{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 16px);width:max-content;max-width:calc(100% - 32px);display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px;padding:8px;background:var(--panel);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.group{display:flex;gap:4px;flex-wrap:wrap;justify-content:center}
+.sep{width:1px;align-self:stretch;background:var(--line)}
+button{font:inherit;color:inherit;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.chip{min-width:40px;height:40px;padding:0 9px;border-radius:10px;background:var(--chip);display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--ink);transition:background .15s,color .15s}
+.chip .han{font-family:var(--han);font-weight:900;font-size:21px;line-height:1}
+.chip[aria-pressed="true"]{background:var(--chip-on);color:var(--chip-on-ink)}
+.chip[data-kind="red"] .han{color:#e0364f}
+.chip[data-kind="green"] .han{color:#2fae6d}
+.chip[aria-pressed="true"][data-kind="red"] .han{color:#c4122f}
+.chip[aria-pressed="true"][data-kind="green"] .han{color:#0b7a45}
+.chip svg{width:18px;height:18px;display:block}
+.act{height:40px;padding:0 15px;border-radius:10px;font-weight:700;font-size:14px;letter-spacing:.01em;transition:transform .1s,filter .15s,background .15s}
+.act:active{transform:scale(.97)}
+.primary{background:var(--accent);color:var(--accent-ink)}
+.primary:hover{filter:brightness(1.1)}
+.secondary{background:var(--chip);color:var(--ink)}
+.secondary:hover{background:rgba(236,230,216,.12)}
+.secondary[aria-pressed="true"]{background:var(--chip-on);color:var(--chip-on-ink)}
+.toggle{height:40px;padding:0 11px;border-radius:10px;background:transparent;color:var(--muted);font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:7px}
+.toggle:hover{color:var(--ink)}
+.toggle .dot{width:8px;height:8px;border-radius:50%;border:1.5px solid currentColor}
+.toggle[aria-pressed="true"]{color:var(--ink)}
+.toggle[aria-pressed="true"] .dot{background:var(--accent);border-color:var(--accent)}
+
+.hint{position:fixed;left:0;right:0;bottom:calc(env(safe-area-inset-bottom,0px) + 78px);text-align:center;font-size:12px;line-height:1.6;color:var(--muted);pointer-events:none;padding-inline:16px;transition:opacity .8s}
+.hint kbd{font:inherit;color:var(--ink)}
+.fail{position:fixed;inset:0;display:grid;place-items:center;padding:24px;text-align:center;color:var(--muted);font-size:14px}
+@media (max-width:760px){
+  .sep{display:none}
+  .hint{bottom:calc(env(safe-area-inset-bottom,0px) + 180px)}
+  .brand p{display:none}
+}
+@media (prefers-reduced-motion:reduce){ .hint{transition:none} }
+.back{position:fixed;top:calc(env(safe-area-inset-top,0px) + 16px);right:18px;font-size:12px;font-weight:600;color:var(--muted);text-decoration:none;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+.back:hover{color:var(--ink)}
+.framed .back{display:none}
+.has-back .count{margin-right:150px}
+.framed .count{margin-right:0}
+</style>
+
+</head>
+<body>
+<canvas id="stage" tabindex="0" aria-label="3D mahjong table. Drag tiles to slide them, sweep the felt to wash, tap a tile to flip it."></canvas>
+
+<div class="top">
+  <div class="brand">
+    <h1>Mahjong Tile Drop</h1>
+    <p>Pour a set face down, then wash it the Cantonese way: both hands swirling the tiles across the felt.</p>
+  </div>
+  <div class="count" id="count"><b>0</b> / 48 tiles</div>
+</div>
+
+<a class="back" href="/mahjong.html" target="_top">&larr; Case study</a>
+
+<div class="hint" id="hint"><kbd>Drag a tile</kbd> to slide it · <kbd>sweep the felt</kbd> to wash · <kbd>tap a tile</kbd> to flip<br>Right-drag or two fingers to orbit · scroll to zoom</div>
+
+<div class="tray" role="toolbar" aria-label="Table controls">
+  <div class="group" role="group" aria-label="Tile to drop">
+    <button class="chip" data-kind="mix" aria-pressed="true" title="Random tile each drop">Mix</button>
+    <button class="chip" data-kind="red" aria-pressed="false" title="Red Dragon" aria-label="Red Dragon"><span class="han">中</span></button>
+    <button class="chip" data-kind="green" aria-pressed="false" title="Green Dragon" aria-label="Green Dragon"><span class="han">發</span></button>
+    <button class="chip" data-kind="east" aria-pressed="false" title="East Wind" aria-label="East Wind"><span class="han">東</span></button>
+    <button class="chip" data-kind="dots" aria-pressed="false" title="Five of Dots" aria-label="Five of Dots">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="5" cy="5" r="3" fill="#3f6fd8"/><circle cx="15" cy="5" r="3" fill="#2fae6d"/><circle cx="10" cy="10" r="3" fill="#e0364f"/><circle cx="5" cy="15" r="3" fill="#2fae6d"/><circle cx="15" cy="15" r="3" fill="#3f6fd8"/></svg>
+    </button>
+  </div>
+  <div class="sep"></div>
+  <div class="group">
+    <button class="act secondary" id="dropBtn">Drop tile</button>
+    <button class="act secondary" id="pourBtn">Pour set</button>
+    <button class="act primary" id="washBtn" aria-pressed="false">Wash tiles</button>
+  </div>
+  <div class="group">
+    <button class="toggle" id="slowBtn" aria-pressed="false"><span class="dot"></span>Slow-mo</button>
+    <button class="toggle" id="soundBtn" aria-pressed="true"><span class="dot"></span>Sound</button>
+    <button class="toggle" id="clearBtn">Clear</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js"></script>
+<script>
+(function(){
+"use strict";
+var framed=false; try{ framed=window.self!==window.top; }catch(e){ framed=true; }
+document.documentElement.classList.add(framed?"framed":"has-back");
+if(!window.THREE || !window.CANNON){ fail("The 3D libraries didn't load. Refresh the page to try again."); return; }
+function fail(msg){ const d=document.createElement('div'); d.className='fail'; d.textContent=msg; document.body.appendChild(d); }
+
+// Units are centimetres, so gravity is 982 cm/s² and everything moves at true speed.
+const W=2.6, H=3.5, D=2.0, BEV=0.17, CR=0.2, MAX=48, SET=36, DROP_Y=24;
+const HAND_R=2.4, HAND_Y=1.7, TABLE_R=24, MAX_PUSH=320;
+const canvas=document.getElementById('stage');
+const reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+let renderer;
+try{ renderer=new THREE.WebGLRenderer({canvas, antialias:true}); }
+catch(e){ fail("This device can't run WebGL, which the 3D table needs."); return; }
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+renderer.outputEncoding=THREE.sRGBEncoding;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure=1.08;
+renderer.shadowMap.enabled=true;
+renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+
+const scene=new THREE.Scene();
+const BG=0x0b0f13;
+scene.background=new THREE.Color(BG);
+scene.fog=new THREE.Fog(BG,45,95);
+const camera=new THREE.PerspectiveCamera(34,1,0.1,250);
+
+// ---- Studio environment for reflections ----
+(function(){
+  const pmrem=new THREE.PMREMGenerator(renderer);
+  const es=new THREE.Scene();
+  es.add(new THREE.Mesh(new THREE.BoxGeometry(60,30,60),new THREE.MeshBasicMaterial({color:0x1b1f24,side:THREE.BackSide})));
+  function panel(w,h,pos,look,c,k){
+    const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({color:new THREE.Color(c).multiplyScalar(k),side:THREE.DoubleSide}));
+    m.position.copy(pos); m.lookAt(look); es.add(m);
+  }
+  panel(18,18,new THREE.Vector3(6,14,6),new THREE.Vector3(0,0,0),0xfff1dc,5);
+  panel(10,14,new THREE.Vector3(-18,6,-4),new THREE.Vector3(0,2,0),0xbcd4ff,1.6);
+  panel(24,4,new THREE.Vector3(0,4,-22),new THREE.Vector3(0,2,0),0xffe7c7,1.2);
+  scene.environment=pmrem.fromScene(es,0.04).texture;
+})();
+
+// ---- Lights ----
+scene.add(new THREE.HemisphereLight(0xfff4e0,0x0f1a24,0.4));
+const key=new THREE.SpotLight(0xfff0d8,2.4,0,0.62,0.7,1);
+key.position.set(10,42,12); key.castShadow=true;
+key.shadow.mapSize.set(2048,2048); key.shadow.camera.near=20; key.shadow.camera.far=80;
+key.shadow.bias=-0.0004; key.shadow.normalBias=0.02; key.shadow.radius=4;
+scene.add(key); scene.add(key.target);
+const fill=new THREE.DirectionalLight(0x9fbfff,0.35); fill.position.set(-12,8,-6); scene.add(fill);
+const rim=new THREE.DirectionalLight(0xffe2c0,0.5); rim.position.set(-4,6,-14); scene.add(rim);
+
+// ---- Felt table ----
+function feltTexture(){
+  const s=512,c=document.createElement('canvas'); c.width=c.height=s;
+  const g=c.getContext('2d'); g.fillStyle='#808080'; g.fillRect(0,0,s,s);
+  const img=g.getImageData(0,0,s,s),a=img.data;
+  for(let i=0;i<a.length;i+=4){ const n=128+(Math.random()-0.5)*70; a[i]=a[i+1]=a[i+2]=n; }
+  g.putImageData(img,0,0);
+  g.globalAlpha=0.08; g.strokeStyle='#fff'; g.lineWidth=1;
+  for(let i=0;i<2600;i++){ const x=Math.random()*s,y=Math.random()*s,an=Math.random()*Math.PI*2,l=3+Math.random()*9;
+    g.beginPath(); g.moveTo(x,y); g.lineTo(x+Math.cos(an)*l,y+Math.sin(an)*l); g.stroke(); }
+  const t=new THREE.CanvasTexture(c); t.wrapS=t.wrapT=THREE.RepeatWrapping; t.repeat.set(22,22);
+  t.anisotropy=renderer.capabilities.getMaxAnisotropy(); return t;
+}
+const feltTex=feltTexture();
+const feltMat=new THREE.MeshStandardMaterial({color:0x1a4a68,roughness:0.97,metalness:0,map:feltTex,bumpMap:feltTex,bumpScale:0.035,envMapIntensity:0.25});
+const table=new THREE.Mesh(new THREE.PlaneGeometry(200,200),feltMat);
+table.rotation.x=-Math.PI/2; table.receiveShadow=true; scene.add(table);
+
+// ---- Tile geometry: rounded, bevelled slab with smooth edges ----
+function tileGeometry(){
+  const hw=W/2-BEV, hh=H/2-BEV, r=CR, s=new THREE.Shape();
+  s.moveTo(-hw+r,-hh); s.lineTo(hw-r,-hh); s.absarc(hw-r,-hh+r,r,-Math.PI/2,0,false);
+  s.lineTo(hw,hh-r); s.absarc(hw-r,hh-r,r,0,Math.PI/2,false);
+  s.lineTo(-hw+r,hh); s.absarc(-hw+r,hh-r,r,Math.PI/2,Math.PI,false);
+  s.lineTo(-hw,-hh+r); s.absarc(-hw+r,-hh+r,r,Math.PI,Math.PI*1.5,false);
+  const geo=new THREE.ExtrudeGeometry(s,{depth:D-2*BEV,bevelEnabled:true,bevelThickness:BEV,bevelSize:BEV,bevelSegments:8,curveSegments:10,steps:1});
+  geo.center();
+  // Smooth the bevels while keeping the flat front and back caps crisp.
+  const pos=geo.attributes.position, nor=geo.attributes.normal, n=pos.count;
+  const isCap=new Uint8Array(n), acc=new Map();
+  const key=i=>Math.round(pos.getX(i)*1e4)+'|'+Math.round(pos.getY(i)*1e4)+'|'+Math.round(pos.getZ(i)*1e4);
+  const atCap=i=>Math.abs(Math.abs(pos.getZ(i))-D/2)<1e-3;
+  for(let f=0;f<n;f+=3){
+    const cap=Math.abs(nor.getZ(f))>0.9999 && atCap(f) && atCap(f+1) && atCap(f+2);
+    for(let k=0;k<3;k++){
+      const i=f+k; isCap[i]=cap?1:0;
+      if(cap) continue;
+      const kk=key(i); let v=acc.get(kk); if(!v){v=[0,0,0];acc.set(kk,v);}
+      v[0]+=nor.getX(i); v[1]+=nor.getY(i); v[2]+=nor.getZ(i);
+    }
+  }
+  for(let i=0;i<n;i++){ if(isCap[i]) continue; const v=acc.get(key(i)); const l=Math.hypot(v[0],v[1],v[2])||1; nor.setXYZ(i,v[0]/l,v[1]/l,v[2]/l); }
+  nor.needsUpdate=true;
+  return geo;
+}
+const tileGeo=tileGeometry();
+
+// Two-layer body: ivory front, jade back, split crisply in the shader.
+const bodyMat=new THREE.MeshPhysicalMaterial({color:0xffffff,roughness:0.26,metalness:0,clearcoat:0.7,clearcoatRoughness:0.14,envMapIntensity:0.9});
+const uFront=new THREE.Color(0xf2ead8).convertSRGBToLinear();
+const uBack=new THREE.Color(0x0d6a4c).convertSRGBToLinear();
+bodyMat.onBeforeCompile=sh=>{
+  sh.uniforms.uFront={value:uFront}; sh.uniforms.uBack={value:uBack}; sh.uniforms.uSeam={value:-D/2+D*0.4};
+  sh.vertexShader='varying float vLZ;\n'+sh.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\nvLZ=position.z;');
+  sh.fragmentShader='varying float vLZ;\nuniform vec3 uFront;\nuniform vec3 uBack;\nuniform float uSeam;\n'+
+    sh.fragmentShader.replace('#include <color_fragment>','#include <color_fragment>\nfloat fw=fwidth(vLZ)*1.2+0.004;\ndiffuseColor.rgb*=mix(uBack,uFront,smoothstep(uSeam-fw,uSeam+fw,vLZ));');
+};
+bodyMat.extensions={derivatives:true};
+
+// ---- Face artwork ----
+const FW=W-2*BEV-0.12, FH=H-2*BEV-0.12, TW=512, TH=Math.round(512*FH/FW);
+const HAN='900 {s}px "Noto Serif SC","Songti SC","STSong","SimSun",serif';
+const NAVY='#18233a', BLUE='#1f4396', GREEN='#0b7a45', RED='#c4122f', IVORY='#f2ead8';
+const TYPES={
+  red:{glyph:'中',ink:RED},
+  green:{glyph:'發',ink:GREEN},
+  white:{draw:drawWhite},
+  east:{glyph:'東',ink:NAVY},
+  south:{glyph:'南',ink:NAVY},
+  west:{glyph:'西',ink:NAVY},
+  north:{glyph:'北',ink:NAVY},
+  dots:{draw:drawDots}
+};
+function drawGlyph(g,t){
+  let size=470; g.font=HAN.replace('{s}',size);
+  const m=g.measureText(t.glyph).width; if(m>TW*0.84){ size=Math.floor(size*TW*0.84/m); g.font=HAN.replace('{s}',size); }
+  g.textAlign='center'; g.textBaseline='middle';
+  const x=TW/2,y=TH/2+size*0.03;
+  // Carved-in look: a soft lip above, a darker edge below, then the paint.
+  g.fillStyle='rgba(90,60,30,.22)'; g.fillText(t.glyph,x+2,y+5);
+  g.fillStyle='rgba(255,255,255,.55)'; g.fillText(t.glyph,x-1,y-2);
+  g.fillStyle=t.ink; g.fillText(t.glyph,x,y);
+}
+function roundRect(g,x,y,w,h,r){ g.beginPath(); g.moveTo(x+r,y); g.arcTo(x+w,y,x+w,y+h,r); g.arcTo(x+w,y+h,x,y+h,r); g.arcTo(x,y+h,x,y,r); g.arcTo(x,y,x+w,y,r); g.closePath(); }
+function drawWhite(g){
+  g.lineJoin='round';
+  g.strokeStyle='rgba(90,60,30,.2)'; g.lineWidth=18; roundRect(g,78,84,TW-152,TH-164,26); g.stroke();
+  g.strokeStyle=BLUE; g.lineWidth=16; roundRect(g,76,80,TW-152,TH-160,26); g.stroke();
+  g.lineWidth=5; roundRect(g,106,110,TW-212,TH-220,14); g.stroke();
+}
+function coin(g,x,y,r,col){
+  g.fillStyle='rgba(90,60,30,.2)'; g.beginPath(); g.arc(x+2,y+4,r,0,Math.PI*2); g.fill();
+  g.fillStyle=col; g.beginPath(); g.arc(x,y,r,0,Math.PI*2); g.fill();
+  g.fillStyle=IVORY; g.beginPath(); g.arc(x,y,r*0.8,0,Math.PI*2); g.fill();
+  g.fillStyle=col; g.beginPath(); g.arc(x,y,r*0.66,0,Math.PI*2); g.fill();
+  g.fillStyle=IVORY;
+  for(let i=0;i<8;i++){ const a=i*Math.PI/4; g.beginPath(); g.arc(x+Math.cos(a)*r*0.44,y+Math.sin(a)*r*0.44,r*0.1,0,Math.PI*2); g.fill(); }
+  g.beginPath(); g.arc(x,y,r*0.2,0,Math.PI*2); g.fill();
+  g.fillStyle=col; g.beginPath(); g.arc(x,y,r*0.1,0,Math.PI*2); g.fill();
+}
+function drawDots(g){
+  const r=86,dx=128,dy=TH*0.29,cx=TW/2,cy=TH/2;
+  coin(g,cx-dx,cy-dy,r,BLUE); coin(g,cx+dx,cy-dy,r,GREEN);
+  coin(g,cx-dx,cy+dy,r,GREEN); coin(g,cx+dx,cy+dy,r,BLUE);
+  coin(g,cx,cy,r,RED);
+}
+const faceMats={};
+function buildFaces(){
+  for(const k in TYPES){
+    const c=document.createElement('canvas'); c.width=TW; c.height=TH;
+    const g=c.getContext('2d'), t=TYPES[k];
+    if(t.draw) t.draw(g); else drawGlyph(g,t);
+    const tex=new THREE.CanvasTexture(c); tex.encoding=THREE.sRGBEncoding; tex.anisotropy=renderer.capabilities.getMaxAnisotropy();
+    faceMats[k]=new THREE.MeshPhysicalMaterial({map:tex,transparent:true,roughness:0.3,clearcoat:0.7,clearcoatRoughness:0.14,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2});
+  }
+}
+const faceGeo=new THREE.PlaneGeometry(FW,FH);
+
+// ---- Physics ----
+const world=new CANNON.World();
+world.gravity.set(0,-982,0);
+world.broadphase=new CANNON.NaiveBroadphase();
+world.solver.iterations=14;
+world.allowSleep=true;
+const mFelt=new CANNON.Material('felt'), mTile=new CANNON.Material('tile'), mHand=new CANNON.Material('hand');
+const stiff={contactEquationStiffness:1e8,contactEquationRelaxation:3};
+world.addContactMaterial(new CANNON.ContactMaterial(mFelt,mTile,Object.assign({friction:0.4,restitution:0.2},stiff)));
+world.addContactMaterial(new CANNON.ContactMaterial(mTile,mTile,Object.assign({friction:0.2,restitution:0.4},stiff)));
+world.addContactMaterial(new CANNON.ContactMaterial(mHand,mTile,Object.assign({friction:0.25,restitution:0.02},stiff)));
+const ground=new CANNON.Body({mass:0,material:mFelt}); ground.addShape(new CANNON.Plane());
+ground.quaternion.setFromAxisAngle(new CANNON.Vec3(1,0,0),-Math.PI/2); world.addBody(ground);
+
+function kinematic(shape,mat){
+  const b=new CANNON.Body({mass:0,material:mat}); b.type=CANNON.Body.KINEMATIC;
+  b.allowSleep=false; // a parked kinematic body would otherwise fall asleep and stop moving when used
+  b.addShape(shape); b.position.set(0,-80,0); world.addBody(b); return b;
+}
+// Palms that sweep the tiles, and an invisible anchor for dragging a single tile.
+const hands=[0,1].map(()=>({b:kinematic(new CANNON.Sphere(HAND_R),mHand),on:false,target:new THREE.Vector3()}));
+const grab=kinematic(new CANNON.Sphere(0.1));
+grab.collisionFilterGroup=0; grab.collisionFilterMask=0;
+const grabTarget=new THREE.Vector3(); let grabbing=null;
+
+// Soft palm shadows on the felt so a sweep reads on screen.
+const palmMat=new THREE.MeshBasicMaterial({color:0xf2ead8,transparent:true,opacity:0.16,depthWrite:false});
+const palmGeo=new THREE.CircleGeometry(HAND_R*1.05,40);
+hands.forEach(h=>{ h.mesh=new THREE.Mesh(palmGeo,palmMat); h.mesh.rotation.x=-Math.PI/2; h.mesh.visible=false; scene.add(h.mesh); });
+
+// ---- Sound: synthesized clacks, started from a tap so browsers allow it ----
+let actx=null, soundOn=true, noiseBuf=null, lastSound=0;
+function unlockAudio(){
+  if(!actx){ try{ actx=new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ actx=null; } }
+  if(actx && actx.state==='suspended') actx.resume().catch(()=>{});
+  if(actx && !noiseBuf){ const len=Math.floor(actx.sampleRate*0.25); noiseBuf=actx.createBuffer(1,len,actx.sampleRate); const d=noiseBuf.getChannelData(0); for(let i=0;i<len;i++) d[i]=Math.random()*2-1; }
+}
+function hit(v,onFelt){
+  if(!actx||!soundOn||actx.state!=='running') return;
+  const t=performance.now(); if(t-lastSound<14) return; lastSound=t;
+  const now=actx.currentTime, amp=Math.min(1,v/260)*(onFelt?0.45:0.38);
+  if(amp<0.02) return;
+  const src=actx.createBufferSource(); src.buffer=noiseBuf;
+  const f=actx.createBiquadFilter(), gn=actx.createGain();
+  if(onFelt){ f.type='lowpass'; f.frequency.value=700+Math.random()*200; f.Q.value=0.8; }
+  else{ f.type='bandpass'; f.frequency.value=2600+Math.random()*1200; f.Q.value=5; }
+  const len=onFelt?0.11:0.06;
+  gn.gain.setValueAtTime(amp,now); gn.gain.exponentialRampToValueAtTime(0.0008,now+len);
+  src.connect(f); f.connect(gn); gn.connect(actx.destination); src.start(now); src.stop(now+len+0.02);
+  if(!onFelt){ // a short woody ping on tile-on-tile contact
+    const o=actx.createOscillator(), og=actx.createGain(); o.type='triangle'; o.frequency.value=1700+Math.random()*500;
+    og.gain.setValueAtTime(amp*0.35,now); og.gain.exponentialRampToValueAtTime(0.0008,now+0.05);
+    o.connect(og); og.connect(actx.destination); o.start(now); o.stop(now+0.06);
+  }
+}
+
+// ---- Tiles ----
+const tiles=[]; let pick='mix';
+const kinds=Object.keys(TYPES);
+const rnd=(a,b)=>a+Math.random()*(b-a);
+function spawn(o){
+  o=o||{};
+  const kind=o.kind||(pick==='mix'?kinds[Math.floor(Math.random()*kinds.length)]:pick);
+  if(tiles.length>=MAX) removeTile(tiles.shift());
+  const group=new THREE.Group();
+  const mesh=new THREE.Mesh(tileGeo,bodyMat); mesh.castShadow=true; mesh.receiveShadow=true; group.add(mesh);
+  const face=new THREE.Mesh(faceGeo,faceMats[kind]); face.position.z=D/2+0.002; face.receiveShadow=true; group.add(face);
+  scene.add(group);
+  const b=new CANNON.Body({mass:1,material:mTile,linearDamping:0.01,angularDamping:0.04,sleepSpeedLimit:0.6,sleepTimeLimit:0.4});
+  b.addShape(new CANNON.Box(new CANNON.Vec3(W/2,H/2,D/2)));
+  b.position.set(o.x!=null?o.x:rnd(-3,3), o.y!=null?o.y:DROP_Y+rnd(0,3), o.z!=null?o.z:rnd(-2,2));
+  if(o.faceDown){
+    // Face down with a little wobble, the way tiles come out of the box.
+    const qx=new CANNON.Quaternion(), qy=new CANNON.Quaternion(), qt=new CANNON.Quaternion();
+    qx.setFromAxisAngle(new CANNON.Vec3(1,0,0),Math.PI/2+rnd(-0.35,0.35));
+    qt.setFromAxisAngle(new CANNON.Vec3(0,0,1),rnd(-0.3,0.3));
+    qy.setFromAxisAngle(new CANNON.Vec3(0,1,0),rnd(0,Math.PI*2));
+    b.quaternion.copy(qy.mult(qx.mult(qt)));
+    b.angularVelocity.set(rnd(-2,2),rnd(-3,3),rnd(-2,2));
+    b.velocity.set(rnd(-15,15),-30,rnd(-15,15));
+  }else{
+    b.quaternion.setFromEuler(rnd(0,Math.PI*2),rnd(0,Math.PI*2),rnd(0,Math.PI*2));
+    b.angularVelocity.set(rnd(-8,8),rnd(-5,5),rnd(-8,8));
+    b.velocity.set(rnd(-10,10),-40,rnd(-10,10));
+  }
+  let last=0;
+  b.addEventListener('collide',e=>{
+    if(e.body===grab) return;
+    const t=performance.now(); if(t-last<35) return; last=t;
+    const v=Math.abs(e.contact.getImpactVelocityAlongNormal());
+    if(v>18) hit(v,e.body===ground||hands.some(h=>h.b===e.body));
+  });
+  world.addBody(b);
+  const tile={group,mesh,b}; group.userData.tile=tile; mesh.userData.tile=tile; face.userData.tile=tile;
+  tiles.push(tile); sync(tile); updateCount();
+  return tile;
+}
+function removeTile(t){ if(grabbing&&grabbing.tile===t) releaseGrab(); world.removeBody(t.b); scene.remove(t.group); }
+let pourToken=0;
+function clearAll(){ pourToken++; stopWash(); while(tiles.length) removeTile(tiles.pop()); updateCount(); }
+function sync(t){ t.group.position.copy(t.b.position); t.group.quaternion.copy(t.b.quaternion); }
+const countEl=document.getElementById('count');
+function updateCount(){ countEl.innerHTML='<b>'+tiles.length+'</b> / '+MAX+' tiles'; }
+
+function pour(){
+  clearAll(); const tok=pourToken;
+  const order=[]; for(let i=0;i<SET;i++) order.push(kinds[i%kinds.length]);
+  order.sort(()=>Math.random()-0.5);
+  order.forEach((kind,i)=>setTimeout(()=>{
+    if(tok!==pourToken) return;
+    const a=rnd(0,Math.PI*2), r=Math.sqrt(Math.random())*9;
+    spawn({kind,faceDown:true,x:Math.cos(a)*r,z:Math.sin(a)*r*0.8,y:rnd(3,9)});
+  },i*(reduceMotion?5:32)));
+}
+
+function flip(t){
+  const b=t.b; b.wakeUp();
+  const ax=b.quaternion.vmult(new CANNON.Vec3(1,0,0)); ax.y=0;
+  let l=Math.hypot(ax.x,ax.z); if(l<0.2){ ax.x=1; ax.z=0; l=1; }
+  b.velocity.set(0,122,0);
+  b.angularVelocity.set(ax.x/l*13.2,0,ax.z/l*13.2);
+}
+
+// ---- Dragging a tile: a soft spring from an invisible anchor to the tile's centre ----
+function startGrab(t,point){
+  t.b.wakeUp();
+  const holdY=Math.max(t.b.position.y,D/2)+0.15;
+  grab.position.set(t.b.position.x,holdY,t.b.position.z); grab.velocity.set(0,0,0);
+  grabTarget.set(t.b.position.x,holdY,t.b.position.z);
+  const c=new CANNON.PointToPointConstraint(t.b,new CANNON.Vec3(0,0,0),grab,new CANNON.Vec3(0,0,0),5000);
+  world.addConstraint(c);
+  t.b.angularDamping=0.75; t.b.linearDamping=0.35;
+  grabbing={tile:t,c,holdY,offX:t.b.position.x-point.x,offZ:t.b.position.z-point.z};
+  canvas.classList.add('grabbing');
+}
+function releaseGrab(){
+  if(!grabbing) return;
+  world.removeConstraint(grabbing.c);
+  grabbing.tile.b.angularDamping=0.04; grabbing.tile.b.linearDamping=0.01;
+  grab.velocity.set(0,0,0); grab.position.set(0,-80,0);
+  grabbing=null; canvas.classList.remove('grabbing');
+}
+
+// ---- Palms ----
+function handOn(h,x,z){ h.on=true; h.b.position.set(x,6,z); h.b.velocity.set(0,0,0); h.target.set(x,HAND_Y,z); h.mesh.visible=true; }
+function handOff(h){ h.on=false; h.b.velocity.set(0,0,0); h.b.position.set(0,-80,0); h.mesh.visible=false; }
+let wash=null;
+const washBtn=document.getElementById('washBtn');
+function startWash(){
+  if(!tiles.length){ pour(); setTimeout(startWash,SET*32+500); return; }
+  stopWash(); releaseGrab();
+  wash={t:0,dur:6.5};
+  handOn(hands[0],8,0); handOn(hands[1],-8,0);
+  washBtn.setAttribute('aria-pressed','true'); washBtn.textContent='Stop washing';
+}
+function stopWash(){
+  if(!wash) return; wash=null; hands.forEach(handOff);
+  washBtn.setAttribute('aria-pressed','false'); washBtn.textContent='Wash tiles';
+}
+function washPath(T,i){
+  // Two hands circling in opposite directions, drifting in and out, like players mixing a real set.
+  const dir=i?-1:1, ph=i?Math.PI:0;
+  const r=5.5+3.8*Math.sin(T*(i?1.15:1.35)+ph*0.6);
+  const a=dir*T*3.6+ph;
+  return [Math.cos(a)*r,Math.sin(a)*r*0.8];
+}
+function driveKinematic(b,target,dt){
+  let vx=(target.x-b.position.x)/dt, vy=(target.y-b.position.y)/dt, vz=(target.z-b.position.z)/dt;
+  const s=Math.hypot(vx,vy,vz); if(s>MAX_PUSH){ vx*=MAX_PUSH/s; vy*=MAX_PUSH/s; vz*=MAX_PUSH/s; }
+  b.velocity.set(vx,vy,vz);
+}
+
+// ---- Camera orbit ----
+const target=new THREE.Vector3(0,0.5,0);
+let yaw=0.3, pitch=0.92, dist=30;
+function placeCamera(){
+  const a=camera.aspect, fit=a<1?Math.min(1.9,0.95/Math.max(a,0.45)):1;
+  const r=dist*fit;
+  camera.position.set(target.x+r*Math.cos(pitch)*Math.sin(yaw), target.y+r*Math.sin(pitch), target.z+r*Math.cos(pitch)*Math.cos(yaw));
+  camera.lookAt(target);
+}
+
+// ---- Pointer input ----
+const ray=new THREE.Raycaster(), ndcV=new THREE.Vector2(), plane=new THREE.Plane(new THREE.Vector3(0,1,0),0), tmpV=new THREE.Vector3();
+function setRay(e){ const r=canvas.getBoundingClientRect(); ndcV.set(((e.clientX-r.left)/r.width)*2-1,-((e.clientY-r.top)/r.height)*2+1); ray.setFromCamera(ndcV,camera); }
+function planeHit(e,y){ setRay(e); plane.constant=-y; const p=ray.ray.intersectPlane(plane,tmpV); return p?p.clone():null; }
+function tileHit(e){ setRay(e); const hits=ray.intersectObjects(tiles.map(t=>t.group),true); return hits.length?hits[0].object.userData.tile:null; }
+function clampXZ(v){ const l=Math.hypot(v.x,v.z); if(l>TABLE_R){ v.x*=TABLE_R/l; v.z*=TABLE_R/l; } return v; }
+
+const pointers=new Map(); let gesture=null;
+canvas.addEventListener('contextmenu',e=>e.preventDefault());
+canvas.addEventListener('pointerdown',e=>{
+  unlockAudio(); canvas.focus({preventScroll:true});
+  pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  try{ canvas.setPointerCapture(e.pointerId); }catch(_){}
+  if(pointers.size===2){ endGesture(); gesture={type:'orbit'}; return; }
+  if(pointers.size>2) return;
+  if(e.button===2||e.shiftKey){ gesture={type:'orbit'}; return; }
+  if(wash) stopWash();
+  const t=tileHit(e);
+  if(t){ const p=planeHit(e,Math.max(t.b.position.y,D/2)+0.15)||new THREE.Vector3(t.b.position.x,0,t.b.position.z); gesture={type:'tile',tile:t,point:p,moved:0,started:false}; }
+  else gesture={type:'felt',point:planeHit(e,0),moved:0,started:false};
+});
+canvas.addEventListener('pointermove',e=>{
+  const prev=pointers.get(e.pointerId);
+  if(!prev){ if(e.pointerType==='mouse') canvas.classList.toggle('over-tile',!!tileHit(e)); return; }
+  const dx=e.clientX-prev.x, dy=e.clientY-prev.y; prev.x=e.clientX; prev.y=e.clientY;
+  if(!gesture) return;
+  if(gesture.type==='orbit'){
+    const k=pointers.size===2?0.5:1;
+    yaw-=dx*0.006*k; pitch=Math.min(1.45,Math.max(0.15,pitch+dy*0.005*k)); placeCamera(); return;
+  }
+  gesture.moved+=Math.abs(dx)+Math.abs(dy);
+  if(gesture.type==='tile'){
+    if(!gesture.started && gesture.moved>6 && tiles.includes(gesture.tile)){ startGrab(gesture.tile,gesture.point); gesture.started=true; }
+    if(gesture.started && grabbing){
+      const p=planeHit(e,grabbing.holdY);
+      if(p){ grabTarget.set(p.x+grabbing.offX,grabbing.holdY,p.z+grabbing.offZ); clampXZ(grabTarget); }
+    }
+  }else if(gesture.type==='felt'){
+    const p=planeHit(e,HAND_Y); if(!p) return; clampXZ(p);
+    if(!gesture.started && gesture.moved>6){ handOn(hands[0],p.x,p.z); gesture.started=true; fadeHint(); }
+    if(gesture.started) hands[0].target.set(p.x,HAND_Y,p.z);
+  }
+});
+function endGesture(){
+  if(!gesture) return;
+  if(gesture.type==='tile'&&gesture.started) releaseGrab();
+  if(gesture.type==='felt'&&gesture.started) handOff(hands[0]);
+  gesture=null;
+}
+function pointerUp(e){
+  if(!pointers.has(e.pointerId)) return;
+  pointers.delete(e.pointerId);
+  if(pointers.size>0||!gesture) return;
+  const g=gesture;
+  if(g.type==='tile' && !g.started && g.moved<6){ if(tiles.includes(g.tile)) flip(g.tile); fadeHint(); }
+  else if(g.type==='felt' && !g.started && g.moved<6 && g.point){ spawn({x:clampXZ(g.point).x,z:g.point.z}); fadeHint(); }
+  endGesture();
+}
+canvas.addEventListener('pointerup',pointerUp);
+canvas.addEventListener('pointercancel',e=>{ pointers.delete(e.pointerId); if(!pointers.size) endGesture(); });
+canvas.addEventListener('wheel',e=>{ e.preventDefault(); dist=Math.min(55,Math.max(10,dist*(1+Math.sign(e.deltaY)*0.08))); placeCamera(); },{passive:false});
+
+// ---- Controls ----
+const hintEl=document.getElementById('hint'); let hintGone=false;
+function fadeHint(){ if(hintGone) return; hintGone=true; setTimeout(()=>{ hintEl.style.opacity='0'; },4000); }
+document.querySelectorAll('.chip').forEach(btn=>btn.addEventListener('click',()=>{
+  pick=btn.dataset.kind;
+  document.querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',String(b===btn)));
+  unlockAudio(); spawn();
+}));
+document.getElementById('dropBtn').addEventListener('click',()=>{ unlockAudio(); spawn(); fadeHint(); });
+document.getElementById('pourBtn').addEventListener('click',()=>{ unlockAudio(); pour(); fadeHint(); });
+washBtn.addEventListener('click',()=>{ unlockAudio(); if(wash) stopWash(); else startWash(); fadeHint(); });
+let timeScale=1;
+const slowBtn=document.getElementById('slowBtn');
+slowBtn.addEventListener('click',()=>{ const on=slowBtn.getAttribute('aria-pressed')!=='true'; slowBtn.setAttribute('aria-pressed',String(on)); timeScale=on?0.2:1; });
+const soundBtn=document.getElementById('soundBtn');
+soundBtn.addEventListener('click',()=>{ soundOn=soundBtn.getAttribute('aria-pressed')!=='true'; soundBtn.setAttribute('aria-pressed',String(soundOn)); if(soundOn) unlockAudio(); });
+document.getElementById('clearBtn').addEventListener('click',clearAll);
+window.addEventListener('keydown',e=>{
+  if(e.code!=='Space' || (e.target && e.target.tagName==='BUTTON')) return;
+  e.preventDefault(); unlockAudio(); spawn(); fadeHint();
+});
+
+// ---- Resize & loop ----
+function resize(){
+  const w=window.innerWidth, h=window.innerHeight;
+  renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix(); placeCamera();
+}
+window.addEventListener('resize',resize);
+resize();
+
+const clock=new THREE.Clock();
+function frame(){
+  const dt=Math.min(clock.getDelta(),1/30), sdt=Math.max(dt*timeScale,1e-4);
+  if(wash){
+    wash.t+=sdt;
+    hands.forEach((h,i)=>{ const p=washPath(wash.t,i); h.target.set(p[0],HAND_Y,p[1]); });
+    if(wash.t>wash.dur) stopWash();
+  }
+  const active=hands.some(h=>h.on)||grabbing;
+  hands.forEach(h=>{ if(h.on){ driveKinematic(h.b,h.target,sdt); h.mesh.position.set(h.b.position.x,0.03,h.b.position.z); } });
+  if(grabbing) driveKinematic(grab,grabTarget,sdt);
+  if(active) for(const t of tiles) t.b.wakeUp();
+  world.step(1/180,sdt,10);
+  for(const t of tiles) sync(t);
+  renderer.render(scene,camera);
+  requestAnimationFrame(frame);
+}
+
+// Wait briefly for the tile font so the glyphs are carved in the right face.
+const fontReady=document.fonts&&document.fonts.load
+  ? Promise.race([document.fonts.load('900 100px "Noto Serif SC"','中發東南西北'),new Promise(r=>setTimeout(r,2500))]).catch(()=>{})
+  : Promise.resolve();
+fontReady.then(()=>{
+  buildFaces();
+  requestAnimationFrame(frame);
+  setTimeout(pour,300);
+});
+})();
+</script>
+</body>
+</html>
